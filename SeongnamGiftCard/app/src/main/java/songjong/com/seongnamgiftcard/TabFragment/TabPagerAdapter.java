@@ -34,8 +34,8 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
                 SalonTabFragment salonTabFragment = new SalonTabFragment();
                 return salonTabFragment;
             case 5:
-                PharmacyTabFragment phaarmacyTabFragment = new PharmacyTabFragment();
-                return meatTabFragment;
+                PharmacyTabFragment pharmacyTabFragment = new PharmacyTabFragment();
+                return pharmacyTabFragment;
             case 6:
                 FlowerTabFragment flowerTabFragment = new FlowerTabFragment();
                 return flowerTabFragment;

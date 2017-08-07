@@ -33,9 +33,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //TabLayout 초기화 부분
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Tab One"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab Two"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab Three"));
+        tabLayout.addTab(tabLayout.newTab().setText("음식"));
+        tabLayout.addTab(tabLayout.newTab().setText("슈퍼"));
+        tabLayout.addTab(tabLayout.newTab().setText("정육"));
+        tabLayout.addTab(tabLayout.newTab().setText("잡화"));
+        tabLayout.addTab(tabLayout.newTab().setText("미용"));
+        tabLayout.addTab(tabLayout.newTab().setText("꽃집"));
+        tabLayout.addTab(tabLayout.newTab().setText("약국"));
+        tabLayout.addTab(tabLayout.newTab().setText("의류"));
+        tabLayout.addTab(tabLayout.newTab().setText("기타"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //View Pager 초기화 부분
