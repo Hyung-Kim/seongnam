@@ -1,7 +1,9 @@
 package songjong.com.seongnamgiftcard;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -12,10 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
 
 import songjong.com.seongnamgiftcard.TabFragment.TabPagerAdapter;
 
@@ -23,8 +21,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private FloatingActionMenu fam;
-    private FloatingActionButton fabMap,fabCurrentPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,34 +69,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-        fabMap = (FloatingActionButton) findViewById(R.id.fabMapId);
-        fabCurrentPosition = (FloatingActionButton) findViewById(R.id.fabCurrentPositionId);
-        fam = (FloatingActionMenu) findViewById(R.id.fab_menu);
-
-        fam.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onMenuToggle(boolean opened) {
-                if (opened) {
-                    showToast("Menu is opened");
-                } else {
-                    showToast("Menu is closed");
-                }
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
-
-        fabMap.setOnClickListener(onButtonClick());
-        fabCurrentPosition.setOnClickListener(onButtonClick());
-
-
-        //요부분에서 에러나서 일단 막아놓음 없어도 코드 안되는 부분 없어서 일단 주석 처리
-//        fam.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (fam.isOpened()) {
-//                    fam.close(true);
-//                }
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -166,22 +142,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    private View.OnClickListener onButtonClick() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (view == fabMap) {
-                    showToast("지도 화면으로 이동");
-                } else if (view == fabCurrentPosition) {
-                    showToast("현재 위치 화면으로 이동");
-                }
-                fam.close(true);
-            }
-        };
-    }
 
-    private void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
 
 }
