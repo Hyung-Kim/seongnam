@@ -79,5 +79,13 @@
             fab:fab_label="현재 위치에서 찾기"
             fab:fab_size="mini" />
 
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabSearchId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_search"
+            fab:fab_label="검색하기"
+            fab:fab_size="mini" />
+
     </com.github.clans.fab.FloatingActionMenu>
 </android.support.design.widget.CoordinatorLayout>
