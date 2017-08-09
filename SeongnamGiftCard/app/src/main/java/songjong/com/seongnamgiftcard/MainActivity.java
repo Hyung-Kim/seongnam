@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ViewPager viewPager;
     private FloatingActionMenu fam;
     private FloatingActionButton fabMap,fabCurrentPosition,fabSearch;
+    private TabPagerAdapter pagerAdapter;
+    public static int fragmentFlag=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.addTab(tabLayout.newTab().setText("정육"));
         tabLayout.addTab(tabLayout.newTab().setText("잡화"));
         tabLayout.addTab(tabLayout.newTab().setText("미용"));
-        tabLayout.addTab(tabLayout.newTab().setText("꽃집"));
         tabLayout.addTab(tabLayout.newTab().setText("약국"));
+        tabLayout.addTab(tabLayout.newTab().setText("꽃집"));
         tabLayout.addTab(tabLayout.newTab().setText("의류"));
         tabLayout.addTab(tabLayout.newTab().setText("기타"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -55,12 +57,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         viewPager = (ViewPager) findViewById(R.id.pager);
 
         // TapPageAdapter 초기화 부분
-        TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
@@ -175,6 +176,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
                 if (view == fabMap) {
                     showToast("지도 화면으로 이동");
+                    fragmentFlag=1;
+                    pagerAdapter.notifyDataSetChanged();
+                    fragmentFlag=0;
+
                 } else if (view == fabCurrentPosition) {
                     showToast("현재 위치 화면으로 이동");
                 }else if(view == fabSearch){

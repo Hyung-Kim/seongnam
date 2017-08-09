@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import songjong.com.seongnamgiftcard.MainActivity;
+
 /**
  * Created by dongwook on 2017. 8. 7..
  */
@@ -17,10 +19,17 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
     }
     @Override
     public Fragment getItem(int position) {
+
         switch (position) {
             case 0:
-                FoodTabFragment foodTabFragment = new FoodTabFragment();
-                return foodTabFragment;
+                if(MainActivity.fragmentFlag==0){
+                    FoodTabFragment foodTabFragment = new FoodTabFragment();
+                    return foodTabFragment;
+                }
+                else if(MainActivity.fragmentFlag==1){
+                    GoogleMapFragment googleMapFragment = new GoogleMapFragment();
+                    return googleMapFragment;
+                }
             case 1:
                 SuperTabFragment superTabFragment = new SuperTabFragment();
                 return superTabFragment;
@@ -51,6 +60,11 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
                 return null;
         }
     }
+
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
     @Override
     public int getCount() {
         return tabCount;
