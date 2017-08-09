@@ -19,7 +19,7 @@ import com.github.clans.fab.FloatingActionMenu;
 
 import songjong.com.seongnamgiftcard.TabFragment.TabPagerAdapter;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
-
 
         fabMap = (FloatingActionButton) findViewById(R.id.fabMapId);
         fabCurrentPosition = (FloatingActionButton) findViewById(R.id.fabCurrentPositionId);
@@ -183,5 +182,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
+
 
 }
