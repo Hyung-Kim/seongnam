@@ -1,9 +1,17 @@
 package songjong.com.seongnamgiftcard;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -35,6 +43,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //안드로이드 위치 서비스 설정
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if(!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+            onGPSProviderDisabled();
+        }
+
+        //앱 자체의 위치 권한 설정 코드
+        if (Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+            ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },
+                    0 );
+        }
+
 
         //Toolbar 초기화 부분
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -182,6 +204,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 } else if (view == fabCurrentPosition) {
                     showToast("현재 위치 화면으로 이동");
+                    fragmentFlag=0;
+                    pagerAdapter.notifyDataSetChanged();
                 }else if(view == fabSearch){
                     searchDialogShow();
                 }
@@ -214,6 +238,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
         builder.show();
+    }
+    public void onGPSProviderDisabled(){
+        new AlertDialog.Builder(MainActivity.this)
+                .setMessage("GPS가 OFF되어 있습니다.\n '위치 서비스에서 'Google 위치 서비스'체크를 해주세요")
+
+                .setPositiveButton("설정",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("취소",null).show();
+
     }
 
 }
