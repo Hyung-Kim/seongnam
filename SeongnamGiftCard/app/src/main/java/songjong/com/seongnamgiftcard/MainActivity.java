@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import songjong.com.seongnamgiftcard.TabFragment.TabPagerAdapter;
 
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FloatingActionButton fabMap,fabCurrentPosition,fabSearch;
     private TabPagerAdapter pagerAdapter;
     public static int fragmentFlag=0;
+    private GoogleApiClient mGoogleApiClient;  //fused location provider 와 Google Places API에 연결하기 위한 변수
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },
                     0 );
         }
-
 
         //Toolbar 초기화 부분
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -253,5 +255,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .setNegativeButton("취소",null).show();
 
     }
+
 
 }
