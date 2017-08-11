@@ -22,7 +22,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -102,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         fabMap = (FloatingActionButton) findViewById(R.id.fabMapId);
         fabCurrentPosition = (FloatingActionButton) findViewById(R.id.fabCurrentPositionId);
-        fabSearch = (FloatingActionButton) findViewById(R.id.fabSearchId);
         fam = (FloatingActionMenu) findViewById(R.id.fab_menu);
 
         fam.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
@@ -118,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         fabMap.setOnClickListener(onButtonClick());
         fabCurrentPosition.setOnClickListener(onButtonClick());
-        fabSearch.setOnClickListener(onButtonClick());
 
         //요부분에서 에러나서 일단 막아놓음 없어도 코드 안되는 부분 없어서 일단 주석 처리
 //        fam.setOnClickListener(new View.OnClickListener() {
@@ -208,8 +205,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     showToast("현재 위치 화면으로 이동");
                     fragmentFlag=0;
                     pagerAdapter.notifyDataSetChanged();
-                }else if(view == fabSearch){
-                    searchDialogShow();
                 }
                 fam.close(true);
             }
@@ -220,29 +215,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    private void searchDialogShow(){
-        final EditText editText = new EditText(this);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("상세 검색");
-        builder.setView(editText);
-        editText.setHint("ㅇㅇ동,ㅇㅇ시장,ㅇㅇ역,업체명");
-        builder.setPositiveButton("검색",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(),editText.getText().toString() ,Toast.LENGTH_LONG).show();
-                        googleMapFragment = new GoogleMapFragment();
-
-                    }
-                });
-        builder.setNegativeButton("취소",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-        builder.show();
-    }
+//    private void searchDialogShow(){
+//        final EditText editText = new EditText(this);
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("상세 검색");
+//        builder.setView(editText);
+//        editText.setHint("ㅇㅇ동,ㅇㅇ시장,ㅇㅇ역,업체명");
+//        builder.setPositiveButton("검색",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Toast.makeText(getApplicationContext(),editText.getText().toString() ,Toast.LENGTH_LONG).show();
+//                        googleMapFragment = new GoogleMapFragment();
+//
+//                    }
+//                });
+//        builder.setNegativeButton("취소",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//        builder.show();
+//    }
     public void onGPSProviderDisabled(){
         new AlertDialog.Builder(MainActivity.this)
                 .setMessage("GPS가 OFF되어 있습니다.\n '위치 서비스에서 'Google 위치 서비스'체크를 해주세요")

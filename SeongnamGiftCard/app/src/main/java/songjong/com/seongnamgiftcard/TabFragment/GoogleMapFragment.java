@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +38,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -68,6 +71,8 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
     private String[] LikelyAttributions = null;
     private LatLng[] LikelyLatLngs = null;
 
+    private static int searchCnt=0;
+    private static View layout;
 
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
         Log.i(TAG, "CurrentLocation");
@@ -89,7 +94,7 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
             this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
             return;
         }
-        Log.d(TAG,"location!=null");
+        Log.d(TAG,"location==null");
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(DEFAULT_LOCATION);
         markerOptions.title(markerTitle);
@@ -118,7 +123,15 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.map_fragment, container, false);
+//        try {
+//            layout = inflater.inflate(R.layout.map_fragment, container, false);
+//        }
+//        catch(InflateException e){
+//            Log.d(TAG,"Inflater error");
+//        }
+        if(layout==null){
+            layout = inflater.inflate(R.layout.map_fragment, container, false);
+        }
         Log.i(TAG, "OnCreateVIew");
         mapView = (MapView)layout.findViewById(R.id.map);
         mapView.getMapAsync(this);
@@ -129,6 +142,7 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
+                Log.d(TAG,"해당위치로 이동");
                 Location location = new Location("");
                 location.setLatitude(place.getLatLng().latitude);
                 location.setLongitude(place.getLatLng().longitude);
@@ -143,6 +157,21 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
         });
 
         return layout;
+    }
+    //Duplicated ID 해결 코드
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG,"viewCreated");
+        FragmentManager fm = getChildFragmentManager();
+        SupportMapFragment mapFragment = (SupportMapFragment) fm.findFragmentByTag("mapFragment");
+        if (mapFragment == null) {
+            mapFragment = new SupportMapFragment();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.add(R.id.mapFragmentContainer, mapFragment, "mapFragment");
+            ft.commit();
+            fm.executePendingTransactions();
+        }
+        mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -368,7 +397,11 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
     public void onLocationChanged(Location location) {
         Log.i(TAG, "onLocationChanged call..");
 
-        searchCurrentPlaces();
+         if(searchCnt==0){
+             searchCurrentPlaces();
+             searchCnt++;
+         }
+
     }
 
     private void searchCurrentPlaces() {
@@ -411,6 +444,16 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
             }
         });
 
+    }
+    public void onDestroyView() {
+        Log.d(TAG,"DestroyView");
+        super.onDestroyView();
+        if(layout!=null) {
+            ViewGroup parent = (ViewGroup) layout.getParent();
+            if (parent != null) {
+                parent.removeView(layout);
+            }
+        }
     }
 
 }
