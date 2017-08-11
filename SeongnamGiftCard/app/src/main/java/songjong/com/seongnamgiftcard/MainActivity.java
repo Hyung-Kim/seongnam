@@ -27,8 +27,8 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import com.google.android.gms.common.api.GoogleApiClient;
 
+import songjong.com.seongnamgiftcard.TabFragment.GoogleMapFragment;
 import songjong.com.seongnamgiftcard.TabFragment.TabPagerAdapter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FloatingActionButton fabMap,fabCurrentPosition,fabSearch;
     private TabPagerAdapter pagerAdapter;
     public static int fragmentFlag=0;
-    private GoogleApiClient mGoogleApiClient;  //fused location provider 와 Google Places API에 연결하기 위한 변수
 
+    private GoogleMapFragment googleMapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,6 +231,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getApplicationContext(),editText.getText().toString() ,Toast.LENGTH_LONG).show();
+                        googleMapFragment = new GoogleMapFragment();
+
                     }
                 });
         builder.setNegativeButton("취소",

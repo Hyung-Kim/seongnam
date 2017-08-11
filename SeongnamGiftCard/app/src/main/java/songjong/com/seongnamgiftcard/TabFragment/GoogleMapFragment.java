@@ -2,20 +2,16 @@ package songjong.com.seongnamgiftcard.TabFragment;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +51,7 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
         GoogleApiClient.OnConnectionFailedListener,LocationListener{
 
     private static final LatLng DEFAULT_LOCATION = new LatLng(37.56, 126.97);
-    private static final String TAG = "googlemap_example";
+    private static final String TAG = "GoogleMap";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 2002;
     private static final int UPDATE_INTERVAL_MS = 15000;
@@ -72,12 +68,15 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
     private String[] LikelyAttributions = null;
     private LatLng[] LikelyLatLngs = null;
 
+
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
         Log.i(TAG, "CurrentLocation");
+
         if ( currentMarker != null ) currentMarker.remove();
 
-        if ( location != null) {
+        if (location != null) {
             //현재위치의 위도 경도 가져옴
+            Log.d(TAG,"location!=null");
             LatLng currentLocation = new LatLng( location.getLatitude(), location.getLongitude());
 
             MarkerOptions markerOptions = new MarkerOptions();
@@ -87,11 +86,10 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
             markerOptions.draggable(true);
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
             currentMarker = this.googleMap.addMarker(markerOptions);
-
             this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
             return;
         }
-
+        Log.d(TAG,"location!=null");
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(DEFAULT_LOCATION);
         markerOptions.title(markerTitle);
@@ -106,19 +104,17 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         googleApiClient = new GoogleApiClient.Builder(getActivity())
                 .enableAutoManage(getActivity() /* FragmentActivity */,
-                        this /* OnConnectionFailedListener */)
+                            this /* OnConnectionFailedListener */)
                 .addConnectionCallbacks(this)
                 .addApi(LocationServices.API)
                 .addApi(Places.GEO_DATA_API)
                 .addApi(Places.PLACE_DETECTION_API)
                 .build();
         googleApiClient.connect();
-
-
     }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -160,8 +156,12 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
         super.onStop();
         mapView.onStop();
 
-        if ( googleApiClient != null && googleApiClient.isConnected())
+        if (googleApiClient != null && googleApiClient.isConnected()){
             googleApiClient.disconnect();
+            Log.d("TAG","api is null");
+        }
+
+        Log.d(TAG,"onStop");
     }
 
     @Override
@@ -190,6 +190,11 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
             LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
             googleApiClient.disconnect();
         }
+
+        //지도 fragment 두번 들어왔을경우 터지는 에러 코드 수정
+        googleApiClient.stopAutoManage(getActivity());
+        googleApiClient.disconnect();
+        Log.d(TAG,"pause");
     }
 
     @Override
@@ -197,17 +202,16 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
         super.onLowMemory();
         mapView.onLowMemory();
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         mapView.onLowMemory();
 
-        if ( googleApiClient != null ) {
+        if (googleApiClient != null ) {
             googleApiClient.unregisterConnectionCallbacks(this);
             googleApiClient.unregisterConnectionFailedListener(this);
 
-            if ( googleApiClient.isConnected()) {
+            if (googleApiClient.isConnected()) {
                 LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
                 googleApiClient.disconnect();
             }
@@ -294,28 +298,29 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        if ( !checkLocationServicesStatus()) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("위치 서비스 비활성화");
-            builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n" +
-                    "위치 설정을 수정하십시오.");
-            builder.setCancelable(true);
-            builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Intent callGPSSettingIntent =
-                            new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE);
-                }
-            });
-            builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.cancel();
-                }
-            });
-            builder.create().show();
-        }
+//        if ( !checkLocationServicesStatus()) {
+//            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//            builder.setTitle("위치 서비스 비활성화");
+//            builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n" +
+//                    "위치 설정을 수정하십시오.");
+//            builder.setCancelable(true);
+//            builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialogInterface, int i) {
+//                    Intent callGPSSettingIntent =
+//                            new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//                    startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE);
+//                }
+//            });
+//            builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
+//                @Override
+//                public void onClick(DialogInterface dialogInterface, int i) {
+//                    dialogInterface.cancel();
+//                }
+//            });
+//            builder.create().show();
+//        }
+//
 
         LocationRequest locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -336,7 +341,6 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
             this.googleMap.getUiSettings().setCompassEnabled(true);
             this.googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         }
-
     }
 
     @Override
@@ -408,4 +412,5 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
         });
 
     }
+
 }
