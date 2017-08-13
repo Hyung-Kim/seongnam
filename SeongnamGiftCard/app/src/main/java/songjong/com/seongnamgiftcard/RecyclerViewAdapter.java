@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,6 @@ import butterknife.ButterKnife;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RadioViewHolder> {
 
     private Context context;
-
     private List<Radio> radioList;
 
     public RecyclerViewAdapter(Context context) {
@@ -40,7 +41,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         RadioViewHolder viewHolder = new RadioViewHolder(view);
         return viewHolder;
     }
-
     @Override
     public void onBindViewHolder(RadioViewHolder holder, final int position) {
 
@@ -49,6 +49,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.textViewRadioDial.setText("(" + radio.getRadioDial() + ")");
         Picasso.with(context).load(radio.getRadioArt()).into(holder.imageViewRadioLogo);
         holder.textViewRadioTags.setText("#rock #pop #news");
+
+        holder.cvItem.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Toast.makeText(context, "클릭하셨습니다.",Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
@@ -57,7 +67,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public class RadioViewHolder extends RecyclerView.ViewHolder{
-
+        public CardView cvItem; //for touch listener
         @Bind(R.id.textview_radio_name)
         TextView textViewRadioName;
 
@@ -73,7 +83,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public RadioViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
-
+            cvItem = (CardView)itemView.findViewById(R.id.card_view);
         }
     }
 
