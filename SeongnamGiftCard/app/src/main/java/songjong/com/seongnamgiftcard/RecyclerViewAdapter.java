@@ -53,7 +53,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View v)
             {
                 Context context = v.getContext();
-                Intent intent = new Intent(context, ComPanyInformationActivity.class);
+                Intent intent = new Intent(context, CompanyInformationActivity.class);
                 context.startActivity(intent);
                 //Toast.makeText(context, "클릭하셨습니다.",Toast.LENGTH_SHORT).show();
             }
