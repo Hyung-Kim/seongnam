@@ -162,6 +162,7 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG,"viewCreated");
+        searchCnt=0;
         FragmentManager fm = getChildFragmentManager();
         SupportMapFragment mapFragment = (SupportMapFragment) fm.findFragmentByTag("mapFragment");
         if (mapFragment == null) {
@@ -396,7 +397,7 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
     @Override
     public void onLocationChanged(Location location) {
         Log.i(TAG, "onLocationChanged call..");
-
+        Log.d(TAG,"searcn CNT :"+searchCnt);
          if(searchCnt==0){
              searchCurrentPlaces();
              searchCnt++;
