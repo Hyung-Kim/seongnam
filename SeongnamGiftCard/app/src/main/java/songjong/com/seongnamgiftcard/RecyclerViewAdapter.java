@@ -21,30 +21,30 @@ import butterknife.ButterKnife;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RadioViewHolder> {
 
     private Context context;
-    private List<Radio> radioList;
+    private List<Company> companyList;
 
     public RecyclerViewAdapter(Context context) {
         this.context = context;
-        radioList = new ArrayList<>();
+        companyList = new ArrayList<>();
     }
-    public void setRadioList(List<Radio> radioList){
-        this.radioList = radioList;
+    public void setCompanyList(List<Company> companyList){
+        this.companyList = companyList;
         notifyDataSetChanged();
     }
 
     @Override
     public RadioViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_company, parent, false);
         RadioViewHolder viewHolder = new RadioViewHolder(view);
         return viewHolder;
     }
     @Override
     public void onBindViewHolder(RadioViewHolder holder, final int position) {
 
-        Radio radio = radioList.get(position);
-        holder.textViewRadioName.setText(radio.getRadioName());
-        holder.textViewRadioDial.setText("(" + radio.getRadioDial() + ")");
-        Picasso.with(context).load(radio.getRadioArt()).into(holder.imageViewRadioLogo);
+        Company company = companyList.get(position);
+        holder.textViewRadioName.setText(company.getRadioName());
+        holder.textViewRadioDial.setText("(" + company.getRadioDial() + ")");
+        Picasso.with(context).load(company.getRadioArt()).into(holder.imageViewRadioLogo);
         holder.textViewRadioTags.setText("#rock #pop #news");
 
         holder.cvItem.setOnClickListener(new View.OnClickListener()
@@ -63,7 +63,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return radioList.size();
+        return companyList.size();
     }
     public class RadioViewHolder extends RecyclerView.ViewHolder{
         public CardView cvItem; //for touch listener

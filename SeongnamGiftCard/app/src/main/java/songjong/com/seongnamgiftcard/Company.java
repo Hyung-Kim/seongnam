@@ -4,12 +4,12 @@ package songjong.com.seongnamgiftcard;
  * Created by TaeHyungKim on 2017-08-13.
  */
 
-public class Radio {
+public class Company {
     String radioName;
     int radioArt;
     String radioDial;
 
-    public Radio(String radioName, int radioArt, String radioDial) {
+    public Company(String radioName, int radioArt, String radioDial) {
         this.radioName = radioName;
         this.radioArt = radioArt;
         this.radioDial = radioDial;

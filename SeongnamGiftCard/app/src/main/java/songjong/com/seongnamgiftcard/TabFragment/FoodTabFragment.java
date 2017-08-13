@@ -2,10 +2,8 @@ package songjong.com.seongnamgiftcard.TabFragment;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import songjong.com.seongnamgiftcard.Company;
 import songjong.com.seongnamgiftcard.R;
-import songjong.com.seongnamgiftcard.Radio;
 import songjong.com.seongnamgiftcard.RecyclerViewAdapter;
-import android.support.design.widget.CollapsingToolbarLayout;
 
 /**
  * Created by dongwook on 2017. 8. 7..
@@ -42,10 +39,10 @@ public class FoodTabFragment extends Fragment {
         return view;
     }
     private void loadData(){
-        Radio radio = new Radio("Joy Radio FM", R.drawable.temp, "102.5");
-        List<Radio> radioList = new ArrayList<>();
+        Company company = new Company("Joy Company FM", R.drawable.temp, "102.5");
+        List<Company> companyList = new ArrayList<>();
         for (int i = 0 ; i < 20 ; i++)
-            radioList.add(radio);
-        adapter.setRadioList(radioList);
+            companyList.add(company);
+        adapter.setCompanyList(companyList);
     }
 }
