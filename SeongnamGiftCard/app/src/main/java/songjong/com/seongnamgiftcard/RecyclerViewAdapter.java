@@ -1,16 +1,15 @@
 package songjong.com.seongnamgiftcard;
 
+import android.support.v7.widget.RecyclerView;
+
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
@@ -18,10 +17,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
-/**
- * Created by TaeHyungKim on 2017-08-13.
- */
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RadioViewHolder> {
 
@@ -58,7 +53,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View v)
             {
                 Context context = v.getContext();
-                Intent intent = new Intent(context, CompanyInformationActivity.class);
+                Intent intent = new Intent(context, ComPanyInformationActivity.class);
                 context.startActivity(intent);
                 //Toast.makeText(context, "클릭하셨습니다.",Toast.LENGTH_SHORT).show();
             }
@@ -90,6 +85,4 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             cvItem = (CardView)itemView.findViewById(R.id.card_view);
         }
     }
-
 }
-
