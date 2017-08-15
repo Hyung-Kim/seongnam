@@ -9,6 +9,9 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import songjong.com.seongnamgiftcard.CompanyFragment.CompanyPagerAdapter;
 
@@ -34,8 +37,10 @@ public class Main2Activity extends AppCompatActivity {
 
         //툴바 초기화
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_information);
-        toolbar.setTitle("000업체");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView tv = (TextView)findViewById(R.id.actionbar_title_company);
+        tv.setText("업체명");
 
         //TabLayout 초기화
         tabLayout = (TabLayout) findViewById(R.id.tabs_information);
