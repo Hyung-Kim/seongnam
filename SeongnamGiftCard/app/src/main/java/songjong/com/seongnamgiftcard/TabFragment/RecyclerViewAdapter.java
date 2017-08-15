@@ -1,4 +1,4 @@
-package songjong.com.seongnamgiftcard;
+package songjong.com.seongnamgiftcard.TabFragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +19,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
+import songjong.com.seongnamgiftcard.CompanyActivity;
+import songjong.com.seongnamgiftcard.MainActivity;
+import songjong.com.seongnamgiftcard.R;
 
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.CompanyViewHolder> {
@@ -27,7 +29,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private final Context context;
     private List<Company> companyList;
     private String TAG ="recycler";
-    private MainActivity mainActiviy;
 
     public RecyclerViewAdapter(Context context) {
         this.context = context;

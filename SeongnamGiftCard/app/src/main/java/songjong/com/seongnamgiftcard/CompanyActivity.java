@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import songjong.com.seongnamgiftcard.CompanyFragment.CompanyPagerAdapter;
+import songjong.com.seongnamgiftcard.R;
 
 
 public class CompanyActivity extends AppCompatActivity {
