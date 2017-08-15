@@ -80,7 +80,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             {
                 Log.d(TAG,""+position);
                 Toast.makeText(context, "클릭하셨습니다."+position, Toast.LENGTH_SHORT).show();
-                //intent = new Intent(context,CompanyInformationActivity.class);
                 intent = new Intent(context,Main2Activity.class);
                 context.startActivity(intent);
 
