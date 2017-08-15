@@ -1,7 +1,6 @@
 package songjong.com.seongnamgiftcard;
 
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -11,12 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import songjong.com.seongnamgiftcard.CompanyFragment.CompanyPagerAdapter;
 
 
-public class Main2Activity extends AppCompatActivity {
+public class CompanyActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -33,7 +30,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main_company);
 
         //툴바 초기화
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_information);
