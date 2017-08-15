@@ -56,7 +56,7 @@ public class RecyclerViewAdapter_Company extends RecyclerView.Adapter<RecyclerVi
     public void onBindViewHolder(RecyclerViewAdapter_Company.CompanyViewHolder holder, final int position) {
 
         Menu menu = companyList.get(position);
-        holder.textViewRadioNameMenu.setText(menu.getRadioName());
+        holder.textViewRadioNameMenu.setText(menu.getMenuName());
     }
     @Override
     public int getItemCount() {

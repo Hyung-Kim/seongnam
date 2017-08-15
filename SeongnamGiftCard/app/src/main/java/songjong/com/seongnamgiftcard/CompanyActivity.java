@@ -1,5 +1,6 @@
 package songjong.com.seongnamgiftcard;
 
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,7 +9,10 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
+import android.widget.TabWidget;
 import android.widget.TextView;
+import android.widget.TabHost;
 
 import songjong.com.seongnamgiftcard.CompanyFragment.CompanyPagerAdapter;
 import songjong.com.seongnamgiftcard.R;
@@ -37,8 +41,8 @@ public class CompanyActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_information);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        TextView tv = (TextView)findViewById(R.id.actionbar_title_company);
-        tv.setText("업체명");
+        TextView tv1 = (TextView)findViewById(R.id.actionbar_title_company);
+        tv1.setText("업체명");
 
         //TabLayout 초기화
         tabLayout = (TabLayout) findViewById(R.id.tabs_information);

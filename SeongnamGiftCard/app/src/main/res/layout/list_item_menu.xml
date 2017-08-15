@@ -21,7 +21,6 @@
                 android:id="@+id/textview_radio_name_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
                 android:text="Radio Number One"
                 android:textSize="20dp"
                 android:textColor="@color/color_gray" />

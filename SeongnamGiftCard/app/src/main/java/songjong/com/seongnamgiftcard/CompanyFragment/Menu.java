@@ -6,11 +6,11 @@ package songjong.com.seongnamgiftcard.CompanyFragment;
 
 public class Menu {
     String name;
-    public Menu(String radioName){ this.name =  radioName; }
-    public String getRadioName() {
+    public Menu(String menuName){ this.name =  menuName; }
+    public String getMenuName() {
         return name;
     }
-    public void setRadioName(String radioName) {
-        this.name = radioName;
+    public void setMenuName(String menuName) {
+        this.name = menuName;
     }
 }
