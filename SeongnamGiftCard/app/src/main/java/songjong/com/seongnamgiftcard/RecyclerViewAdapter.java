@@ -82,12 +82,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Toast.makeText(context, "클릭하셨습니다."+position, Toast.LENGTH_SHORT).show();
                 intent = new Intent(context,CompanyInformationActivity.class);
                 context.startActivity(intent);
-
             }
         });
-
     }
-
     @Override
     public int getItemCount() {
         return companyList.size();

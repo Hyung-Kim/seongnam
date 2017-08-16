@@ -251,8 +251,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .setNegativeButton("취소",null).show();
 
     }
-    public void comPanyActivityChange(){
-            Intent intent = new Intent (MainActivity.this,CompanyInformationActivity.class);
-            startActivity(intent);
-    }
 }
