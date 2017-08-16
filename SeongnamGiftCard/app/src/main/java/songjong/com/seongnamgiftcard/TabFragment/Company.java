@@ -1,4 +1,4 @@
-package songjong.com.seongnamgiftcard;
+package songjong.com.seongnamgiftcard.TabFragment;
 
 /**
  * Created by TaeHyungKim on 2017-08-13.
@@ -14,6 +14,7 @@ public class Company {
         this.radioArt = radioArt;
         this.radioDial = radioDial;
     }
+    public Company(String radioName){ this.radioName =  radioName; }
     public String getRadioName() {
         return radioName;
     }

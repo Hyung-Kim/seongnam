@@ -22,6 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -60,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Toolbar 초기화 부분
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView tv = (TextView)findViewById(R.id.actionbar_title_main);
+        tv.setText("지역명");
 
         //TabLayout 초기화 부분
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);

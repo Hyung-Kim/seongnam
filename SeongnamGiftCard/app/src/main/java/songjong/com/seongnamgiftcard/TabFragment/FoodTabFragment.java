@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import songjong.com.seongnamgiftcard.Company;
 import songjong.com.seongnamgiftcard.R;
-import songjong.com.seongnamgiftcard.RecyclerViewAdapter;
 
 /**
  * Created by dongwook on 2017. 8. 7..
