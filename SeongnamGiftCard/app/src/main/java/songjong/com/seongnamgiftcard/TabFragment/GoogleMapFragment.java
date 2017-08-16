@@ -1,10 +1,8 @@
 package songjong.com.seongnamgiftcard.TabFragment;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -44,13 +42,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import songjong.com.seongnamgiftcard.MainActivity;
 import songjong.com.seongnamgiftcard.R;
+
+import static songjong.com.seongnamgiftcard.MainActivity.appAddress;
 
 /**
  * Created by dongwook on 2017. 8. 9..
  */
 
-public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
+    public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,LocationListener{
 
     private static final LatLng DEFAULT_LOCATION = new LatLng(37.56, 126.97);
@@ -73,7 +74,7 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
 
     private static int searchCnt=0;
     private static View layout;
-
+    public static int addressCnt=0;
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
         Log.i(TAG, "CurrentLocation");
 
@@ -83,7 +84,8 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
             //현재위치의 위도 경도 가져옴
             Log.d(TAG,"location!=null");
             LatLng currentLocation = new LatLng( location.getLatitude(), location.getLongitude());
-
+            Log.d(TAG,"location"+location +"markerTitle"+markerTitle);
+            Log.d("dong","title : "+markerTitle+"snippet: "+markerSnippet);
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(currentLocation);
             markerOptions.title(markerTitle);
@@ -148,6 +150,9 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
                 location.setLongitude(place.getLatLng().longitude);
 
                 setCurrentLocation(location, place.getName().toString(), place.getAddress().toString());
+                appAddress=place.getAddress().toString();
+                Log.d("Main",MainActivity.appAddress);
+
             }
 
             @Override
@@ -319,12 +324,12 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
         googleApiClient.connect();
     }
 
-    public boolean checkLocationServicesStatus() {
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-    }
+//    public boolean checkLocationServicesStatus() {
+//        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+//
+//        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+//                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+//    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -405,7 +410,7 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
 
     }
 
-    private void searchCurrentPlaces() {
+    public void searchCurrentPlaces() {
         @SuppressWarnings("MissingPermission")
 
         PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi
@@ -439,7 +444,6 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
                 Location location = new Location("");
                 location.setLatitude(LikelyLatLngs[0].latitude);
                 location.setLongitude(LikelyLatLngs[0].longitude);
-                Log.i(TAG, "5");
 
                 setCurrentLocation(location, LikelyPlaceNames[0], LikelyAddresses[0]);
             }
@@ -456,5 +460,4 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
             }
         }
     }
-
 }

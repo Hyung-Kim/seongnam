@@ -13,7 +13,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import songjong.com.seongnamgiftcard.TabFragment.Company;
 import songjong.com.seongnamgiftcard.R;
 
 
