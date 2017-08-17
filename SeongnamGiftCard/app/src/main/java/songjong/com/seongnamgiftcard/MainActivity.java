@@ -129,9 +129,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onMenuToggle(boolean opened) {
                 if (opened) {
-                    showToast("Menu is opened");
+
                 } else {
-                    showToast("Menu is closed");
+
                 }
             }
         });
@@ -232,7 +232,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onGPSProviderDisabled() {
         new AlertDialog.Builder(MainActivity.this)
                 .setMessage("GPS가 OFF되어 있습니다.\n '위치 서비스에서 'Google 위치 서비스'체크를 해주세요")
-
                 .setPositiveButton("설정", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
