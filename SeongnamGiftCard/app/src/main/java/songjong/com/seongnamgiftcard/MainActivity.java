@@ -24,7 +24,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +38,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import songjong.com.seongnamgiftcard.TabFragment.GoogleMapFragment;
 import songjong.com.seongnamgiftcard.TabFragment.TabPagerAdapter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -78,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     0);
         }
         startLocationService();
-        Log.i("DongWook","aa"+latitude+"long"+longitude);
+
         //Toolbar 초기화 부분
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -141,15 +139,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fabMap.setOnClickListener(onButtonClick());
         fabCurrentPosition.setOnClickListener(onButtonClick());
 
-        //요부분에서 에러나서 일단 막아놓음 없어도 코드 안되는 부분 없어서 일단 주석 처리
-//        fam.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (fam.isOpened()) {
-//                    fam.close(true);
-//                }
-//            }
-//        });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -220,16 +209,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 if (view == fabMap) {
-                    showToast("지도 화면으로 이동");
                     fragmentFlag = 1;
-                    addressFlag=1;
+                    addressFlag =1;
                     pagerAdapter.notifyDataSetChanged();
                     fragmentFlag = 0;
 
                 } else if (view == fabCurrentPosition) {
-                    showToast("현재 위치 화면으로 이동");
                     fragmentFlag = 0;
-                    addressFlag= 0;
+                    addressFlag =0;
                     pagerAdapter.notifyDataSetChanged();
 
                 }
@@ -242,29 +229,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    //    private void searchDialogShow(){
-//        final EditText editText = new EditText(this);
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("상세 검색");
-//        builder.setView(editText);
-//        editText.setHint("ㅇㅇ동,ㅇㅇ시장,ㅇㅇ역,업체명");
-//        builder.setPositiveButton("검색",
-//                new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        Toast.makeText(getApplicationContext(),editText.getText().toString() ,Toast.LENGTH_LONG).show();
-//                        googleMapFragment = new GoogleMapFragment();
-//
-//                    }
-//                });
-//        builder.setNegativeButton("취소",
-//                new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//        builder.show();
-//    }
     public void onGPSProviderDisabled() {
         new AlertDialog.Builder(MainActivity.this)
                 .setMessage("GPS가 OFF되어 있습니다.\n '위치 서비스에서 'Google 위치 서비스'체크를 해주세요")
@@ -326,36 +290,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, gpsListener);
         manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime, minDistance, gpsListener);
     }
-    public void updateTextView(String text){
+    public void updateCurrentPlaceText(String text){
         TextView textView = (TextView)findViewById(R.id.actionbar_title_main);
         textView.setText(text);
     }
-    public static String addressParsing(String text){
-        String arr[]=new String[5];
-        arr=text.split(" ");
-        String address = arr[2]+" "+arr[3];
-        return address;
-    }
+//    public static String addressParsing(String text){
+//        String arr[];
+//        arr=text.split(" ");
+//        String address = arr[2]+" "+arr[3];
+//        return address;
+//    }
     private class GPSListener implements LocationListener
     {
         public void onLocationChanged(Location location) {
             //capture location data sent by current provider
             latitude = location.getLatitude();
             longitude = location.getLongitude();
-            String msg = "Latitude : "+ latitude + "\nLongitude:"+ longitude;
-            Log.i("DongWook", msg);
-            Log.d("Main",appAddress);
 
-            if(addressFlag==0){
+            if(addressFlag == 0){
                 getAddress(latitude,longitude);
-                updateTextView(addressParsing(appAddress));
-            }
-            else{
-                if(GoogleMapFragment.addressCnt==0){
-                    Log.d("Main","hihihi");
-                    updateTextView(addressParsing(appAddress));
-                    GoogleMapFragment.addressCnt++;
-                }
+                updateCurrentPlaceText(appAddress);
+
             }
         }
 

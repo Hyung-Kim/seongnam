@@ -74,7 +74,7 @@ import static songjong.com.seongnamgiftcard.MainActivity.appAddress;
 
     private static int searchCnt=0;
     private static View layout;
-    public static int addressCnt=0;
+
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
         Log.i(TAG, "CurrentLocation");
 
@@ -84,8 +84,6 @@ import static songjong.com.seongnamgiftcard.MainActivity.appAddress;
             //현재위치의 위도 경도 가져옴
             Log.d(TAG,"location!=null");
             LatLng currentLocation = new LatLng( location.getLatitude(), location.getLongitude());
-            Log.d(TAG,"location"+location +"markerTitle"+markerTitle);
-            Log.d("dong","title : "+markerTitle+"snippet: "+markerSnippet);
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(currentLocation);
             markerOptions.title(markerTitle);
@@ -111,7 +109,6 @@ import static songjong.com.seongnamgiftcard.MainActivity.appAddress;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         googleApiClient = new GoogleApiClient.Builder(getActivity())
                 .enableAutoManage(getActivity() /* FragmentActivity */,
                             this /* OnConnectionFailedListener */)
@@ -125,16 +122,10 @@ import static songjong.com.seongnamgiftcard.MainActivity.appAddress;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        try {
-//            layout = inflater.inflate(R.layout.map_fragment, container, false);
-//        }
-//        catch(InflateException e){
-//            Log.d(TAG,"Inflater error");
-//        }
+
         if(layout==null){
             layout = inflater.inflate(R.layout.map_fragment, container, false);
         }
-        Log.i(TAG, "OnCreateVIew");
         mapView = (MapView)layout.findViewById(R.id.map);
         mapView.getMapAsync(this);
 
@@ -151,16 +142,14 @@ import static songjong.com.seongnamgiftcard.MainActivity.appAddress;
 
                 setCurrentLocation(location, place.getName().toString(), place.getAddress().toString());
                 appAddress=place.getAddress().toString();
-                Log.d("Main",MainActivity.appAddress);
-
+                MainActivity mainActivity = (MainActivity)getActivity();
+                mainActivity.updateCurrentPlaceText(appAddress);
             }
-
             @Override
             public void onError(Status status) {
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
-
         return layout;
     }
     //Duplicated ID 해결 코드
@@ -195,13 +184,11 @@ import static songjong.com.seongnamgiftcard.MainActivity.appAddress;
             googleApiClient.disconnect();
             Log.d("TAG","api is null");
         }
-
         Log.d(TAG,"onStop");
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        Log.i(TAG, "onSaveInstanceState");
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
@@ -225,7 +212,6 @@ import static songjong.com.seongnamgiftcard.MainActivity.appAddress;
             LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
             googleApiClient.disconnect();
         }
-
         //지도 fragment 두번 들어왔을경우 터지는 에러 코드 수정
         googleApiClient.stopAutoManage(getActivity());
         googleApiClient.disconnect();
@@ -323,39 +309,8 @@ import static songjong.com.seongnamgiftcard.MainActivity.appAddress;
                 .build();
         googleApiClient.connect();
     }
-
-//    public boolean checkLocationServicesStatus() {
-//        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-//
-//        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-//                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-//    }
-
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-//        if ( !checkLocationServicesStatus()) {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//            builder.setTitle("위치 서비스 비활성화");
-//            builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n" +
-//                    "위치 설정을 수정하십시오.");
-//            builder.setCancelable(true);
-//            builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialogInterface, int i) {
-//                    Intent callGPSSettingIntent =
-//                            new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                    startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE);
-//                }
-//            });
-//            builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
-//                @Override
-//                public void onClick(DialogInterface dialogInterface, int i) {
-//                    dialogInterface.cancel();
-//                }
-//            });
-//            builder.create().show();
-//        }
-//
 
         LocationRequest locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
