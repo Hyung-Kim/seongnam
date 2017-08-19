@@ -420,9 +420,9 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
                 LikelyAttributions = new String[MAXENTRIES];
                 LikelyLatLngs = new LatLng[MAXENTRIES];
                 Log.i(TAG, "1");
-                Log.i(TAG,""+likelyPlaces);
-                for(PlaceLikelihood placeLikelihood : likelyPlaces) {
-                    Log.i(TAG, String.format("Place '%s' has likelihood: %g",placeLikelihood.getPlace().getName(),
+                Log.i(TAG, "" + likelyPlaces);
+                for (PlaceLikelihood placeLikelihood : likelyPlaces) {
+                    Log.i(TAG, String.format("Place '%s' has likelihood: %g", placeLikelihood.getPlace().getName(),
                             placeLikelihood.getLikelihood()));
                     LikelyPlaceNames[i] = (String) placeLikelihood.getPlace().getName();
                     LikelyAddresses[i] = (String) placeLikelihood.getPlace().getAddress();
@@ -430,18 +430,22 @@ public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, G
                     LikelyLatLngs[i] = placeLikelihood.getPlace().getLatLng();
                     Log.i(TAG, "2");
                     i++;
-                    if(i > MAXENTRIES - 1 ) {
+                    if (i > MAXENTRIES - 1) {
                         break;
                     }
                 }
                 likelyPlaces.release();
 
                 Location location = new Location("");
-                location.setLatitude(LikelyLatLngs[0].latitude);
-                location.setLongitude(LikelyLatLngs[0].longitude);
-                Log.i(TAG, "5");
+                try {
+                    location.setLatitude(LikelyLatLngs[0].latitude);
+                    location.setLongitude(LikelyLatLngs[0].longitude);
+                    setCurrentLocation(location, LikelyPlaceNames[0], LikelyAddresses[0]);
+                } catch (NullPointerException e)
+                {
+                    e.printStackTrace();
+                }
 
-                setCurrentLocation(location, LikelyPlaceNames[0], LikelyAddresses[0]);
             }
         });
 
