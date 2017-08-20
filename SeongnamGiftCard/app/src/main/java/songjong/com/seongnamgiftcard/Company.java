@@ -1,4 +1,4 @@
-package songjong.com.seongnamgiftcard.TabFragment;
+package songjong.com.seongnamgiftcard;
 
 /**
  * Created by TaeHyungKim on 2017-08-13.

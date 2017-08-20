@@ -19,8 +19,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import songjong.com.seongnamgiftcard.Company;
 import songjong.com.seongnamgiftcard.CompanyActivity;
-import songjong.com.seongnamgiftcard.MainActivity;
 import songjong.com.seongnamgiftcard.R;
 
 
