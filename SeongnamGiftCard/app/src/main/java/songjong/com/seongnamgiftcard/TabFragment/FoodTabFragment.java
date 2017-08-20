@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +15,9 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import songjong.com.seongnamgiftcard.Company;
-import songjong.com.seongnamgiftcard.ExpandableList.ExpanableGroup;
-import songjong.com.seongnamgiftcard.ExpandableList.ExpandableListAdapter;
 import songjong.com.seongnamgiftcard.R;
-
-import static android.R.attr.width;
-
+import songjong.com.seongnamgiftcard.Spinner.SpinnerAdapter;
+import songjong.com.seongnamgiftcard.Spinner.State;
 /**
  * Created by dongwook on 2017. 8. 7..
  */
@@ -28,7 +25,6 @@ import static android.R.attr.width;
 public class FoodTabFragment extends Fragment {
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
-    private ExpandableListView expandableListView;
 
     private RecyclerViewAdapter adapter;
     @Override
@@ -38,18 +34,20 @@ public class FoodTabFragment extends Fragment {
 
         ButterKnife.bind(getActivity());
 
-        ArrayList<ExpanableGroup> groupDataList = new ArrayList<ExpanableGroup>();
-        expandableListView = (ExpandableListView) view.findViewById(R.id.expadableListViewId);
-        ExpanableGroup group = new ExpanableGroup("음식");
-        group.child.add("족발");
-        group.child.add("치킨");
-        group.child.add("한식");
-        group.child.add("중식");
-        groupDataList.add(group);
+        final String[] food_select = {
+                "음식 전체", "치킨","족발","일식","중식","한식"};
+        Spinner spinner = (Spinner) view.findViewById(R.id.food_spinner_id);
 
-        ExpandableListAdapter expandableAdapter = new ExpandableListAdapter(getActivity(),R.layout.food_expandable_parent,R.layout.food_expandable_child,groupDataList);
-        expandableListView.setIndicatorBounds(width-50, width); //이 코드를 지우면 화살표 위치가 바뀐다.
-        expandableListView.setAdapter(expandableAdapter);
+        ArrayList<State> list = new ArrayList<>();
+
+        for (int i = 0; i < food_select.length; i++) {
+            State state = new State();
+            state.setTitle(food_select[i]);
+            state.setSelected(false);
+            list.add(state);
+        }
+        SpinnerAdapter spinnerAdapter = new SpinnerAdapter(getActivity(), 0, list);
+        spinner.setAdapter(spinnerAdapter);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

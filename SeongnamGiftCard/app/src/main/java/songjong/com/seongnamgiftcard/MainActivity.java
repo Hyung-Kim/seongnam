@@ -32,7 +32,6 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,11 +44,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private FloatingActionMenu fam;
-    private FloatingActionButton fabMap, fabCurrentPosition, fabSearch;
+    private FloatingActionButton fabMap, fabCurrentPosition;
     private TabPagerAdapter pagerAdapter;
     public static int fragmentFlag = 0;
     private String TAG = "MainActivity";
-    private GoogleApiClient mGoogleApiClient;
     private LocationManager locationManager;
     private String provider;
     private Double latitude=0.0;
