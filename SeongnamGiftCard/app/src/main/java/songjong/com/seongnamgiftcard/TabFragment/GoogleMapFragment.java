@@ -123,9 +123,14 @@ import static songjong.com.seongnamgiftcard.MainActivity.appAddress;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        if(layout==null){
-            layout = inflater.inflate(R.layout.map_fragment, container, false);
+        if(layout != null){
+            ViewGroup viewGroupParent = (ViewGroup) layout.getParent();
+            if (viewGroupParent != null)
+                viewGroupParent.removeView(layout);
         }
+        try{
+            layout = inflater.inflate(R.layout.map_fragment, container, false);
+        }catch(Exception e){}
         mapView = (MapView)layout.findViewById(R.id.map);
         mapView.getMapAsync(this);
 
@@ -404,15 +409,5 @@ import static songjong.com.seongnamgiftcard.MainActivity.appAddress;
             }
         });
 
-    }
-    public void onDestroyView() {
-        Log.d(TAG,"DestroyView");
-        super.onDestroyView();
-        if(layout!=null) {
-            ViewGroup parent = (ViewGroup) layout.getParent();
-            if (parent != null) {
-                parent.removeView(layout);
-            }
-        }
     }
 }
