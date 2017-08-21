@@ -14,12 +14,13 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import songjong.com.seongnamgiftcard.R;
+import songjong.com.seongnamgiftcard.TabFragment.RecyclerViewAdapter;
 
 
 public class MenuFragment extends Fragment {
     @Bind(R.id.recyclerView_menu)
     RecyclerView recyclerView;
-    private RecyclerViewAdapter_Company adapter;
+    private CompanyRecyclerViewAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -29,7 +30,7 @@ public class MenuFragment extends Fragment {
         //recyclerView 초기화
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_menu);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new RecyclerViewAdapter_Company(getActivity().getApplicationContext());
+        adapter = new CompanyRecyclerViewAdapter(getActivity().getApplicationContext());
         recyclerView.setAdapter(adapter);
 
         //샘플 데이터 삽입

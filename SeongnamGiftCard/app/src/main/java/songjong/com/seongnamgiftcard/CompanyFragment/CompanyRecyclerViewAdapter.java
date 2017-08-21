@@ -1,5 +1,9 @@
 package songjong.com.seongnamgiftcard.CompanyFragment;
 
+/**
+ * Created by dongwook on 2017. 8. 21..
+ */
+
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,17 +19,16 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import songjong.com.seongnamgiftcard.R;
 
-
 /**
  * Created by TaeHyungKim on 2017-08-16.
  */
 
-public class RecyclerViewAdapter_Company extends RecyclerView.Adapter<RecyclerViewAdapter_Company.CompanyViewHolder> {
+public class CompanyRecyclerViewAdapter extends RecyclerView.Adapter<CompanyRecyclerViewAdapter.CompanyViewHolder> {
 
     private final Context context;
     private List<Menu> companyList;
 
-    public RecyclerViewAdapter_Company(Context context) {
+    public CompanyRecyclerViewAdapter(Context context) {
         this.context = context;
         companyList = new ArrayList<>();
     }
@@ -47,13 +50,13 @@ public class RecyclerViewAdapter_Company extends RecyclerView.Adapter<RecyclerVi
     }
 
     @Override
-    public RecyclerViewAdapter_Company.CompanyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CompanyRecyclerViewAdapter.CompanyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_menu, parent, false);
-        RecyclerViewAdapter_Company.CompanyViewHolder viewHolder = new RecyclerViewAdapter_Company.CompanyViewHolder(view);
+        CompanyRecyclerViewAdapter.CompanyViewHolder viewHolder = new CompanyRecyclerViewAdapter.CompanyViewHolder(view);
         return viewHolder;
     }
     @Override
-    public void onBindViewHolder(RecyclerViewAdapter_Company.CompanyViewHolder holder, final int position) {
+    public void onBindViewHolder(CompanyRecyclerViewAdapter.CompanyViewHolder holder, final int position) {
 
         Menu menu = companyList.get(position);
         holder.textViewRadioNameMenu.setText(menu.getMenuName());
