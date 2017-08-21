@@ -1,10 +1,20 @@
-package songjong.com.seongnamgiftcard.TabFragment;
+package songjong.com.seongnamgiftcard.Adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import songjong.com.seongnamgiftcard.MainActivity;
+import songjong.com.seongnamgiftcard.Activity.MainActivity;
+import songjong.com.seongnamgiftcard.TabFragment.ClothTabFragment;
+import songjong.com.seongnamgiftcard.TabFragment.EtcTabFragment;
+import songjong.com.seongnamgiftcard.TabFragment.FlowerTabFragment;
+import songjong.com.seongnamgiftcard.TabFragment.FoodTabFragment;
+import songjong.com.seongnamgiftcard.TabFragment.GoogleMapFragment;
+import songjong.com.seongnamgiftcard.TabFragment.MeatTabFragment;
+import songjong.com.seongnamgiftcard.TabFragment.PharmacyTabFragment;
+import songjong.com.seongnamgiftcard.TabFragment.SalonTabFragment;
+import songjong.com.seongnamgiftcard.TabFragment.StuffTabFragment;
+import songjong.com.seongnamgiftcard.TabFragment.SuperTabFragment;
 
 /**
  * Created by dongwook on 2017. 8. 7..

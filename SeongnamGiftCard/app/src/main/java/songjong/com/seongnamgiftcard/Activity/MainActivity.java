@@ -1,4 +1,4 @@
-package songjong.com.seongnamgiftcard;
+package songjong.com.seongnamgiftcard.Activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -37,7 +37,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import songjong.com.seongnamgiftcard.TabFragment.TabPagerAdapter;
+import songjong.com.seongnamgiftcard.R;
+import songjong.com.seongnamgiftcard.Adapter.TabPagerAdapter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

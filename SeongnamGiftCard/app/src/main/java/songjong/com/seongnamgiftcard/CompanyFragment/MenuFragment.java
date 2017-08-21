@@ -13,8 +13,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import songjong.com.seongnamgiftcard.Adapter.CompanyRecyclerViewAdapter;
+import songjong.com.seongnamgiftcard.FieldClass.Menu;
 import songjong.com.seongnamgiftcard.R;
-import songjong.com.seongnamgiftcard.TabFragment.RecyclerViewAdapter;
 
 
 public class MenuFragment extends Fragment {

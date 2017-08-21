@@ -1,4 +1,8 @@
-package songjong.com.seongnamgiftcard.TabFragment;
+package songjong.com.seongnamgiftcard.Adapter;
+
+/**
+ * Created by dongwook on 2017. 8. 21..
+ */
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,10 +23,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import songjong.com.seongnamgiftcard.Company;
-import songjong.com.seongnamgiftcard.CompanyActivity;
+import songjong.com.seongnamgiftcard.Activity.CompanyActivity;
+import songjong.com.seongnamgiftcard.FieldClass.Company;
 import songjong.com.seongnamgiftcard.R;
-
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.CompanyViewHolder> {
 
@@ -75,7 +78,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.textViewRadioTags.setText("#rock #pop #news");
         holder.cvItem.setOnClickListener(new View.OnClickListener()
         {
-           Intent intent;
+            Intent intent;
             @Override
             public void onClick(View v)
             {

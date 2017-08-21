@@ -1,4 +1,4 @@
-package songjong.com.seongnamgiftcard.CompanyFragment;
+package songjong.com.seongnamgiftcard.Adapter;
 
 /**
  * Created by dongwook on 2017. 8. 21..
@@ -17,6 +17,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import songjong.com.seongnamgiftcard.FieldClass.Menu;
 import songjong.com.seongnamgiftcard.R;
 
 /**

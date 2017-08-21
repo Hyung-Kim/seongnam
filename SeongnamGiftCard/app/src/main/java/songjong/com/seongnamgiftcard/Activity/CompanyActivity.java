@@ -1,4 +1,4 @@
-package songjong.com.seongnamgiftcard;
+package songjong.com.seongnamgiftcard.Activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,7 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import songjong.com.seongnamgiftcard.CompanyFragment.CompanyPagerAdapter;
+import songjong.com.seongnamgiftcard.Adapter.CompanyPagerAdapter;
+import songjong.com.seongnamgiftcard.R;
 
 
 public class CompanyActivity extends AppCompatActivity {

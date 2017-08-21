@@ -42,10 +42,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import songjong.com.seongnamgiftcard.MainActivity;
+import songjong.com.seongnamgiftcard.Activity.MainActivity;
 import songjong.com.seongnamgiftcard.R;
 
-import static songjong.com.seongnamgiftcard.MainActivity.appAddress;
+import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
 
 /**
  * Created by dongwook on 2017. 8. 9..

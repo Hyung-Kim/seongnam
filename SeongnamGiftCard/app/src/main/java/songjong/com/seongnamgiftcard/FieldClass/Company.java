@@ -1,4 +1,4 @@
-package songjong.com.seongnamgiftcard;
+package songjong.com.seongnamgiftcard.FieldClass;
 
 /**
  * Created by TaeHyungKim on 2017-08-13.

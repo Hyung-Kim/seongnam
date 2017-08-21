@@ -1,4 +1,4 @@
-package songjong.com.seongnamgiftcard.Spinner;
+package songjong.com.seongnamgiftcard.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import songjong.com.seongnamgiftcard.FieldClass.State;
 import songjong.com.seongnamgiftcard.R;
 
 /**

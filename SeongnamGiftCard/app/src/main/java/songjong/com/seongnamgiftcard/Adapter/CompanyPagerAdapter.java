@@ -1,8 +1,13 @@
-package songjong.com.seongnamgiftcard.CompanyFragment;
+package songjong.com.seongnamgiftcard.Adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import songjong.com.seongnamgiftcard.CompanyFragment.InformationFragment;
+import songjong.com.seongnamgiftcard.CompanyFragment.MenuFragment;
+import songjong.com.seongnamgiftcard.CompanyFragment.ReviewFragment;
+
 /**
  * Created by dongwook on 2017. 8. 7..
  */

@@ -1,4 +1,4 @@
-package songjong.com.seongnamgiftcard.Spinner;
+package songjong.com.seongnamgiftcard.FieldClass;
 
 /**
  * Created by dongwook on 2017. 8. 20..

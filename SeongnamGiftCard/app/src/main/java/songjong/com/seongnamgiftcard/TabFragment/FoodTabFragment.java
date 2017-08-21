@@ -14,10 +14,11 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import songjong.com.seongnamgiftcard.Company;
+import songjong.com.seongnamgiftcard.Adapter.RecyclerViewAdapter;
+import songjong.com.seongnamgiftcard.Adapter.SpinnerAdapter;
+import songjong.com.seongnamgiftcard.FieldClass.Company;
+import songjong.com.seongnamgiftcard.FieldClass.State;
 import songjong.com.seongnamgiftcard.R;
-import songjong.com.seongnamgiftcard.Spinner.SpinnerAdapter;
-import songjong.com.seongnamgiftcard.Spinner.State;
 /**
  * Created by dongwook on 2017. 8. 7..
  */
