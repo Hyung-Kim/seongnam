@@ -6,16 +6,18 @@
     android:layout_height="match_parent"
     android:background="#000000"
     android:id="@+id/mapFragmentContainerInformation">
+
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:name="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         card_view:cardCornerRadius="4dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:id="@+id/information_cardview">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,14 +30,16 @@
                     android:id="@+id/textview_address"
                     android:gravity="left"
                     android:text="주소"
+                    android:textSize="15dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:padding="10dp"/>
                 <TextView
                     android:id="@+id/textview_address_value"
                     android:gravity="left"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="15dp"
                     android:padding="10dp"/>
             </LinearLayout>
             <LinearLayout
@@ -46,14 +50,16 @@
                     android:id="@+id/textview_tel"
                     android:gravity="left"
                     android:text="전화번호"
+                    android:textSize="15dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:padding="10dp"/>
                 <TextView
                     android:id="@+id/textview_tel_value"
                     android:gravity="left"
+                    android:textSize="15dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:padding="10dp"/>
             </LinearLayout>
         </LinearLayout>
@@ -64,8 +70,8 @@
         class="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/information_cardview" />
 
 </RelativeLayout>
