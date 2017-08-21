@@ -49,7 +49,6 @@ public class FoodTabFragment extends Fragment {
         }
         SpinnerAdapter spinnerAdapter = new SpinnerAdapter(getActivity(), 0, list);
         spinner.setAdapter(spinnerAdapter);
-
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new RecyclerViewAdapter(getActivity().getApplicationContext());

@@ -24,7 +24,7 @@ public class SpinnerAdapter extends ArrayAdapter<State> {
     private ArrayList<State> listState;
     private SpinnerAdapter myAdapter;
     private boolean isFromView = false;
-
+    private boolean isChecked = false;
     public SpinnerAdapter(Context context, int resource, List<State> objects) {
         super(context, resource, objects);
         this.mContext = context;
