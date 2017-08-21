@@ -130,7 +130,8 @@ import static songjong.com.seongnamgiftcard.MainActivity.appAddress;
         }
         try{
             layout = inflater.inflate(R.layout.map_fragment, container, false);
-        }catch(Exception e){}
+        }
+        catch(Exception e){}
         mapView = (MapView)layout.findViewById(R.id.map);
         mapView.getMapAsync(this);
 
@@ -247,7 +248,6 @@ import static songjong.com.seongnamgiftcard.MainActivity.appAddress;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         //액티비티가 처음 생성될 때 실행되는 함수
         MapsInitializer.initialize(getActivity().getApplicationContext());
 
