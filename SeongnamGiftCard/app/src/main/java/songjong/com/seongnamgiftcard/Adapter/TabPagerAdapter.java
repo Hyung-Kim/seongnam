@@ -5,16 +5,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import songjong.com.seongnamgiftcard.Activity.MainActivity;
-import songjong.com.seongnamgiftcard.TabFragment.ClothTabFragment;
 import songjong.com.seongnamgiftcard.TabFragment.EtcTabFragment;
-import songjong.com.seongnamgiftcard.TabFragment.FlowerTabFragment;
 import songjong.com.seongnamgiftcard.TabFragment.FoodTabFragment;
 import songjong.com.seongnamgiftcard.TabFragment.GoogleMapFragment;
-import songjong.com.seongnamgiftcard.TabFragment.MeatTabFragment;
-import songjong.com.seongnamgiftcard.TabFragment.PharmacyTabFragment;
-import songjong.com.seongnamgiftcard.TabFragment.SalonTabFragment;
-import songjong.com.seongnamgiftcard.TabFragment.StuffTabFragment;
-import songjong.com.seongnamgiftcard.TabFragment.SuperTabFragment;
+import songjong.com.seongnamgiftcard.TabFragment.ProduceTabFragment;
+import songjong.com.seongnamgiftcard.TabFragment.SaleTabFragment;
+import songjong.com.seongnamgiftcard.TabFragment.ServiceTabFragment;
 
 /**
  * Created by dongwook on 2017. 8. 7..
@@ -41,31 +37,17 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
                     return googleMapFragment;
                 }
             case 1:
-                SuperTabFragment superTabFragment = new SuperTabFragment();
-                return superTabFragment;
+                ServiceTabFragment serviceTabFragment = new ServiceTabFragment();
+                return serviceTabFragment;
             case 2:
-                MeatTabFragment meatTabFragment = new MeatTabFragment();
-                return meatTabFragment;
+                SaleTabFragment saleTabFragment = new SaleTabFragment();
+                return saleTabFragment;
             case 3:
-                StuffTabFragment stuffTabFragment = new StuffTabFragment();
-                return stuffTabFragment;
+                ProduceTabFragment produceTabFragment = new ProduceTabFragment();
+                return produceTabFragment;
             case 4:
-                SalonTabFragment salonTabFragment = new SalonTabFragment();
-                return salonTabFragment;
-            case 5:
-                PharmacyTabFragment pharmacyTabFragment = new PharmacyTabFragment();
-                return pharmacyTabFragment;
-            case 6:
-                FlowerTabFragment flowerTabFragment = new FlowerTabFragment();
-                return flowerTabFragment;
-            case 7:
-                ClothTabFragment clothTabFragment = new ClothTabFragment();
-                return clothTabFragment;
-            case 8:
                 EtcTabFragment etcTabFragment = new EtcTabFragment();
                 return etcTabFragment;
-
-
             default:
                 return null;
         }

@@ -37,8 +37,10 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
+                app:tabGravity="fill"
+                app:tabMaxWidth="0dp"
                 app:tabSelectedTextColor="@color/color_pink"
-                app:tabMode="scrollable"
+                app:tabMode="fixed"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
         </android.support.design.widget.AppBarLayout>
 
