@@ -40,8 +40,16 @@
         </activity>
         <activity
             android:name=".Activity.CompanyActivity"
-            android:label="@string/title_activity_main2"
+            android:label="@string/title_activity_company"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Activity.DeveloperActivity"
+            android:label="@string/title_activity_developer"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.SENDTO"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
