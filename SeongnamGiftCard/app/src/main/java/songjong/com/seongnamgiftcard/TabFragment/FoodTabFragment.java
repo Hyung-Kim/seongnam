@@ -36,7 +36,7 @@ public class FoodTabFragment extends Fragment {
         ButterKnife.bind(getActivity());
 
         final String[] food_select = {
-                "음식 전체", "치킨","피자","족발","일식","중식","한식","햄버거","분식","기타"};
+                "음식 전체", "치킨","피자","족발","일식","중식","한식","버거","분식","기타"};
         Spinner spinner = (Spinner) view.findViewById(R.id.food_spinner_id);
 
         ArrayList<State> list = new ArrayList<>();

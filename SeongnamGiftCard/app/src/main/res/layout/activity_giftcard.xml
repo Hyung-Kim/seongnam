@@ -2,54 +2,59 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
+    android:id="@+id/activity_giftcard_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="songjong.com.seongnamgiftcard.Activity.CompanyActivity">
+    tools:context="songjong.com.seongnamgiftcard.Activity.DeveloperActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/developerAppBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            android:id="@+id/companyAppBarLayout">
+            android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_information"
+                android:id="@+id/toolbar_giftcard"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/color_seongnam"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
+
                 <TextView
-                    android:id="@+id/actionbar_title_company"
+                    android:id="@+id/actionbar_title_giftcard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="@color/color_white"
-                    android:textSize="15sp"/>
+                    android:textColor="#fff"
+                    android:textSize="15sp" />
             </android.support.v7.widget.Toolbar>
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabs_information"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                app:tabGravity="fill"
-                app:tabMaxWidth="0dp"
-                app:tabTextColor="@color/color_black"
-                app:tabSelectedTextColor="@color/color_seongnam"
-                app:tabMode="fixed" />
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager_information"
+
+        <ImageView
+            android:id="@+id/gift_card_image"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/companyAppBarLayout" />
+            android:layout_height="200dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/developerAppBarLayout"
+            android:layout_marginTop="20dp"
+            app:srcCompat="@drawable/gift_card_image" />
+
+        <TextView
+            android:id="@+id/gift_card_view_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gift_card_image"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
 
     </RelativeLayout>
-
 </android.support.design.widget.CoordinatorLayout>

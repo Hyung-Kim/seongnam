@@ -8,7 +8,6 @@ import songjong.com.seongnamgiftcard.Activity.MainActivity;
 import songjong.com.seongnamgiftcard.TabFragment.EtcTabFragment;
 import songjong.com.seongnamgiftcard.TabFragment.FoodTabFragment;
 import songjong.com.seongnamgiftcard.TabFragment.GoogleMapFragment;
-import songjong.com.seongnamgiftcard.TabFragment.ProduceTabFragment;
 import songjong.com.seongnamgiftcard.TabFragment.SaleTabFragment;
 import songjong.com.seongnamgiftcard.TabFragment.ServiceTabFragment;
 
@@ -43,9 +42,6 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
                 SaleTabFragment saleTabFragment = new SaleTabFragment();
                 return saleTabFragment;
             case 3:
-                ProduceTabFragment produceTabFragment = new ProduceTabFragment();
-                return produceTabFragment;
-            case 4:
                 EtcTabFragment etcTabFragment = new EtcTabFragment();
                 return etcTabFragment;
             default:

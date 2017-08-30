@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/color_white</item>
+        <item name="colorPrimaryDark">@color/color_dark_seongnam</item>
+        <item name="colorAccent">@color/color_seongnam</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -27,4 +27,12 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="textAllCaps">true</item>
     </style>
+    <style name="MenuButtonsStyle">
+        <item name="fab_size">mini</item>
+        <item name="fab_shadowColor">#444</item>
+        <item name="elevation">4dp</item>
+        <item name="menu_colorNormal">@color/color_seongnam</item>
+        <item name="menu_colorPressed">@color/color_dark_seongnam</item>
+        <item name="fab_colorNormal">@color/color_seongnam</item>
+        <item name="fab_colorPressed">@color/color_dark_seongnam</item> </style>
 </resources>

@@ -19,7 +19,7 @@
 
     <application
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/mark_giftcard"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -40,6 +40,10 @@
         </activity>
         <activity
             android:name=".Activity.CompanyActivity"
+            android:label="@string/title_activity_company"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Activity.GiftCardActivity"
             android:label="@string/title_activity_company"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity

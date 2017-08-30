@@ -22,7 +22,7 @@
                 android:id="@+id/toolbar_developer"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
+                android:background="@color/color_seongnam"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <TextView
@@ -41,7 +41,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:foreground="?attr/selectableItemBackground"
             android:layout_below="@+id/developerAppBarLayout">
 
             <TextView

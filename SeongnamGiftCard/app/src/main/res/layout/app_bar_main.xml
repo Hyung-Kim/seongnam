@@ -21,7 +21,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
+                android:background="@color/color_seongnam"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
                 <TextView
                     android:id="@+id/actionbar_title_main"
@@ -39,7 +39,8 @@
                 android:minHeight="?attr/actionBarSize"
                 app:tabGravity="fill"
                 app:tabMaxWidth="0dp"
-                app:tabSelectedTextColor="@color/color_pink"
+                app:tabTextColor="@color/color_black"
+                app:tabSelectedTextColor="@color/color_seongnam"
                 app:tabMode="fixed"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
         </android.support.design.widget.AppBarLayout>
@@ -58,10 +59,11 @@
             android:layout_alignParentRight="true"
             android:paddingBottom="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
+            app:theme="@style/MenuButtonsStyle"
             fab:menu_backgroundColor="#ccffffff"
             fab:menu_fab_label="메뉴 선택"
-            fab:fab_colorNormal="#DA4336"
-            fab:fab_colorPressed="#E75043"
+            fab:fab_colorNormal="@color/color_seongnam"
+            fab:fab_colorPressed="@color/color_seongnam"
             fab:fab_colorRipple="#99FFFFFF"
             fab:fab_showShadow="true"
             fab:menu_labels_colorNormal="#333333"
