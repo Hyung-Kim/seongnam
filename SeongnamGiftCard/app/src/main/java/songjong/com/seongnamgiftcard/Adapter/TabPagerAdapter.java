@@ -27,23 +27,41 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                if(MainActivity.fragmentFlag==0){
+                if(MainActivity.fragmentFlagArr[position]==0){
                     FoodTabFragment foodTabFragment = new FoodTabFragment();
                     return foodTabFragment;
                 }
-                else if(MainActivity.fragmentFlag==1){
+                else if(MainActivity.fragmentFlagArr[position]==1){
                     GoogleMapFragment googleMapFragment = new GoogleMapFragment();
                     return googleMapFragment;
                 }
             case 1:
-                ServiceTabFragment serviceTabFragment = new ServiceTabFragment();
-                return serviceTabFragment;
+                if(MainActivity.fragmentFlagArr[position]==0) {
+                    ServiceTabFragment serviceTabFragment = new ServiceTabFragment();
+                    return serviceTabFragment;
+                }
+                else if(MainActivity.fragmentFlagArr[position]==1){
+                    GoogleMapFragment googleMapFragment = new GoogleMapFragment();
+                    return googleMapFragment;
+                }
             case 2:
-                SaleTabFragment saleTabFragment = new SaleTabFragment();
-                return saleTabFragment;
+                if(MainActivity.fragmentFlagArr[position]==0) {
+                    SaleTabFragment saleTabFragment = new SaleTabFragment();
+                    return saleTabFragment;
+                }
+                else if(MainActivity.fragmentFlagArr[position]==1) {
+                    GoogleMapFragment googleMapFragment = new GoogleMapFragment();
+                    return googleMapFragment;
+                }
             case 3:
-                EtcTabFragment etcTabFragment = new EtcTabFragment();
-                return etcTabFragment;
+                if(MainActivity.fragmentFlagArr[position]==0) {
+                    EtcTabFragment etcTabFragment = new EtcTabFragment();
+                    return etcTabFragment;
+                }
+                else if(MainActivity.fragmentFlagArr[position]==1) {
+                    GoogleMapFragment googleMapFragment = new GoogleMapFragment();
+                    return googleMapFragment;
+                }
             default:
                 return null;
         }

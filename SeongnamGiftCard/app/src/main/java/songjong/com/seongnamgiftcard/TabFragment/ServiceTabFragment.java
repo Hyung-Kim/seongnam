@@ -2,10 +2,19 @@ package songjong.com.seongnamgiftcard.TabFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import songjong.com.seongnamgiftcard.Adapter.RecyclerViewAdapter;
+import songjong.com.seongnamgiftcard.FieldClass.Company;
 import songjong.com.seongnamgiftcard.R;
 
 /**
@@ -13,8 +22,29 @@ import songjong.com.seongnamgiftcard.R;
  */
 
 public class ServiceTabFragment extends Fragment {
+    @Bind(R.id.recyclerView)
+    RecyclerView recyclerView;
+
+    private RecyclerViewAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.tab_fragment_service, container, false);
+        View view = inflater.inflate(R.layout.tab_fragment_service, container, false);
+
+        ButterKnife.bind(getActivity());
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new RecyclerViewAdapter(getActivity().getApplicationContext());
+        recyclerView.setAdapter(adapter);
+        loadData();
+
+        return view;
+    }
+    private void loadData(){
+        Company company = new Company("Joy Company FM", R.drawable.temp, "102.5");
+        List<Company> companyList = new ArrayList<>();
+        for (int i = 0 ; i < 20 ; i++)
+            companyList.add(company);
+        adapter.setCompanyList(companyList);
     }
 }

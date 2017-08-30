@@ -27,7 +27,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -46,13 +45,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FloatingActionMenu fam;
     private FloatingActionButton fabMap, fabCurrentPosition;
     private TabPagerAdapter pagerAdapter;
-    public static int fragmentFlag = 0;
     private String TAG = "MainActivity";
     private LocationManager locationManager;
     private String provider;
     private Double latitude=0.0;
     private Double longitude=0.0;
+    public static int fragmentFlagArr[]={0,0,0,0};
     public static int addressFlag=0;
+    private static int currentTab;
     public static String appAddress="현재 위치 확인 중";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                currentTab=tab.getPosition();
             }
 
             @Override
@@ -152,28 +153,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -204,24 +183,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 if (view == fabMap) {
-                    fragmentFlag = 1;
+                    fragmentFlagArr[currentTab] = 1;
                     addressFlag =1;
                     pagerAdapter.notifyDataSetChanged();
-                    fragmentFlag = 0;
+                    fragmentFlagArr[currentTab] = 0;
 
                 } else if (view == fabCurrentPosition) {
-                    fragmentFlag = 0;
+                    fragmentFlagArr[currentTab] = 0;
                     addressFlag =0;
                     pagerAdapter.notifyDataSetChanged();
-
                 }
                 fam.close(true);
             }
         };
-    }
-
-    private void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     public void onGPSProviderDisabled() {
@@ -288,12 +262,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView textView = (TextView)findViewById(R.id.actionbar_title_main);
         textView.setText(text);
     }
-//    public static String addressParsing(String text){
-//        String arr[];
-//        arr=text.split(" ");
-//        String address = arr[2]+" "+arr[3];
-//        return address;
-//    }
+
     private class GPSListener implements LocationListener
     {
         public void onLocationChanged(Location location) {
@@ -304,10 +273,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if(addressFlag == 0){
                 getAddress(latitude,longitude);
                 updateCurrentPlaceText(appAddress);
-
             }
         }
-
         public void onProviderDisabled(String provider) {}
         public void onProviderEnabled(String provider) { }
         public void onStatusChanged(String provider, int status, Bundle extras) { }

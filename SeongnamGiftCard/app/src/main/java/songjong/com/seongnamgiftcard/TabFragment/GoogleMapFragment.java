@@ -141,7 +141,7 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-                Log.d(TAG,"해당위치로 이동");
+             //   Log.d(TAG,"해당위치로 이동");
                 Location location = new Location("");
                 location.setLatitude(place.getLatLng().latitude);
                 location.setLongitude(place.getLatLng().longitude);
@@ -161,7 +161,7 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
     //Duplicated ID 해결 코드
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d(TAG,"viewCreated");
+   //     Log.d(TAG,"viewCreated");
         searchCnt=0;
         FragmentManager fm = getChildFragmentManager();
         SupportMapFragment mapFragment = (SupportMapFragment) fm.findFragmentByTag("mapFragment");
@@ -188,7 +188,7 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
 
         if (googleApiClient != null && googleApiClient.isConnected()){
             googleApiClient.disconnect();
-            Log.d("TAG","api is null");
+        //    Log.d("TAG","api is null");
         }
         Log.d(TAG,"onStop");
     }
@@ -221,7 +221,7 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
         //지도 fragment 두번 들어왔을경우 터지는 에러 코드 수정
         googleApiClient.stopAutoManage(getActivity());
         googleApiClient.disconnect();
-        Log.d(TAG,"pause");
+      //  Log.d(TAG,"pause");
     }
 
     @Override
@@ -260,7 +260,7 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
     @Override
     public void onMapReady(GoogleMap googleMap) {
         // OnMapReadyCallback implements 해야 mapView.getMapAsync(this); 사용가능. this 가 OnMapReadyCallback
-        Log.i(TAG, "OnMapREadey");
+      //  Log.i(TAG, "OnMapREadey");
         this.googleMap = googleMap;
 
         //런타임 퍼미션 요청 대화상자나 GPS 활성 요청 대화상자 보이기전에 지도의 초기위치를 서울로 이동
@@ -361,8 +361,8 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.i(TAG, "onLocationChanged call..");
-        Log.d(TAG,"searcn CNT :"+searchCnt);
+      //  Log.i(TAG, "onLocationChanged call..");
+       // Log.d(TAG,"searcn CNT :"+searchCnt);
          if(searchCnt==0){
              searchCurrentPlaces();
              searchCnt++;
@@ -378,13 +378,13 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
         result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>(){
             @Override
             public void onResult(PlaceLikelihoodBuffer likelyPlaces) {
-                Log.i(TAG, "CurrentPlaces");
+              //  Log.i(TAG, "CurrentPlaces");
                 int i = 0;
                 LikelyPlaceNames = new String[MAXENTRIES];
                 LikelyAddresses = new String[MAXENTRIES];
                 LikelyAttributions = new String[MAXENTRIES];
                 LikelyLatLngs = new LatLng[MAXENTRIES];
-                Log.i(TAG, "1");
+         //       Log.i(TAG, "1");
                 Log.i(TAG, "" + likelyPlaces);
                 for (PlaceLikelihood placeLikelihood : likelyPlaces) {
                     Log.i(TAG, String.format("Place '%s' has likelihood: %g", placeLikelihood.getPlace().getName(),
@@ -393,7 +393,7 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
                     LikelyAddresses[i] = (String) placeLikelihood.getPlace().getAddress();
                     LikelyAttributions[i] = (String) placeLikelihood.getPlace().getAttributions();
                     LikelyLatLngs[i] = placeLikelihood.getPlace().getLatLng();
-                    Log.i(TAG, "2");
+             //       Log.i(TAG, "2");
                     i++;
                     if (i > MAXENTRIES - 1) {
                         break;
