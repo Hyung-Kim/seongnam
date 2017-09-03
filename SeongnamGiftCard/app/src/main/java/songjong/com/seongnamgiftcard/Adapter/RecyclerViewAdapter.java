@@ -73,7 +73,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         Company company = companyList.get(position);
         holder.textViewCompanyName.setText(company.getCompanyName());
-        holder.textViewCompanyNumber.setText("(" + company.getCompanyNumber() + ")");
+        if(company.getCompanyNumber()!=""){
+            holder.textViewCompanyNumber.setText("(" + company.getCompanyNumber() + ")");
+        }
+        else{
+            holder.textViewCompanyNumber.setText("");
+        }
         holder.textViewCompanyAddress.setText(company.getCompanyAddress());
         Picasso.with(context).load(company.getCompanyImage()).into(holder.imageViewCompanyLogo);
         holder.cvItem.setOnClickListener(new View.OnClickListener()

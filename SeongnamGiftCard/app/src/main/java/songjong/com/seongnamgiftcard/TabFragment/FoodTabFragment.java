@@ -90,7 +90,7 @@ public class FoodTabFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(getActivity(), "Please Wait", null, true, true);
+            progressDialog = ProgressDialog.show(getActivity(), "불러오는 중 입니다. 잠시만 기다려주세요",null , true, true);
         }
         @Override
         protected void onPostExecute(String result) {
@@ -163,6 +163,9 @@ public class FoodTabFragment extends Fragment {
                 String name = item.getString(TAG_NAME);
                 String address = item.getString(TAG_ADDRESS);
                 String number = item.getString(TAG_NUMBER);
+                if(number=="null"){
+                    number="";
+                }
                 HashMap<String,String> hashMap = new HashMap<>();
                 hashMap.put(TAG_NAME, name);
                 hashMap.put(TAG_ADDRESS, address);
