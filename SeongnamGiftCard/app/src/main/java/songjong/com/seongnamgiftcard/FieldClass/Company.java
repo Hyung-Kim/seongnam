@@ -8,13 +8,16 @@ public class Company {
     String companyName;
     String companyNumber;
     String companyAddress;
-    int companyImage;
+    double companyLatitude;
+    double companyLongitude;
 
-    public Company(String companyName, String companyNumber, String companyAddress,int companyImage) {
+    public Company(String companyName, String companyNumber, String companyAddress,String companyLatitude,
+                   String companyLongitude) {
         this.companyName = companyName;
         this.companyNumber = companyNumber;
         this.companyAddress = companyAddress;
-        this.companyImage = companyImage;
+        this.companyLatitude = Double.parseDouble(companyLatitude);
+        this.companyLongitude = Double.parseDouble(companyLongitude);
     }
     public String getCompanyName() {
         return companyName;
@@ -26,19 +29,20 @@ public class Company {
     public String getCompanyNumber() {
         return companyNumber;
     }
-    public void setCompanyNumber(String companyNumber) {
-        this.companyNumber = companyNumber;
-    }
+    public void setCompanyNumber(String companyNumber) {this.companyNumber = companyNumber;}
 
     public String getCompanyAddress() {
         return companyAddress;
     }
     public void setCompanyAddress(String companyAddress) {this.companyAddress = companyAddress; }
 
-    public int getCompanyImage() {
-        return companyImage;
+    public double getCompanyLatitude() {
+        return companyLatitude;
     }
-    public void setCompanyImage(int companyImage) {
-        this.companyImage = companyImage;
+    public void setCompanyLatitude(String companyLatitude) {this.companyLatitude = Double.parseDouble(companyLatitude); }
+
+    public double getCompanyLongitude() {
+        return companyLongitude;
     }
+    public void setCompanyLongitude(String companyLongitude) {this.companyLongitude = Double.parseDouble(companyLongitude); }
 }

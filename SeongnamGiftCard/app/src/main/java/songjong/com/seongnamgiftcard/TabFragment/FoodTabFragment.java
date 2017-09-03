@@ -47,6 +47,8 @@ public class FoodTabFragment extends Fragment {
     private static final String TAG_ADDRESS = "company_address";
     private static final String TAG_NAME ="company_name";
     private static final String TAG_SUBCLASS = "company_subsubclass";
+    private static final String TAG_LATITUDE = "company_latitude";
+    private static final String TAG_LONGITUDE = "company_longitude";
     private static final String TAG_MENU = "company_menu";
     ArrayList<HashMap<String, String>> mArrayList;
     public static List<Company> companyList = new ArrayList<>();
@@ -170,6 +172,9 @@ public class FoodTabFragment extends Fragment {
                 String name = item.getString(TAG_NAME);
                 String address = item.getString(TAG_ADDRESS);
                 String number = item.getString(TAG_NUMBER);
+                String latitude = item.getString(TAG_LATITUDE);
+                String longitude = item.getString(TAG_LONGITUDE);
+
                 if(number=="null"){
                     number="";
                 }
@@ -179,12 +184,14 @@ public class FoodTabFragment extends Fragment {
                 hashMap.put(TAG_ADDRESS, address);
                 hashMap.put(TAG_NUMBER, number);
                 hashMap.put(TAG_SUBCLASS, subclass);
+                hashMap.put(TAG_LATITUDE, latitude);
+                hashMap.put(TAG_LONGITUDE, longitude);
                 mArrayList.add(hashMap);
             }
             HashMap<String,String> takeMap;
             for(int i=0; i<100;i++) {
                 takeMap = mArrayList.get(i);
-                Company company = new Company(takeMap.get(TAG_NAME), takeMap.get(TAG_NUMBER), takeMap.get(TAG_ADDRESS),R.drawable.temp);
+                Company company = new Company(takeMap.get(TAG_NAME), takeMap.get(TAG_NUMBER), takeMap.get(TAG_ADDRESS),takeMap.get(TAG_LATITUDE), takeMap.get(TAG_LONGITUDE));
                 //이 부분에서 takeMap.get(TAG_SUBCLASS)로 가져와서 사용하면 됨
                 companyList.add(company);
             }

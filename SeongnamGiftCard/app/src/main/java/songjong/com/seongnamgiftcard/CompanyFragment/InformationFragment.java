@@ -11,7 +11,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.w3c.dom.Text;
@@ -26,6 +28,7 @@ public class InformationFragment extends Fragment
         implements OnMapReadyCallback {
     public MapView mMapView;
     public GoogleMap mGoogleMap;
+    private Company company;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,7 +38,7 @@ public class InformationFragment extends Fragment
         TextView textViewCompanyAddress  = (TextView)v.findViewById(R.id.textview_address_value);;
         TextView textViewCompanyNumber = (TextView)v.findViewById(R.id.textview_tel_value);
 
-        Company company= FoodTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
+        company= FoodTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
         textViewCompanyAddress.setText(company.getCompanyAddress());
         textViewCompanyNumber.setText(company.getCompanyNumber());
 
@@ -52,9 +55,13 @@ public class InformationFragment extends Fragment
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
 
         //마커 추가 코드
-        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(37.56, 126.97)));
-        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(37.56, 126.98)));
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.56, 126.97), 15));
+        LatLng currentLocation = new LatLng(company.getCompanyLatitude(), company.getCompanyLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(currentLocation);
+        markerOptions.draggable(true);
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+        this.mGoogleMap.addMarker(markerOptions);
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(company.getCompanyLatitude(), company.getCompanyLongitude()), 15));
     }
     @Override
     public void onResume() {
