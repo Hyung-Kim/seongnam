@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -30,9 +32,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import songjong.com.seongnamgiftcard.Adapter.RecyclerViewAdapter;
-import songjong.com.seongnamgiftcard.Adapter.SpinnerAdapter;
 import songjong.com.seongnamgiftcard.FieldClass.Company;
-import songjong.com.seongnamgiftcard.FieldClass.State;
 import songjong.com.seongnamgiftcard.R;
 /**
  * Created by dongwook on 2017. 8. 7..
@@ -57,21 +57,21 @@ public class FoodTabFragment extends Fragment {
         View view = inflater.inflate(R.layout.tab_fragment_food, container, false);
         ButterKnife.bind(getActivity());
 
-        final String[] food_select = {
-                "음식 전체", "치킨","피자","족발","일식","중식","한식","버거","분식","기타"};
         Spinner spinner = (Spinner) view.findViewById(R.id.food_spinner_id);
 
-        ArrayList<State> list = new ArrayList<>();
-        for (int i = 0; i < food_select.length; i++) {
-            State state = new State();
-            state.setTitle(food_select[i]);
-            state.setSelected(false);
-            list.add(state);
-            Log.d("spinner","list 생성");
-        }
-        SpinnerAdapter spinnerAdapter = new SpinnerAdapter(getActivity(), 0, list);
+        ArrayAdapter spinnerAdapter =ArrayAdapter.createFromResource(getActivity(),R.array.food,android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
-        Log.d("spinner","setAdapter 생성");
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                Toast.makeText(getActivity(), Integer.toString(position), Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new RecyclerViewAdapter(getActivity().getApplicationContext());
