@@ -159,17 +159,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Navigation View 이벤트 처리
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.giftcard_item) {
             Intent intent=new Intent(MainActivity.this,GiftCardActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        }  else if (id == R.id.developer_item) {
             Intent intent=new Intent(MainActivity.this,DeveloperActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.notice_item) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.inconvenience_item) {
 
         }
 
