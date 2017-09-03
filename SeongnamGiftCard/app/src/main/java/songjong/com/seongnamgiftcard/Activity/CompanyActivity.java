@@ -2,18 +2,26 @@ package songjong.com.seongnamgiftcard.Activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import songjong.com.seongnamgiftcard.Adapter.CompanyPagerAdapter;
+import songjong.com.seongnamgiftcard.Adapter.RecyclerViewAdapter;
+import songjong.com.seongnamgiftcard.FieldClass.Company;
 import songjong.com.seongnamgiftcard.R;
+import songjong.com.seongnamgiftcard.TabFragment.FoodTabFragment;
 
 
-public class CompanyActivity extends AppCompatActivity {
+public class CompanyActivity extends AppCompatActivity{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -47,6 +55,11 @@ public class CompanyActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("업체정보"));
         tabLayout.addTab(tabLayout.newTab().setText("리뷰"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        //업체정보 설정
+
+        Company company= FoodTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
+        companyNameTextView.setText(company.getCompanyName());
 
         //viewPager 초기화
         mViewPager = (ViewPager) findViewById(R.id.pager_information);
