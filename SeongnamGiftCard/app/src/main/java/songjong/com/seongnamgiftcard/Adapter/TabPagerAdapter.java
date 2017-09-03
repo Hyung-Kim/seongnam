@@ -17,7 +17,7 @@ import songjong.com.seongnamgiftcard.TabFragment.ServiceTabFragment;
 public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
     private int tabCount;
-
+    public static int cur_position = 0;
     public TabPagerAdapter(FragmentManager fm, int tabCount) {
         super(fm);
         this.tabCount = tabCount;
@@ -27,6 +27,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
+                cur_position = 0;
                 if(MainActivity.fragmentFlagArr[position]==0){
                     FoodTabFragment foodTabFragment = new FoodTabFragment();
                     return foodTabFragment;
@@ -36,6 +37,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
                     return googleMapFragment;
                 }
             case 1:
+                cur_position = 1;
                 if(MainActivity.fragmentFlagArr[position]==0) {
                     ServiceTabFragment serviceTabFragment = new ServiceTabFragment();
                     return serviceTabFragment;
@@ -45,6 +47,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
                     return googleMapFragment;
                 }
             case 2:
+                cur_position = 2;
                 if(MainActivity.fragmentFlagArr[position]==0) {
                     SaleTabFragment saleTabFragment = new SaleTabFragment();
                     return saleTabFragment;
@@ -54,6 +57,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
                     return googleMapFragment;
                 }
             case 3:
+                cur_position = 3;
                 if(MainActivity.fragmentFlagArr[position]==0) {
                     EtcTabFragment etcTabFragment = new EtcTabFragment();
                     return etcTabFragment;

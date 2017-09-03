@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -13,7 +14,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.w3c.dom.Text;
+
+import songjong.com.seongnamgiftcard.Adapter.RecyclerViewAdapter;
+import songjong.com.seongnamgiftcard.Adapter.TabPagerAdapter;
+import songjong.com.seongnamgiftcard.FieldClass.Company;
 import songjong.com.seongnamgiftcard.R;
+import songjong.com.seongnamgiftcard.TabFragment.FoodTabFragment;
 
 public class InformationFragment extends Fragment
         implements OnMapReadyCallback {
@@ -23,6 +30,14 @@ public class InformationFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.company_fragment_information, container, false);
+
+        //업체상세정보 설정
+        TextView textViewCompanyAddress  = (TextView)v.findViewById(R.id.textview_address_value);;
+        TextView textViewCompanyNumber = (TextView)v.findViewById(R.id.textview_tel_value);
+
+        Company company= FoodTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
+        textViewCompanyAddress.setText(company.getCompanyAddress());
+        textViewCompanyNumber.setText(company.getCompanyNumber());
 
         mMapView = (MapView) v.findViewById(R.id.mapInformation);
         mMapView.onCreate(savedInstanceState);

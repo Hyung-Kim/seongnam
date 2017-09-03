@@ -32,7 +32,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private final Context context;
     private List<Company> companyList;
     private String TAG ="recycler";
-
+    public static int curCompanyyPosition=0;
     public RecyclerViewAdapter(Context context) {
         this.context = context;
         companyList = new ArrayList<>();
@@ -83,6 +83,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View v)
             {
                 Log.d(TAG,""+position);
+                curCompanyyPosition = position;
                 Toast.makeText(context, "클릭하셨습니다."+position, Toast.LENGTH_SHORT).show();
                 intent = new Intent(context,CompanyActivity.class);
                 context.startActivity(intent);

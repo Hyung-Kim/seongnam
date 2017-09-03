@@ -3,21 +3,22 @@ package songjong.com.seongnamgiftcard.Adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.View;
+import android.widget.TextView;
 
 import songjong.com.seongnamgiftcard.CompanyFragment.InformationFragment;
 import songjong.com.seongnamgiftcard.CompanyFragment.MenuFragment;
 import songjong.com.seongnamgiftcard.CompanyFragment.ReviewFragment;
+import songjong.com.seongnamgiftcard.R;
 
 /**
  * Created by dongwook on 2017. 8. 7..
  */
 public class CompanyPagerAdapter extends FragmentStatePagerAdapter {
-
     private int tabCount;
-
     public CompanyPagerAdapter(FragmentManager fm, int tabCount) {
         super(fm);
-        this.tabCount = tabCount;
+        this.tabCount = tabCount;;
     }
     @Override
     public Fragment getItem(int position) {

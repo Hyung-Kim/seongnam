@@ -41,7 +41,6 @@ import songjong.com.seongnamgiftcard.R;
 public class FoodTabFragment extends Fragment {
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
-
     private static String TAG = "food_company";
     private static final String TAG_JSON="company_data";
     private static final String TAG_NUMBER = "company_number";
@@ -50,6 +49,7 @@ public class FoodTabFragment extends Fragment {
     private static final String TAG_SUBCLASS = "company_subsubclass";
     private static final String TAG_MENU = "company_menu";
     ArrayList<HashMap<String, String>> mArrayList;
+    public static List<Company> companyList = new ArrayList<>();
     String mJsonString;
 
     private RecyclerViewAdapter adapter;
@@ -82,9 +82,14 @@ public class FoodTabFragment extends Fragment {
         return view;
     }
     private void loadData(){
-        mArrayList = new ArrayList<>();
-        GetData task = new GetData();
-        task.execute("http://18.220.157.131/loadAllData.php", "음식");
+        if(companyList.isEmpty()) {
+            mArrayList = new ArrayList<>();
+            GetData task = new GetData();
+            task.execute("http://18.220.157.131/loadAllData.php", "음식");
+        }else
+        {
+            adapter.setCompanyList(companyList);
+        }
     }
     private class GetData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
@@ -172,7 +177,6 @@ public class FoodTabFragment extends Fragment {
                 hashMap.put(TAG_SUBCLASS, subclass);
                 mArrayList.add(hashMap);
             }
-            List<Company> companyList = new ArrayList<>();
             HashMap<String,String> takeMap;
             for(int i=0; i<100;i++) {
                 takeMap = mArrayList.get(i);
