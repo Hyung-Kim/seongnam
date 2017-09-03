@@ -1,15 +1,29 @@
 package songjong.com.seongnamgiftcard.TabFragment;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -26,6 +40,15 @@ import songjong.com.seongnamgiftcard.R;
 public class FoodTabFragment extends Fragment {
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
+
+    private static String TAG = "food_company";
+    private static final String TAG_JSON="company_data";
+    private static final String TAG_NUMBER = "company_number";
+    private static final String TAG_ADDRESS = "company_address";
+    private static final String TAG_NAME ="company_name";
+    private static final String TAG_MENU = "company_menu";
+    ArrayList<HashMap<String, String>> mArrayList;
+    String mJsonString;
 
     private RecyclerViewAdapter adapter;
     @Override
@@ -49,6 +72,7 @@ public class FoodTabFragment extends Fragment {
         }
         SpinnerAdapter spinnerAdapter = new SpinnerAdapter(getActivity(), 0, list);
         spinner.setAdapter(spinnerAdapter);
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new RecyclerViewAdapter(getActivity().getApplicationContext());
@@ -58,10 +82,95 @@ public class FoodTabFragment extends Fragment {
         return view;
     }
     private void loadData(){
-        Company company = new Company("Joy Company FM", R.drawable.temp, "102.5");
-        List<Company> companyList = new ArrayList<>();
-        for (int i = 0 ; i < 20 ; i++)
-            companyList.add(company);
-        adapter.setCompanyList(companyList);
+        mArrayList = new ArrayList<>();
+        GetData task = new GetData();
+        task.execute("http://18.220.157.131/loadAllData.php");
     }
+    private class GetData extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(getActivity(), "Please Wait", null, true, true);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            progressDialog.dismiss();
+            if (result == null){
+                Toast.makeText(getActivity(),"Error onPostExecute() ", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                mJsonString = result;
+                showResult();
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String serverURL = params[0];
+            try {
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.connect();
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+                bufferedReader.close();
+                return sb.toString().trim();
+            } catch (Exception e) {
+                Toast.makeText(getActivity(),"Error doInBackground", Toast.LENGTH_SHORT).show();
+                return null;
+            }
+
+        }
+    }
+    private void showResult(){
+        try {
+            JSONObject jsonObject = new JSONObject(mJsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+            for(int i=0;i<jsonArray.length();i++){
+                JSONObject item = jsonArray.getJSONObject(i);
+                String name = item.getString(TAG_NAME);
+                String address = item.getString(TAG_ADDRESS);
+                String number = item.getString(TAG_NUMBER);
+                HashMap<String,String> hashMap = new HashMap<>();
+                hashMap.put(TAG_NAME, name);
+                hashMap.put(TAG_ADDRESS, address);
+                hashMap.put(TAG_NUMBER, number);
+                mArrayList.add(hashMap);
+            }
+            List<Company> companyList = new ArrayList<>();
+            HashMap<String,String> takeMap;
+            for(int i=0; i<mArrayList.size();i++) {
+                takeMap = mArrayList.get(i);
+                Company company = new Company(takeMap.get(TAG_NAME), R.drawable.temp, takeMap.get(TAG_NUMBER));
+                companyList.add(company);
+            }
+            adapter.setCompanyList(companyList);
+        } catch (JSONException e) {
+            Toast.makeText(getActivity(),"Error showResult", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
