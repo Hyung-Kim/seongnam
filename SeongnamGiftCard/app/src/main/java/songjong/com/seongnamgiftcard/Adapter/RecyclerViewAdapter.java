@@ -12,11 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +49,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @Bind(R.id.company_address)
         TextView textViewCompanyAddress;
 
-        @Bind(R.id.imageview_company_logo)
-        ImageView imageViewCompanyLogo;
+//        @Bind(R.id.imageview_company_logo)
+//        ImageView imageViewCompanyLogo;
 
         public CompanyViewHolder(View itemView) {
             super(itemView);
@@ -73,9 +70,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         Company company = companyList.get(position);
         holder.textViewCompanyName.setText(company.getCompanyName());
-        holder.textViewCompanyNumber.setText("(" + company.getCompanyNumber() + ")");
+        if(company.getCompanyNumber()!="null"){
+            holder.textViewCompanyNumber.setText("031-" + company.getCompanyNumber());
+        }
+        else{
+            holder.textViewCompanyNumber.setText("");
+        }
+
         holder.textViewCompanyAddress.setText(company.getCompanyAddress());
-        Picasso.with(context).load(company.getCompanyImage()).into(holder.imageViewCompanyLogo);
+        //Picasso.with(context).load(company.getCompanyImage()).into(holder.imageViewCompanyLogo);
         holder.cvItem.setOnClickListener(new View.OnClickListener()
         {
             Intent intent;

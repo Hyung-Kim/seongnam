@@ -90,7 +90,7 @@ public class FoodTabFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(getActivity(), "Please Wait", null, true, true);
+            progressDialog = ProgressDialog.show(getActivity(), "불러오는 중입니다 잠시만 기다려주세요", null, true, true);
         }
         @Override
         protected void onPostExecute(String result) {
