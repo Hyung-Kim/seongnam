@@ -1,6 +1,7 @@
 package songjong.com.seongnamgiftcard.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.List;
 import songjong.com.seongnamgiftcard.FieldClass.State;
 import songjong.com.seongnamgiftcard.R;
 
+
 /**
  * Created by dongwook on 2017. 8. 20..
  */
@@ -25,6 +27,8 @@ public class SpinnerAdapter extends ArrayAdapter<State> {
     private SpinnerAdapter myAdapter;
     private boolean isFromView = false;
     private boolean isChecked = false;
+    private ArrayList<String> checkList;
+
     public SpinnerAdapter(Context context, int resource, List<State> objects) {
         super(context, resource, objects);
         this.mContext = context;
@@ -45,7 +49,6 @@ public class SpinnerAdapter extends ArrayAdapter<State> {
 
     public View getCustomView(final int position, View convertView,
                               ViewGroup parent) {
-
         final ViewHolder holder;
         if (convertView == null) {
             LayoutInflater layoutInflator = LayoutInflater.from(mContext);
@@ -72,11 +75,13 @@ public class SpinnerAdapter extends ArrayAdapter<State> {
             holder.mCheckBox.setVisibility(View.VISIBLE);
         }
         holder.mCheckBox.setTag(position);
+        checkList = new ArrayList<>();
         holder.mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 int getPosition = (Integer) buttonView.getTag();
+                Log.d("spinner",""+listState.get(getPosition).getTitle());
+
             }
         });
         return convertView;
@@ -86,4 +91,5 @@ public class SpinnerAdapter extends ArrayAdapter<State> {
         private TextView mTextView;
         private CheckBox mCheckBox;
     }
+
 }

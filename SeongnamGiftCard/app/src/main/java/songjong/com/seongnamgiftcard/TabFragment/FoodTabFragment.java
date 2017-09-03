@@ -49,9 +49,8 @@ public class FoodTabFragment extends Fragment {
     private static final String TAG_NAME ="company_name";
     private static final String TAG_SUBCLASS = "company_subsubclass";
     private static final String TAG_MENU = "company_menu";
-    ArrayList<HashMap<String, String>> mArrayList;
-    String mJsonString;
-
+    private ArrayList<HashMap<String, String>> mArrayList;
+    private String mJsonString;
     private RecyclerViewAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,16 +62,16 @@ public class FoodTabFragment extends Fragment {
         Spinner spinner = (Spinner) view.findViewById(R.id.food_spinner_id);
 
         ArrayList<State> list = new ArrayList<>();
-
         for (int i = 0; i < food_select.length; i++) {
             State state = new State();
             state.setTitle(food_select[i]);
             state.setSelected(false);
             list.add(state);
+            Log.d("spinner","list 생성");
         }
         SpinnerAdapter spinnerAdapter = new SpinnerAdapter(getActivity(), 0, list);
         spinner.setAdapter(spinnerAdapter);
-
+        Log.d("spinner","setAdapter 생성");
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new RecyclerViewAdapter(getActivity().getApplicationContext());
@@ -180,7 +179,7 @@ public class FoodTabFragment extends Fragment {
             HashMap<String,String> takeMap;
             for(int i=0; i<100;i++) {
                 takeMap = mArrayList.get(i);
-                Company company = new Company(takeMap.get(TAG_NAME), takeMap.get(TAG_NUMBER), takeMap.get(TAG_ADDRESS),R.drawable.temp);
+                Company company = new Company(takeMap.get(TAG_NAME), takeMap.get(TAG_NUMBER), takeMap.get(TAG_ADDRESS),takeMap.get(TAG_SUBCLASS));
                 //이 부분에서 takeMap.get(TAG_SUBCLASS)로 가져와서 사용하면 됨
                 companyList.add(company);
             }
@@ -189,4 +188,5 @@ public class FoodTabFragment extends Fragment {
             Toast.makeText(getActivity(),"Error showResult", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

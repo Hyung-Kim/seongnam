@@ -5,16 +5,22 @@ package songjong.com.seongnamgiftcard.FieldClass;
  */
 
 public class Company {
-    String companyName;
-    String companyNumber;
-    String companyAddress;
-    int companyImage;
+    private String companyName;
+    private String companyNumber;
+    private String companyAddress;
+    private String companySubGroup;
 
-    public Company(String companyName, String companyNumber, String companyAddress,int companyImage) {
+
+    public Company(String companyName, String companyNumber, String companyAddress) {
         this.companyName = companyName;
         this.companyNumber = companyNumber;
         this.companyAddress = companyAddress;
-        this.companyImage = companyImage;
+    }
+    public Company(String companyName, String companyNumber, String companyAddress,String companySubGroup) {
+        this.companyName = companyName;
+        this.companyNumber = companyNumber;
+        this.companyAddress = companyAddress;
+        this.companySubGroup = companySubGroup;
     }
     public String getCompanyName() {
         return companyName;
@@ -35,10 +41,10 @@ public class Company {
     }
     public void setCompanyAddress(String companyAddress) {this.companyAddress = companyAddress; }
 
-    public int getCompanyImage() {
-        return companyImage;
+    public String getCompanySubGroup() {
+        return companySubGroup;
     }
-    public void setCompanyImage(int companyImage) {
-        this.companyImage = companyImage;
+    public void setCompanyImage(String companySubGroup) {
+        this.companySubGroup = companySubGroup;
     }
 }

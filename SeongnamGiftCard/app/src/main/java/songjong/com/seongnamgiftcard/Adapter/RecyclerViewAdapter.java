@@ -69,9 +69,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(CompanyViewHolder holder, final int position) {
 
         Company company = companyList.get(position);
-        holder.textViewCompanyName.setText(company.getCompanyName());
+        if(company.getCompanySubGroup()!=null){
+            holder.textViewCompanyName.setText(company.getCompanyName()+"("+company.getCompanySubGroup()+")");
+        }
+        else{
+            holder.textViewCompanyName.setText(company.getCompanyName());
+        }
 
-        if(company.getCompanyNumber()!="null"){
+        if(company.getCompanyNumber()!=""){
             holder.textViewCompanyNumber.setText("031-" + company.getCompanyNumber());
         }
         else{
@@ -79,7 +84,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         holder.textViewCompanyAddress.setText(company.getCompanyAddress());
-        //Picasso.with(context).load(company.getCompanyImage()).into(holder.imageViewCompanyLogo);
         holder.cvItem.setOnClickListener(new View.OnClickListener()
         {
             Intent intent;
