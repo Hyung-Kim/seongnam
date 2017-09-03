@@ -58,7 +58,6 @@ public class FoodTabFragment extends Fragment {
         ButterKnife.bind(getActivity());
 
         Spinner spinner = (Spinner) view.findViewById(R.id.food_spinner_id);
-
         ArrayAdapter spinnerAdapter =ArrayAdapter.createFromResource(getActivity(),R.array.food,android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
