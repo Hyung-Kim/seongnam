@@ -5,20 +5,23 @@ package songjong.com.seongnamgiftcard.FieldClass;
  */
 
 public class Company {
-    String companyName;
-    String companyNumber;
-    String companyAddress;
-    double companyLatitude;
-    double companyLongitude;
 
+    private String companyName;
+    private String companyNumber;
+    private String companyAddress;
+    private double companyLatitude;
+    private double companyLongitude;
+    private String companySubGroup;
     public Company(String companyName, String companyNumber, String companyAddress,String companyLatitude,
-                   String companyLongitude) {
+                   String companyLongitude, String companySubGroup) {
         this.companyName = companyName;
         this.companyNumber = companyNumber;
         this.companyAddress = companyAddress;
         this.companyLatitude = Double.parseDouble(companyLatitude);
         this.companyLongitude = Double.parseDouble(companyLongitude);
+        this.companySubGroup = companySubGroup;
     }
+
     public String getCompanyName() {
         return companyName;
     }
@@ -41,8 +44,9 @@ public class Company {
     }
     public void setCompanyLatitude(String companyLatitude) {this.companyLatitude = Double.parseDouble(companyLatitude); }
 
-    public double getCompanyLongitude() {
-        return companyLongitude;
-    }
+    public double getCompanyLongitude() {return companyLongitude;}
     public void setCompanyLongitude(String companyLongitude) {this.companyLongitude = Double.parseDouble(companyLongitude); }
+
+    public String getCompanySubGroup() {return companySubGroup;}
+    public void setCompanySubGroup(String companySubGroup) {this.companySubGroup = companySubGroup; }
 }
