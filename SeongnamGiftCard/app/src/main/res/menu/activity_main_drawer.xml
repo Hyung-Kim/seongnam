@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/giftcard_item"
-            android:title="성남 사랑 상품권 소개" />
+    <item
+        android:id="@+id/giftcard_item"
+        android:title="성남 사랑 상품권 소개" />
 
-        <item
-            android:id="@+id/developer_item"
-            android:title="개발자 정보" />
-    </group>
-
-    <item android:title="자유 계시판">
-        <menu>
-            <item
-                android:id="@+id/notice_item"
-                android:title="공지사항" />
-            <item
-                android:id="@+id/inconvenience_item"
-                android:title="불편사항" />
-        </menu>
-    </item>
+    <item
+        android:id="@+id/developer_item"
+        android:title="개발자 정보" />
+    <item
+        android:id="@+id/notice_item"
+        android:title="공지사항" />
+    <item
+        android:id="@+id/inconvenience_item"
+        android:title="불편사항" />
 
 </menu>
