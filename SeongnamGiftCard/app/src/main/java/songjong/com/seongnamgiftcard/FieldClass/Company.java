@@ -5,38 +5,40 @@ package songjong.com.seongnamgiftcard.FieldClass;
  */
 
 public class Company {
-    String radioName;
-    int radioArt;
-    String radioDial;
+    String companyName;
+    String companyNumber;
+    String companyAddress;
+    int companyImage;
 
-    public Company(String radioName, int radioArt, String radioDial) {
-        this.radioName = radioName;
-        this.radioArt = radioArt;
-        this.radioDial = radioDial;
+    public Company(String companyName, String companyNumber, String companyAddress,int companyImage) {
+        this.companyName = companyName;
+        this.companyNumber = companyNumber;
+        this.companyAddress = companyAddress;
+        this.companyImage = companyImage;
     }
-    public Company(String radioName){ this.radioName =  radioName; }
-    public String getRadioName() {
-        return radioName;
+    public String getCompanyName() {
+        return companyName;
     }
-
-    public void setRadioName(String radioName) {
-        this.radioName = radioName;
-    }
-
-    public int getRadioArt() {
-        return radioArt;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    public void setRadioArt(int radioArt) {
-        this.radioArt = radioArt;
+    public String getCompanyNumber() {
+        return companyNumber;
+    }
+    public void setCompanyNumber(String companyNumber) {
+        this.companyNumber = companyNumber;
     }
 
-    public String getRadioDial() {
-        return radioDial;
+    public String getCompanyAddress() {
+        return companyAddress;
     }
+    public void setCompanyAddress(String companyAddress) {this.companyAddress = companyAddress; }
 
-    public void setRadioDial(String radioDial) {
-        this.radioDial = radioDial;
+    public int getCompanyImage() {
+        return companyImage;
     }
-
+    public void setCompanyImage(int companyImage) {
+        this.companyImage = companyImage;
+    }
 }

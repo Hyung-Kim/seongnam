@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
             <TextView
-                android:id="@+id/textview_radio_name_menu"
+                android:id="@+id/textview_company_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Radio Number One"

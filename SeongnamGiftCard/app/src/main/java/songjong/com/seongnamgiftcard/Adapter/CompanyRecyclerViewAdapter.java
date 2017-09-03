@@ -39,8 +39,8 @@ public class CompanyRecyclerViewAdapter extends RecyclerView.Adapter<CompanyRecy
     }
     public class CompanyViewHolder extends RecyclerView.ViewHolder{
         public CardView cvItem; //for touch listener
-        @Bind(R.id.textview_radio_name_menu)
-        TextView textViewRadioNameMenu;
+        @Bind(R.id.textview_company_menu)
+        TextView textViewCompanyMenu;
 
 
         public CompanyViewHolder(View itemView) {
@@ -60,7 +60,7 @@ public class CompanyRecyclerViewAdapter extends RecyclerView.Adapter<CompanyRecy
     public void onBindViewHolder(CompanyRecyclerViewAdapter.CompanyViewHolder holder, final int position) {
 
         Menu menu = companyList.get(position);
-        holder.textViewRadioNameMenu.setText(menu.getMenuName());
+        holder.textViewCompanyMenu.setText(menu.getMenuName());
     }
     @Override
     public int getItemCount() {

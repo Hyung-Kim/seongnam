@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -53,9 +54,7 @@ public class FoodTabFragment extends Fragment {
     private RecyclerViewAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.tab_fragment_food, container, false);
-
         ButterKnife.bind(getActivity());
 
         final String[] food_select = {
@@ -84,7 +83,7 @@ public class FoodTabFragment extends Fragment {
     private void loadData(){
         mArrayList = new ArrayList<>();
         GetData task = new GetData();
-        task.execute("http://18.220.157.131/loadAllData.php");
+        task.execute("http://18.220.157.131/loadAllData.php", "음식");
     }
     private class GetData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
@@ -95,6 +94,7 @@ public class FoodTabFragment extends Fragment {
         }
         @Override
         protected void onPostExecute(String result) {
+            Log.d(TAG,"onPostExecute - " + result);
             super.onPostExecute(result);
             progressDialog.dismiss();
             if (result == null){
@@ -110,15 +110,24 @@ public class FoodTabFragment extends Fragment {
         protected String doInBackground(String... params) {
 
             String serverURL = params[0];
+            String m_class = params[1];
+            String postParameters = "class="+m_class;
             try {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setReadTimeout(5000);
                 httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
                 httpURLConnection.connect();
 
-                int responseStatusCode = httpURLConnection.getResponseCode();
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
 
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "POST response code - " + responseStatusCode);
                 InputStream inputStream;
                 if(responseStatusCode == HttpURLConnection.HTTP_OK) {
                     inputStream = httpURLConnection.getInputStream();
@@ -162,9 +171,9 @@ public class FoodTabFragment extends Fragment {
             }
             List<Company> companyList = new ArrayList<>();
             HashMap<String,String> takeMap;
-            for(int i=0; i<mArrayList.size();i++) {
+            for(int i=0; i<100;i++) {
                 takeMap = mArrayList.get(i);
-                Company company = new Company(takeMap.get(TAG_NAME), R.drawable.temp, takeMap.get(TAG_NUMBER));
+                Company company = new Company(takeMap.get(TAG_NAME), takeMap.get(TAG_NUMBER), takeMap.get(TAG_ADDRESS),R.drawable.temp);
                 companyList.add(company);
             }
             adapter.setCompanyList(companyList);
@@ -172,5 +181,4 @@ public class FoodTabFragment extends Fragment {
             Toast.makeText(getActivity(),"Error showResult", Toast.LENGTH_SHORT).show();
         }
     }
-
 }

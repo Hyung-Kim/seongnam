@@ -43,17 +43,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
     public class CompanyViewHolder extends RecyclerView.ViewHolder{
         public CardView cvItem; //for touch listener
-        @Bind(R.id.textview_radio_name)
-        TextView textViewRadioName;
+        @Bind(R.id.company_name)
+        TextView textViewCompanyName;
 
-        @Bind(R.id.textview_radio_dial)
-        TextView textViewRadioDial;
+        @Bind(R.id.company_number)
+        TextView textViewCompanyNumber;
 
-        @Bind(R.id.textview_tags)
-        TextView textViewRadioTags;
+        @Bind(R.id.company_address)
+        TextView textViewCompanyAddress;
 
-        @Bind(R.id.imageview_radio_logo)
-        ImageView imageViewRadioLogo;
+        @Bind(R.id.imageview_company_logo)
+        ImageView imageViewCompanyLogo;
 
         public CompanyViewHolder(View itemView) {
             super(itemView);
@@ -72,10 +72,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(CompanyViewHolder holder, final int position) {
 
         Company company = companyList.get(position);
-        holder.textViewRadioName.setText(company.getRadioName());
-        holder.textViewRadioDial.setText("(" + company.getRadioDial() + ")");
-        Picasso.with(context).load(company.getRadioArt()).into(holder.imageViewRadioLogo);
-        holder.textViewRadioTags.setText("#rock #pop #news");
+        holder.textViewCompanyName.setText(company.getCompanyName());
+        holder.textViewCompanyNumber.setText("(" + company.getCompanyNumber() + ")");
+        holder.textViewCompanyAddress.setText(company.getCompanyAddress());
+        Picasso.with(context).load(company.getCompanyImage()).into(holder.imageViewCompanyLogo);
         holder.cvItem.setOnClickListener(new View.OnClickListener()
         {
             Intent intent;
