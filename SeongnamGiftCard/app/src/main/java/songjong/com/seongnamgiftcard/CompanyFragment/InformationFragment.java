@@ -1,10 +1,13 @@
 package songjong.com.seongnamgiftcard.CompanyFragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -13,13 +16,9 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.w3c.dom.Text;
-
 import songjong.com.seongnamgiftcard.Adapter.RecyclerViewAdapter;
-import songjong.com.seongnamgiftcard.Adapter.TabPagerAdapter;
 import songjong.com.seongnamgiftcard.FieldClass.Company;
 import songjong.com.seongnamgiftcard.R;
 import songjong.com.seongnamgiftcard.TabFragment.FoodTabFragment;
@@ -37,14 +36,27 @@ public class InformationFragment extends Fragment
         //업체상세정보 설정
         TextView textViewCompanyAddress  = (TextView)v.findViewById(R.id.textview_address_value);;
         TextView textViewCompanyNumber = (TextView)v.findViewById(R.id.textview_tel_value);
+        ImageView imageViewCallNumber = (ImageView)v.findViewById(R.id.phone_call_image_id);
 
         company= FoodTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
         textViewCompanyAddress.setText(company.getCompanyAddress());
         textViewCompanyNumber.setText(company.getCompanyNumber());
 
+
+        imageViewCallNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String tel = "tel:"+company.getCompanyNumber();
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                callIntent.setData(Uri.parse(tel));
+                getActivity().startActivity(callIntent);
+            }
+        });
+
         mMapView = (MapView) v.findViewById(R.id.mapInformation);
         mMapView.onCreate(savedInstanceState);
-        mMapView.getMapAsync(this); //this is important
+        mMapView.getMapAsync(this);
 
         return v;
     }
