@@ -41,8 +41,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.ClusterManager;
 
 import songjong.com.seongnamgiftcard.Activity.MainActivity;
+import songjong.com.seongnamgiftcard.FieldClass.Company;
+import songjong.com.seongnamgiftcard.FieldClass.House;
 import songjong.com.seongnamgiftcard.R;
 
 import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
@@ -81,8 +84,7 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
         if ( currentMarker != null ) currentMarker.remove();
 
         if (location != null) {
-            //현재위치의 위도 경도 가져옴
-            Log.d(TAG,"location!=null");
+            //현재 위치
             LatLng currentLocation = new LatLng( location.getLatitude(), location.getLongitude());
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(currentLocation);
@@ -92,6 +94,18 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
             currentMarker = this.googleMap.addMarker(markerOptions);
             this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+            ClusterManager<House> mClusterManager = new ClusterManager<House>(getActivity(), googleMap);
+            googleMap.setOnCameraIdleListener(mClusterManager);
+            googleMap.setOnMarkerClickListener(mClusterManager);
+            Company temp;
+            for(int i=0; i<FoodTabFragment.companyList.size();i++)
+            {
+                temp = FoodTabFragment.companyList.get(i);
+                House offsetItem = new House(temp.getCompanyLatitude(), temp.getCompanyLongitude());
+                mClusterManager.addItem(offsetItem);
+            }
+
+
             return;
         }
         Log.d(TAG,"location==null");
