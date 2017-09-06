@@ -47,6 +47,14 @@
             android:label="@string/title_activity_company"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
+            android:name=".Activity.NoticeActivity"
+            android:label="@string/title_activity_company"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Activity.InconvenienceActivity"
+            android:label="@string/title_activity_company"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".Activity.DeveloperActivity"
             android:label="@string/title_activity_developer"
             android:theme="@style/AppTheme.NoActionBar">

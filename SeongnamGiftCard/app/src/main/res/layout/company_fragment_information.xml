@@ -56,7 +56,9 @@
                     android:padding="10dp"
                     android:text="전화번호"
                     android:textSize="15dp" />
-
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/textview_tel_value"
                     android:gravity="left"
@@ -64,6 +66,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"/>
+
+                <ImageView
+                    android:id="@+id/phone_call_image_id"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_toRightOf="@+id/textview_tel_value"
+                    android:src="@drawable/phone_call_image"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true" />
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
 
