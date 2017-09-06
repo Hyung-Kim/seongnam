@@ -50,6 +50,7 @@ public class FoodTabFragment extends Fragment {
     private static final String TAG_LATITUDE = "company_latitude";
     private static final String TAG_LONGITUDE = "company_longitude";
     private static final String TAG_MENU = "company_menu";
+    private static String cur_subsubclass = "전체";
     private ArrayList<HashMap<String, String>> mArrayList;
     private String mJsonString;
     public static List<Company> companyList = new ArrayList<>();
@@ -67,7 +68,42 @@ public class FoodTabFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                Toast.makeText(getActivity(), Integer.toString(position), Toast.LENGTH_SHORT).show();
+                //아이템 변경 시
+                switch(position)
+                {
+                    case 0:
+                        cur_subsubclass = "전체";
+                        break;
+                    case 1:
+                        cur_subsubclass = "치킨";
+                        break;
+                    case 2:
+                        cur_subsubclass = "피자";
+                        break;
+                    case 3:
+                        cur_subsubclass="족발";
+                        break;
+                    case 4:
+                        cur_subsubclass = "일식";
+                        break;
+                    case 5:
+                        cur_subsubclass = "중식";
+                        break;
+                    case 6:
+                        cur_subsubclass = "한식";
+                        break;
+                    case 7:
+                        cur_subsubclass = "버거";
+                        break;
+                    case 8:
+                        cur_subsubclass = "분식";
+                        break;
+                    case 9:
+                        cur_subsubclass = "기타";
+                        break;
+                }
+                companyList.clear();
+                loadData();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -86,7 +122,7 @@ public class FoodTabFragment extends Fragment {
         if(companyList.isEmpty()) {
             mArrayList = new ArrayList<>();
             GetData task = new GetData();
-            task.execute("http://18.220.157.131/loadAllData.php", "음식");
+            task.execute("http://18.220.157.131/loadAllData.php", "음식", cur_subsubclass);
         }else
         {
             adapter.setCompanyList(companyList);
@@ -116,10 +152,10 @@ public class FoodTabFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-
             String serverURL = params[0];
             String m_class = params[1];
-            String postParameters = "class="+m_class;
+            String m_subClass = params[2];
+            String postParameters = "class="+m_class + "&subClass="+m_subClass;
             try {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -188,7 +224,7 @@ public class FoodTabFragment extends Fragment {
                 mArrayList.add(hashMap);
             }
             HashMap<String,String> takeMap;
-            for(int i=0; i<100;i++) {
+            for(int i=0; i<mArrayList.size();i++) {
                 takeMap = mArrayList.get(i);
                 Company company = new Company(takeMap.get(TAG_NAME), takeMap.get(TAG_NUMBER), takeMap.get(TAG_ADDRESS),
                         takeMap.get(TAG_LATITUDE), takeMap.get(TAG_LONGITUDE), takeMap.get(TAG_SUBCLASS));
