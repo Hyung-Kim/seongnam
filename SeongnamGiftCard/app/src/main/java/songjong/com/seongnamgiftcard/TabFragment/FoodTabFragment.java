@@ -228,7 +228,6 @@ public class FoodTabFragment extends Fragment {
                 takeMap = mArrayList.get(i);
                 Company company = new Company(takeMap.get(TAG_NAME), takeMap.get(TAG_NUMBER), takeMap.get(TAG_ADDRESS),
                         takeMap.get(TAG_LATITUDE), takeMap.get(TAG_LONGITUDE), takeMap.get(TAG_SUBCLASS));
-                //이 부분에서 takeMap.get(TAG_SUBCLASS)로 가져와서 사용하면 됨
                 companyList.add(company);
             }
             adapter.setCompanyList(companyList);

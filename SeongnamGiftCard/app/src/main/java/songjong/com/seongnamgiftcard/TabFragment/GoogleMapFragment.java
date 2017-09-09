@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -45,6 +46,7 @@ import com.google.maps.android.clustering.ClusterManager;
 
 import songjong.com.seongnamgiftcard.Activity.MainActivity;
 import songjong.com.seongnamgiftcard.FieldClass.Company;
+import songjong.com.seongnamgiftcard.FieldClass.CustomClusterRenderer;
 import songjong.com.seongnamgiftcard.FieldClass.House;
 import songjong.com.seongnamgiftcard.R;
 
@@ -77,7 +79,7 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
 
     private static int searchCnt=0;
     private static View layout;
-
+    private ClusterManager<House> mClusterManager;
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
         Log.i(TAG, "CurrentLocation");
 
@@ -94,7 +96,7 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
             currentMarker = this.googleMap.addMarker(markerOptions);
             this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-            ClusterManager<House> mClusterManager = new ClusterManager<House>(getActivity(), googleMap);
+            mClusterManager = new ClusterManager<House>(getActivity(), googleMap);
             googleMap.setOnCameraIdleListener(mClusterManager);
             googleMap.setOnMarkerClickListener(mClusterManager);
             Company temp;
@@ -104,8 +106,18 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
                 House offsetItem = new House(temp.getCompanyLatitude(), temp.getCompanyLongitude());
                 mClusterManager.addItem(offsetItem);
             }
+            final CustomClusterRenderer renderer = new CustomClusterRenderer(getActivity(), googleMap, mClusterManager);
+            mClusterManager.setRenderer(renderer);
+            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 
-
+                public boolean onMarkerClick(Marker marker) {
+                    String text = "[마커 클릭 이벤트] latitude ="
+                            + marker.getTitle() + ", longitude ="
+                            + marker.getPosition().longitude;
+                    Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+                    return false;
+                }
+            });
             return;
         }
         Log.d(TAG,"location==null");
@@ -217,10 +229,8 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
     public void onResume() {
         super.onResume();
         mapView.onResume();
-
         if ( googleApiClient != null)
             googleApiClient.connect();
-
     }
 
     @Override
@@ -313,8 +323,6 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
 
             googleMap.setMyLocationEnabled(true);
         }
-
-
     }
 
     private void buildGoogleApiClient() {
