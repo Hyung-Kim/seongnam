@@ -32,7 +32,7 @@ public class NoticeFragment extends Fragment {
     }
 
     private static class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.ViewHolder> {
-        private static final int UNSELECTED = -1;
+        private final int UNSELECTED = -1;
         private static int noticeCnt=5;
         private RecyclerView recyclerView;
         private int selectedItem = UNSELECTED;

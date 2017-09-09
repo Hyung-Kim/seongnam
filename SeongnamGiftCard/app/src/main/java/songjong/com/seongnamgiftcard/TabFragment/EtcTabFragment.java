@@ -41,7 +41,7 @@ public class EtcTabFragment extends Fragment {
     }
 
     private void loadData(){
-        Company company = new Company("Joy Company FM", "031-000-0000", "경기도 성남시", "123","123",null);
+        Company company = new Company("Joy Company FM", "031-000-0000", "경기도 성남시", "123","123","123","123");
         List<Company> companyList = new ArrayList<>();
         for (int i = 0 ; i < 20 ; i++)
             companyList.add(company);

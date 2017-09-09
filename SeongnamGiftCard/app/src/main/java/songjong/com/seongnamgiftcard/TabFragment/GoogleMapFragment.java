@@ -79,6 +79,7 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
 
     private static int searchCnt=0;
     private static View layout;
+    public static Location curLocation;
     private ClusterManager<House> mClusterManager;
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
         Log.i(TAG, "CurrentLocation");
@@ -87,6 +88,7 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
 
         if (location != null) {
             //현재 위치
+            curLocation = location;
             LatLng currentLocation = new LatLng( location.getLatitude(), location.getLongitude());
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(currentLocation);
@@ -109,7 +111,6 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
             final CustomClusterRenderer renderer = new CustomClusterRenderer(getActivity(), googleMap, mClusterManager);
             mClusterManager.setRenderer(renderer);
             googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-
                 public boolean onMarkerClick(Marker marker) {
                     String text = "[마커 클릭 이벤트] latitude ="
                             + marker.getTitle() + ", longitude ="

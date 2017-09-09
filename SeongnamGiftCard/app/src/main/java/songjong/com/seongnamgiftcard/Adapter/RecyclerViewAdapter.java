@@ -77,7 +77,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         if(company.getCompanyNumber()!=""){
-            holder.textViewCompanyNumber.setText(company.getCompanyNumber());
+            holder.textViewCompanyNumber.setText(company.getCompanyNumber() + "  ("+company.getCompanyDistance()+")");
         }
         else{
             holder.textViewCompanyNumber.setText("");

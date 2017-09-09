@@ -15,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +33,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import songjong.com.seongnamgiftcard.Activity.MainActivity;
 import songjong.com.seongnamgiftcard.Adapter.RecyclerViewAdapter;
 import songjong.com.seongnamgiftcard.FieldClass.Company;
 import songjong.com.seongnamgiftcard.R;
@@ -49,6 +52,7 @@ public class FoodTabFragment extends Fragment {
     private static final String TAG_SUBCLASS = "company_subsubclass";
     private static final String TAG_LATITUDE = "company_latitude";
     private static final String TAG_LONGITUDE = "company_longitude";
+    private static final String TAG_DISTANCE = "company_distance";
     private static final String TAG_MENU = "company_menu";
     private static String cur_subsubclass = "전체";
     private ArrayList<HashMap<String, String>> mArrayList;
@@ -122,7 +126,7 @@ public class FoodTabFragment extends Fragment {
         if(companyList.isEmpty()) {
             mArrayList = new ArrayList<>();
             GetData task = new GetData();
-            task.execute("http://18.220.157.131/loadAllData.php", "음식", cur_subsubclass);
+            task.execute("http://18.220.157.131/loadAllData2.php", "음식", cur_subsubclass);
         }else
         {
             adapter.setCompanyList(companyList);
@@ -155,7 +159,9 @@ public class FoodTabFragment extends Fragment {
             String serverURL = params[0];
             String m_class = params[1];
             String m_subClass = params[2];
-            String postParameters = "class="+m_class + "&subClass="+m_subClass;
+            String latitude = String.valueOf(MainActivity.latitude);
+            String longitude = String.valueOf(MainActivity.longitude);
+            String postParameters = "class="+m_class + "&subClass="+m_subClass + "&latitude="+latitude+"+&longitude="+longitude;
             try {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -209,7 +215,7 @@ public class FoodTabFragment extends Fragment {
                 String number = item.getString(TAG_NUMBER);
                 String latitude = item.getString(TAG_LATITUDE);
                 String longitude = item.getString(TAG_LONGITUDE);
-
+                String distance = item.getString(TAG_DISTANCE);
                 if(number=="null"){
                     number="";
                 }
@@ -221,13 +227,14 @@ public class FoodTabFragment extends Fragment {
                 hashMap.put(TAG_SUBCLASS, subclass);
                 hashMap.put(TAG_LATITUDE, latitude);
                 hashMap.put(TAG_LONGITUDE, longitude);
+                hashMap.put(TAG_DISTANCE, distance);
                 mArrayList.add(hashMap);
             }
             HashMap<String,String> takeMap;
             for(int i=0; i<mArrayList.size();i++) {
                 takeMap = mArrayList.get(i);
                 Company company = new Company(takeMap.get(TAG_NAME), takeMap.get(TAG_NUMBER), takeMap.get(TAG_ADDRESS),
-                        takeMap.get(TAG_LATITUDE), takeMap.get(TAG_LONGITUDE), takeMap.get(TAG_SUBCLASS));
+                        takeMap.get(TAG_LATITUDE), takeMap.get(TAG_LONGITUDE), takeMap.get(TAG_SUBCLASS), takeMap.get(TAG_DISTANCE));
                 companyList.add(company);
             }
             adapter.setCompanyList(companyList);

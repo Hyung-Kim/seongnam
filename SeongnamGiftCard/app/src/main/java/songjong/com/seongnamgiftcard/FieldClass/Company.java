@@ -11,15 +11,17 @@ public class Company {
     private String companyAddress;
     private double companyLatitude;
     private double companyLongitude;
+    private double companyDistance;
     private String companySubGroup;
     public Company(String companyName, String companyNumber, String companyAddress,String companyLatitude,
-                   String companyLongitude, String companySubGroup) {
+                   String companyLongitude, String companySubGroup, String companyDistance) {
         this.companyName = companyName;
         this.companyNumber = companyNumber;
         this.companyAddress = companyAddress;
         this.companyLatitude = Double.parseDouble(companyLatitude);
         this.companyLongitude = Double.parseDouble(companyLongitude);
         this.companySubGroup = companySubGroup;
+        this.companyDistance = Double.parseDouble(companyDistance);
     }
 
     public String getCompanyName() {
@@ -49,4 +51,7 @@ public class Company {
 
     public String getCompanySubGroup() {return companySubGroup;}
     public void setCompanySubGroup(String companySubGroup) {this.companySubGroup = companySubGroup; }
+
+    public double getCompanyDistance() {return companyDistance;}
+    public void setCompanyDistance(String companyDistance){this.companyDistance = Double.parseDouble(companyDistance);}
 }

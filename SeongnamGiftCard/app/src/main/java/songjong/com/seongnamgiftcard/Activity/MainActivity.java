@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String TAG = "MainActivity";
     private LocationManager locationManager;
     private String provider;
-    private Double latitude=0.0;
-    private Double longitude=0.0;
+    public static Double latitude=0.0;
+    public static Double longitude=0.0;
     public static int fragmentFlagArr[]={0,0,0,0};
     public static int addressFlag=0;
     private static int currentTab;
