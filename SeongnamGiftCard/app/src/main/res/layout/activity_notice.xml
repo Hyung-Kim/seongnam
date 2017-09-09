@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
-            android:id="@+id/developerAppBarLayout"
+            android:id="@+id/noticeAppBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
@@ -34,6 +34,12 @@
                     android:textSize="15sp" />
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/noticeFragmentId"
+            android:name="songjong.com.seongnamgiftcard.NoticeFragment.NoticeFragment"
+            android:layout_below="@+id/noticeAppBarLayout"/>
 
 
     </RelativeLayout>

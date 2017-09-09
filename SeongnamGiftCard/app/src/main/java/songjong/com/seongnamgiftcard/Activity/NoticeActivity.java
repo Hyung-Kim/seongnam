@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import songjong.com.seongnamgiftcard.NoticeFragment.NoticeFragment;
 import songjong.com.seongnamgiftcard.R;
 
 /**
@@ -16,7 +17,7 @@ public class NoticeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice);
-
+        NoticeFragment nf = new NoticeFragment();
         //툴바 초기화
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_notice);
         setSupportActionBar(toolbar);
