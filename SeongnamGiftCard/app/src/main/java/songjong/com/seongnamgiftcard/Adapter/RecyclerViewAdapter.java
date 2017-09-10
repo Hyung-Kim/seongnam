@@ -84,7 +84,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         holder.textViewCompanyAddress.setText(company.getCompanyAddress());
-        holder.textViewCompanyDistance.setText("("+company.getCompanyDistance()+")");
+        Double prevCompanyDistance = company.getCompanyDistance();
+        prevCompanyDistance*=1000;
+        int curCompanyDistance = prevCompanyDistance.intValue();
+        holder.textViewCompanyDistance.setText("("+curCompanyDistance+"m)");
         holder.cvItem.setOnClickListener(new View.OnClickListener()
         {
             Intent intent;
