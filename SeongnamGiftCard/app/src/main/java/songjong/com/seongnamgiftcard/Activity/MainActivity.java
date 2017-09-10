@@ -24,6 +24,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -54,10 +55,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int addressFlag=0;
     private static int currentTab;
     public static String appAddress="현재 위치 확인 중";
+    private LocationManager manager;
+    private GPSListener gpsListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //앱 자체의 위치 권한 설정 코드
+        if (Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    0);
+        }
+
+        startLocationService();
+
+
 
         //안드로이드 위치 서비스 설정
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -67,13 +81,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         provider = locationManager.getBestProvider(new Criteria(), true);    // 최고의 GPS 찾기
 
-        //앱 자체의 위치 권한 설정 코드
-        if (Build.VERSION.SDK_INT >= 23 &&
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    0);
-        }
-        startLocationService();
 
         //Toolbar 초기화 부분
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -188,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } else if (view == fabCurrentPosition) {
                     fragmentFlagArr[currentTab] = 0;
                     addressFlag =0;
+                    startLocationService();
                     pagerAdapter.notifyDataSetChanged();
                 }
                 fam.close(true);
@@ -237,9 +245,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void startLocationService() {
         // get manager instance
-        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         // set listener
-        GPSListener gpsListener = new GPSListener();
+        gpsListener = new GPSListener();
         long minTime = 10000;
         float minDistance = 0;
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -254,6 +262,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, gpsListener);
         manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime, minDistance, gpsListener);
+
     }
     public void updateCurrentPlaceText(String text){
         TextView textView = (TextView)findViewById(R.id.actionbar_title_main);
@@ -266,10 +275,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //capture location data sent by current provider
             latitude = location.getLatitude();
             longitude = location.getLongitude();
-
-            if(addressFlag == 0){
-                getAddress(latitude,longitude);
+            if(addressFlag == 0) {
+                Log.d(TAG, "gps set text");
+                getAddress(latitude, longitude);
                 updateCurrentPlaceText(appAddress);
+                Log.d(TAG,"remove GpsListener");
+                manager.removeUpdates(gpsListener);
             }
         }
         public void onProviderDisabled(String provider) {}

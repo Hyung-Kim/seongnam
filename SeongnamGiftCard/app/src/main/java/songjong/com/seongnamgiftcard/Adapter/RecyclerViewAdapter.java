@@ -49,8 +49,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @Bind(R.id.company_address)
         TextView textViewCompanyAddress;
 
-//        @Bind(R.id.imageview_company_logo)
-//        ImageView imageViewCompanyLogo;
+        @Bind(R.id.company_distance)
+        TextView textViewCompanyDistance;
 
         public CompanyViewHolder(View itemView) {
             super(itemView);
@@ -77,13 +77,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         if(company.getCompanyNumber()!=""){
-            holder.textViewCompanyNumber.setText(company.getCompanyNumber() + "  ("+company.getCompanyDistance()+")");
+            holder.textViewCompanyNumber.setText(company.getCompanyNumber());
         }
         else{
             holder.textViewCompanyNumber.setText("");
         }
 
         holder.textViewCompanyAddress.setText(company.getCompanyAddress());
+        holder.textViewCompanyDistance.setText("("+company.getCompanyDistance()+")");
         holder.cvItem.setOnClickListener(new View.OnClickListener()
         {
             Intent intent;
