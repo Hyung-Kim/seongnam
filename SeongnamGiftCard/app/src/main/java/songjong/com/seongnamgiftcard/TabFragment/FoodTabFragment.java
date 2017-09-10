@@ -122,8 +122,8 @@ public class FoodTabFragment extends Fragment {
 
         return view;
     }
-    private void loadData(){
-        if(companyList.isEmpty()) {
+    public void loadData(){
+        if(companyList.isEmpty() && MainActivity.latitude != 0) {
             mArrayList = new ArrayList<>();
             GetData task = new GetData();
             task.execute("http://18.220.157.131/loadAllData2.php", "음식", cur_subsubclass);

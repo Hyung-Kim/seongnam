@@ -281,6 +281,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 updateCurrentPlaceText(appAddress);
                 Log.d(TAG,"remove GpsListener");
                 manager.removeUpdates(gpsListener);
+                if(TabPagerAdapter.foodTabFragment.companyList.isEmpty())
+                    TabPagerAdapter.foodTabFragment.loadData();
             }
         }
         public void onProviderDisabled(String provider) {}

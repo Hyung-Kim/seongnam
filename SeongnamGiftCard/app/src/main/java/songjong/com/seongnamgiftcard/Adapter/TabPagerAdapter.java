@@ -16,6 +16,11 @@ import songjong.com.seongnamgiftcard.TabFragment.ServiceTabFragment;
  */
 public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
+    //fragment
+    public static FoodTabFragment foodTabFragment = null;
+    public static ServiceTabFragment serviceTabFragment = null;
+    public static SaleTabFragment saleTabFragment = null;
+    public static EtcTabFragment etcTabFragment = null;
     private int tabCount;
     public static int cur_position = 0;
     public TabPagerAdapter(FragmentManager fm, int tabCount) {
@@ -29,7 +34,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 cur_position = 0;
                 if(MainActivity.fragmentFlagArr[position]==0){
-                    FoodTabFragment foodTabFragment = new FoodTabFragment();
+                    foodTabFragment = new FoodTabFragment();
                     return foodTabFragment;
                 }
                 else if(MainActivity.fragmentFlagArr[position]==1){
@@ -39,7 +44,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 cur_position = 1;
                 if(MainActivity.fragmentFlagArr[position]==0) {
-                    ServiceTabFragment serviceTabFragment = new ServiceTabFragment();
+                    serviceTabFragment = new ServiceTabFragment();
                     return serviceTabFragment;
                 }
                 else if(MainActivity.fragmentFlagArr[position]==1){
@@ -49,7 +54,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
             case 2:
                 cur_position = 2;
                 if(MainActivity.fragmentFlagArr[position]==0) {
-                    SaleTabFragment saleTabFragment = new SaleTabFragment();
+                    saleTabFragment = new SaleTabFragment();
                     return saleTabFragment;
                 }
                 else if(MainActivity.fragmentFlagArr[position]==1) {
@@ -59,7 +64,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
             case 3:
                 cur_position = 3;
                 if(MainActivity.fragmentFlagArr[position]==0) {
-                    EtcTabFragment etcTabFragment = new EtcTabFragment();
+                    etcTabFragment = new EtcTabFragment();
                     return etcTabFragment;
                 }
                 else if(MainActivity.fragmentFlagArr[position]==1) {
