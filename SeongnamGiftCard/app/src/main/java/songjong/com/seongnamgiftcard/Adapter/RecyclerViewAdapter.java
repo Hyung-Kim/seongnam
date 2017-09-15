@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +95,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             {
                 Log.d(TAG,""+position);
                 curCompanyyPosition = position;
-                Toast.makeText(context, "클릭하셨습니다."+position, Toast.LENGTH_SHORT).show();
                 intent = new Intent(context,CompanyActivity.class);
                 context.startActivity(intent);
             }

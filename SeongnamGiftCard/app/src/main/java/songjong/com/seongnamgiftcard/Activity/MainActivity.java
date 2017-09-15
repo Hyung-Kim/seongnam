@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         NetworkInfo mNetworkState = getNetworkInfo();
         String Networktext = null;
         if(mNetworkState == null || !mNetworkState.isConnected()){
@@ -81,12 +82,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //앱 자체의 위치 권한 설정 코드
         if (Build.VERSION.SDK_INT >= 23 &&
                 ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("TEST","안으로 들어왐 ");
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     0);
         }
-        startLocationService();
 
+        startLocationService();
         uuid = getDeviceUUID(MainActivity.this);
 
         //안드로이드 위치 서비스 설정
@@ -330,10 +330,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             latitude = location.getLatitude();
             longitude = location.getLongitude();
             if(addressFlag == 0) {
-                Log.d(TAG, "gps set text");
                 getAddress(latitude, longitude);
                 updateCurrentPlaceText(appAddress);
-                Log.d(TAG,"remove GpsListener");
                 manager.removeUpdates(gpsListener);
                 if(TabPagerAdapter.foodTabFragment.companyList.isEmpty())
                     TabPagerAdapter.foodTabFragment.loadData();
