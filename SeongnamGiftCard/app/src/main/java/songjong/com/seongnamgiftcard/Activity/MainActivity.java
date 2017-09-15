@@ -3,6 +3,7 @@ package songjong.com.seongnamgiftcard.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -25,6 +26,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,8 +36,10 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import songjong.com.seongnamgiftcard.Adapter.TabPagerAdapter;
 import songjong.com.seongnamgiftcard.R;
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static Double longitude=0.0;
     public static int fragmentFlagArr[]={0,0,0,0};
     public static int addressFlag=0;
+    public static String uuid=null;
     private static int currentTab;
     public static String appAddress="현재 위치 확인 중";
     private LocationManager manager;
@@ -72,8 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         startLocationService();
-
-
+        uuid = getDeviceUUID(MainActivity.this);
 
         //안드로이드 위치 서비스 설정
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -273,6 +277,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void updateCurrentPlaceText(String text){
         TextView textView = (TextView)findViewById(R.id.actionbar_title_main);
         textView.setText(text);
+    }
+
+    public static String getDeviceUUID(final Context context) {
+        // preference에서 저장된 것이 있는지 확인해봄
+        final SharedPreferences prefs = context.getSharedPreferences("UUIDTEST", MODE_PRIVATE);
+        final String id = prefs.getString("UUID", null);
+
+        UUID uuid = null;
+        if (id != null) {
+            uuid = UUID.fromString(id);
+        } else {
+            final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+            try {
+                // 예전에 아래와 같은 고정값이 리턴되는 문제가 있었음
+                if (!"9774d56d682e549c".equals(androidId)) {
+                    uuid = UUID.nameUUIDFromBytes(androidId.getBytes("utf8"));
+                } else {
+                    final String deviceId = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+                    uuid = deviceId != null ? UUID.nameUUIDFromBytes(deviceId.getBytes("utf8")) : UUID.randomUUID();
+                }
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
+
+            final SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("UUID", uuid.toString());
+            editor.commit();
+        }
+
+        return uuid.toString();
     }
 
     private class GPSListener implements LocationListener

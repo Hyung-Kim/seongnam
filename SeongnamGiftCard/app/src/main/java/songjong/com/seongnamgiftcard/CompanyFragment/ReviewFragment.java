@@ -18,12 +18,12 @@ import songjong.com.seongnamgiftcard.FieldClass.Review;
 import songjong.com.seongnamgiftcard.R;
 
 public class ReviewFragment extends Fragment {
-    Button btnAddItem;
-    ListView lvList;
-    ArrayList<Review> myList = new ArrayList<Review>();
-    CompanyReviewAdapter listAdapter;
-    EditText etTitle, etDescription;
-    String title = "", description = "";
+    private Button btnAddItem;
+    private ListView lvList;
+    private ArrayList<Review> myList = new ArrayList<Review>();
+    private CompanyReviewAdapter listAdapter;
+    private EditText etTitle, etDescription;
+    private String title = "", description = "";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,4 +71,6 @@ public class ReviewFragment extends Fragment {
         });
         return v;
     }
+
+
 }
