@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -75,12 +76,10 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
     private String[] LikelyAddresses = null;
     private String[] LikelyAttributions = null;
     private LatLng[] LikelyLatLngs = null;
-    private static  String phoneNumber;
     private static int searchCnt=0;
     private static View layout;
     public static Location curLocation;
     private ClusterManager<House> mClusterManager;
-    private Marker markerCompany;
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
         Log.i(TAG, "CurrentLocation");
 
@@ -107,30 +106,17 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
             {
                 temp = FoodTabFragment.companyList.get(i);
                 House offsetItem = new House(temp.getCompanyLatitude(), temp.getCompanyLongitude());
-                phoneNumber= temp.getCompanyNumber();
-                markerCompany = googleMap.addMarker(new MarkerOptions()
-                        .position(offsetItem.getPosition())
-                        .title(temp.getCompanyName())
-                        .snippet(temp.getCompanyAddress())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-
-                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                    @Override
-                    public boolean onMarkerClick(Marker marker) {
-//                        String tel = "tel:"+phoneNumber;
-//                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
-//                        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        callIntent.setData(Uri.parse(tel));
-//                        getActivity().startActivity(callIntent);
-                        return false;
-                    }
-                });
                 mClusterManager.addItem(offsetItem);
             }
             final CustomClusterRenderer renderer = new CustomClusterRenderer(getActivity(), googleMap, mClusterManager);
             mClusterManager.setRenderer(renderer);
-            
-
+            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                public boolean onMarkerClick(Marker marker) {
+                    String text = "[마커 클릭 이벤트] latitude ="+ marker.getTitle() + ", longitude ="+ marker.getPosition().longitude;
+                    Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+                    return false;
+                }
+            });
             return;
         }
         Log.d(TAG,"location==null");

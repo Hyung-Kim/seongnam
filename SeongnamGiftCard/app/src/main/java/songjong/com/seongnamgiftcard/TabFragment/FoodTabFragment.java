@@ -44,7 +44,7 @@ import songjong.com.seongnamgiftcard.R;
 public class FoodTabFragment extends Fragment {
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
-    private static String TAG = "food_company";
+    private static final String TAG = "food_company";
     private static final String TAG_JSON="company_data";
     private static final String TAG_NUMBER = "company_number";
     private static final String TAG_ADDRESS = "company_address";
@@ -53,7 +53,7 @@ public class FoodTabFragment extends Fragment {
     private static final String TAG_LATITUDE = "company_latitude";
     private static final String TAG_LONGITUDE = "company_longitude";
     private static final String TAG_DISTANCE = "company_distance";
-    private static final String TAG_MENU = "company_menu";
+    private static final String TAG_MENU = "menu_id";
     private static final String[] subsubclass = new String[]{"전체", "치킨", "피자","족발","일식","중식","한식","버거","분식","기타"};
     private static String cur_subsubclass = "전체";
     private ArrayList<HashMap<String, String>> mArrayList;
@@ -128,7 +128,7 @@ public class FoodTabFragment extends Fragment {
         if(companyList.isEmpty() && MainActivity.latitude != 0) {
             mArrayList = new ArrayList<>();
             GetData task = new GetData();
-            task.execute("http://18.220.157.131/loadAllData2.php", "음식", cur_subsubclass);
+            task.execute("http://18.220.157.131/loadAllData3.php", "음식", cur_subsubclass);
         }else
         {
             adapter.setCompanyList(companyList);
@@ -212,31 +212,13 @@ public class FoodTabFragment extends Fragment {
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
             for(int i=0;i<jsonArray.length();i++){
                 JSONObject item = jsonArray.getJSONObject(i);
-                String name = item.getString(TAG_NAME);
-                String address = item.getString(TAG_ADDRESS);
                 String number = item.getString(TAG_NUMBER);
-                String latitude = item.getString(TAG_LATITUDE);
-                String longitude = item.getString(TAG_LONGITUDE);
-                String distance = item.getString(TAG_DISTANCE);
-                if(number=="null"){
+                String menu = item.getString(TAG_MENU);
+                if(number=="null")
                     number="";
-                }
-                String subclass = item.getString(TAG_SUBCLASS);
-                HashMap<String,String> hashMap = new HashMap<>();
-                hashMap.put(TAG_NAME, name);
-                hashMap.put(TAG_ADDRESS, address);
-                hashMap.put(TAG_NUMBER, number);
-                hashMap.put(TAG_SUBCLASS, subclass);
-                hashMap.put(TAG_LATITUDE, latitude);
-                hashMap.put(TAG_LONGITUDE, longitude);
-                hashMap.put(TAG_DISTANCE, distance);
-                mArrayList.add(hashMap);
-            }
-            HashMap<String,String> takeMap;
-            for(int i=0; i<mArrayList.size();i++) {
-                takeMap = mArrayList.get(i);
-                Company company = new Company(takeMap.get(TAG_NAME), takeMap.get(TAG_NUMBER), takeMap.get(TAG_ADDRESS),
-                        takeMap.get(TAG_LATITUDE), takeMap.get(TAG_LONGITUDE), takeMap.get(TAG_SUBCLASS), takeMap.get(TAG_DISTANCE));
+                if(menu=="null")
+                    menu="";
+                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_SUBCLASS), item.getString(TAG_DISTANCE));
                 companyList.add(company);
             }
             adapter.setCompanyList(companyList);
