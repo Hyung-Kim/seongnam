@@ -54,6 +54,7 @@ public class FoodTabFragment extends Fragment {
     private static final String TAG_LONGITUDE = "company_longitude";
     private static final String TAG_DISTANCE = "company_distance";
     private static final String TAG_MENU = "company_menu";
+    private static final String[] subsubclass = new String[]{"전체", "치킨", "피자","족발","일식","중식","한식","버거","분식","기타"};
     private static String cur_subsubclass = "전체";
     private ArrayList<HashMap<String, String>> mArrayList;
     private String mJsonString;
@@ -73,40 +74,41 @@ public class FoodTabFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 //아이템 변경 시
-                switch(position)
-                {
-                    case 0:
-                        cur_subsubclass = "전체";
-                        break;
-                    case 1:
-                        cur_subsubclass = "치킨";
-                        break;
-                    case 2:
-                        cur_subsubclass = "피자";
-                        break;
-                    case 3:
-                        cur_subsubclass="족발";
-                        break;
-                    case 4:
-                        cur_subsubclass = "일식";
-                        break;
-                    case 5:
-                        cur_subsubclass = "중식";
-                        break;
-                    case 6:
-                        cur_subsubclass = "한식";
-                        break;
-                    case 7:
-                        cur_subsubclass = "버거";
-                        break;
-                    case 8:
-                        cur_subsubclass = "분식";
-                        break;
-                    case 9:
-                        cur_subsubclass = "기타";
-                        break;
+                if(cur_subsubclass != subsubclass[position]) {
+                    switch (position) {
+                        case 0:
+                            cur_subsubclass = "전체";
+                            break;
+                        case 1:
+                            cur_subsubclass = "치킨";
+                            break;
+                        case 2:
+                            cur_subsubclass = "피자";
+                            break;
+                        case 3:
+                            cur_subsubclass = "족발";
+                            break;
+                        case 4:
+                            cur_subsubclass = "일식";
+                            break;
+                        case 5:
+                            cur_subsubclass = "중식";
+                            break;
+                        case 6:
+                            cur_subsubclass = "한식";
+                            break;
+                        case 7:
+                            cur_subsubclass = "버거";
+                            break;
+                        case 8:
+                            cur_subsubclass = "분식";
+                            break;
+                        case 9:
+                            cur_subsubclass = "기타";
+                            break;
+                    }
+                    companyList.clear();
                 }
-                companyList.clear();
                 loadData();
             }
             @Override
