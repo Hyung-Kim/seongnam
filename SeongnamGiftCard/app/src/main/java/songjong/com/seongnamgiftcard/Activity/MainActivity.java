@@ -10,8 +10,11 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -28,6 +31,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -61,6 +65,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        NetworkInfo mNetworkState = getNetworkInfo();
+        String Networktext = null;
+        if(mNetworkState == null || !mNetworkState.isConnected()){
+            Networktext ="네트워크가 연결되지 않았습니다.";
+            Toast.makeText(MainActivity.this, Networktext, Toast.LENGTH_LONG).show();
+            finish();
+        }
 
         //앱 자체의 위치 권한 설정 코드
         if (Build.VERSION.SDK_INT >= 23 &&
@@ -68,11 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     0);
         }
-
         startLocationService();
-
-
-
         //안드로이드 위치 서비스 설정
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
@@ -181,7 +188,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+    private NetworkInfo getNetworkInfo(){
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo;
+    }
     private View.OnClickListener onButtonClick() {
         return new View.OnClickListener() {
             @Override
