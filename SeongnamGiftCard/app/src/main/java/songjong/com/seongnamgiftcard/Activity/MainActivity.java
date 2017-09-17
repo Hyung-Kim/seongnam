@@ -333,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getAddress(latitude, longitude);
                 updateCurrentPlaceText(appAddress);
                 manager.removeUpdates(gpsListener);
-                if(!TabPagerAdapter.foodTabFragment.companyList.isEmpty())
+                if(TabPagerAdapter.foodTabFragment.companyList.isEmpty() && TabPagerAdapter.foodTabFragment != null)
                     TabPagerAdapter.foodTabFragment.loadData();
             }
         }
