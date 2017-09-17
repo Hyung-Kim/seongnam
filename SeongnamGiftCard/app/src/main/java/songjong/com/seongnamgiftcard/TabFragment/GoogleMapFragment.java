@@ -105,15 +105,13 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
             for(int i=0; i<FoodTabFragment.companyList.size();i++)
             {
                 temp = FoodTabFragment.companyList.get(i);
-                House offsetItem = new House(temp.getCompanyLatitude(), temp.getCompanyLongitude());
+                House offsetItem = new House(temp.getCompanyLatitude(), temp.getCompanyLongitude(), temp.getCompanyName(), temp.getCompanyAddress(), temp.getCompanyNumber());
                 mClusterManager.addItem(offsetItem);
             }
             final CustomClusterRenderer renderer = new CustomClusterRenderer(getActivity(), googleMap, mClusterManager);
             mClusterManager.setRenderer(renderer);
             googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 public boolean onMarkerClick(Marker marker) {
-                    String text = "[마커 클릭 이벤트] latitude ="+ marker.getTitle() + ", longitude ="+ marker.getPosition().longitude;
-                    Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
                     return false;
                 }
             });

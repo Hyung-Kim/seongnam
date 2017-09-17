@@ -76,12 +76,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.textViewCompanyName.setText(company.getCompanyName());
         }
 
-        if(company.getCompanyNumber()!=""){
+        //if(company.getCompanyNumber()!=""){
             holder.textViewCompanyNumber.setText(company.getCompanyNumber());
-        }
-        else{
-            holder.textViewCompanyNumber.setText("");
-        }
+        //}
+        //else{
+            //holder.textViewCompanyNumber.setText("");
+        //}
 
         holder.textViewCompanyAddress.setText(company.getCompanyAddress());
         Double prevCompanyDistance = company.getCompanyDistance();
@@ -96,7 +96,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             {
                 Log.d(TAG,""+position);
                 curCompanyyPosition = position;
-                Toast.makeText(context, "클릭하셨습니다."+position, Toast.LENGTH_SHORT).show();
                 intent = new Intent(context,CompanyActivity.class);
                 context.startActivity(intent);
             }

@@ -25,6 +25,9 @@ public class CustomClusterRenderer extends DefaultClusterRenderer<House> {
     @Override
     protected void onBeforeClusterItemRendered(House item, MarkerOptions markerOptions) {
         final BitmapDescriptor markerDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE);
-        markerOptions.icon(markerDescriptor).snippet("taehyung dongwook");
+        markerOptions.icon(markerDescriptor);
+        markerOptions.snippet(item.getSnippet());
+        markerOptions.position(item.getPosition());
+        markerOptions.title(item.getTitle());
     }
 }

@@ -128,7 +128,7 @@ public class FoodTabFragment extends Fragment {
         if(companyList.isEmpty() && MainActivity.latitude != 0) {
             mArrayList = new ArrayList<>();
             GetData task = new GetData();
-            task.execute("http://18.220.157.131/loadAllData3.php", "음식", cur_subsubclass);
+            task.execute("http://13.124.195.13/loadAllData3.php", "음식", cur_subsubclass);
         }else
         {
             adapter.setCompanyList(companyList);
