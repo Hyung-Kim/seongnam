@@ -3,6 +3,7 @@ package songjong.com.seongnamgiftcard.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -14,8 +15,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -27,6 +28,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,8 +39,10 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import songjong.com.seongnamgiftcard.Adapter.TabPagerAdapter;
 import songjong.com.seongnamgiftcard.R;
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static Double longitude=0.0;
     public static int fragmentFlagArr[]={0,0,0,0};
     public static int addressFlag=0;
+    public static String uuid=null;
     private static int currentTab;
     public static String appAddress="현재 위치 확인 중";
     private LocationManager manager;
@@ -65,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         NetworkInfo mNetworkState = getNetworkInfo();
         String Networktext = null;
         if(mNetworkState == null || !mNetworkState.isConnected()){
@@ -79,7 +85,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     0);
         }
+
         startLocationService();
+        uuid = getDeviceUUID(MainActivity.this);
+
         //안드로이드 위치 서비스 설정
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
@@ -121,12 +130,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
-
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
         fabMap = (FloatingActionButton) findViewById(R.id.fabMapId);
@@ -262,22 +268,59 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         long minTime = 10000;
         float minDistance = 0;
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
         manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, gpsListener);
         manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime, minDistance, gpsListener);
 
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (Build.VERSION.SDK_INT >= 23) {
+            if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
+                if(grantResults[0]==0){
+                    startLocationService();
+                }
+            }
+        }
+    }
+
     public void updateCurrentPlaceText(String text){
         TextView textView = (TextView)findViewById(R.id.actionbar_title_main);
         textView.setText(text);
+    }
+
+    public static String getDeviceUUID(final Context context) {
+        // preference에서 저장된 것이 있는지 확인해봄
+        final SharedPreferences prefs = context.getSharedPreferences("UUIDTEST", MODE_PRIVATE);
+        final String id = prefs.getString("UUID", null);
+
+        UUID uuid = null;
+        if (id != null) {
+            uuid = UUID.fromString(id);
+        } else {
+            final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+            try {
+                // 예전에 아래와 같은 고정값이 리턴되는 문제가 있었음
+                if (!"9774d56d682e549c".equals(androidId)) {
+                    uuid = UUID.nameUUIDFromBytes(androidId.getBytes("utf8"));
+                } else {
+                    final String deviceId = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+                    uuid = deviceId != null ? UUID.nameUUIDFromBytes(deviceId.getBytes("utf8")) : UUID.randomUUID();
+                }
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
+
+            final SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("UUID", uuid.toString());
+            editor.commit();
+        }
+
+        return uuid.toString();
     }
 
     private class GPSListener implements LocationListener
@@ -287,10 +330,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             latitude = location.getLatitude();
             longitude = location.getLongitude();
             if(addressFlag == 0) {
-                Log.d(TAG, "gps set text");
                 getAddress(latitude, longitude);
                 updateCurrentPlaceText(appAddress);
-                Log.d(TAG,"remove GpsListener");
                 manager.removeUpdates(gpsListener);
                 if(!TabPagerAdapter.foodTabFragment.companyList.isEmpty())
                     TabPagerAdapter.foodTabFragment.loadData();
