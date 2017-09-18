@@ -42,7 +42,7 @@ public class CompanyReviewAdapter extends BaseAdapter {
     }
     public class ListViewHolder extends LinearLayout {
         Context mContext;
-        Review mLog;
+        Review mReview;
 
         public ListViewHolder(Context context) {
             super(context);
@@ -61,12 +61,10 @@ public class CompanyReviewAdapter extends BaseAdapter {
             inflater.inflate(R.layout.list_item_review, this);
         }
 
-        public void setLog(Review log) {
-            mLog = log;
-            TextView tvTitle = (TextView) findViewById(R.id.txtTitle);
-            tvTitle.setText(mLog.getTitle() + "");
-            TextView tvDescription = (TextView) findViewById(R.id.txtDescription);
-            tvDescription.setText(mLog.getDescription() + "");
+        public void setReview(Review review) {
+            mReview = review;
+            TextView tvDescription = (TextView) findViewById(R.id.txtContents);
+            tvDescription.setText(mReview.getContents() + "");
         }
     }
     @Override
@@ -75,8 +73,8 @@ public class CompanyReviewAdapter extends BaseAdapter {
         if (view == null) {
             view = new CompanyReviewAdapter.ListViewHolder(context);
         }
-        Review log = getItem(position);
-        view.setLog(log);
+        Review reveiw = getItem(position);
+        view.setReview(reveiw);
         return view;
     }
 }

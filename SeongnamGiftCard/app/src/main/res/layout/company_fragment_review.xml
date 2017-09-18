@@ -12,20 +12,11 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/etTitle"
-            android:maxLength="30"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:hint="제목(최소 4글자, 최대 30글자)" />
-
-        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="100"
             android:hint="내용(최소 10글자, 최대 100글자)"
-            android:id="@+id/etDescription"
-            android:layout_below="@+id/etTitle"/>
+            android:id="@+id/etContents" />
 
         <Button
             android:id="@+id/btnAddItem"
@@ -34,7 +25,7 @@
             android:background="@color/color_seongnam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etDescription"/>
+            android:layout_below="@+id/etContents"/>
 
         <ListView
             android:layout_width="match_parent"

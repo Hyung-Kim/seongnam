@@ -5,22 +5,12 @@ package songjong.com.seongnamgiftcard.FieldClass;
  */
 
 public class Review {
-    String title;
-    String Description;
-
-    public String getTitle() {
-        return title;
+    private String contents;
+    public String getContents() {
+        return contents;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String description) {
-        Description = description;
+    public void setContents(String contents) {
+        this.contents = contents;
     }
 }
