@@ -54,16 +54,17 @@ public class FoodTabFragment extends Fragment {
     private static final String TAG_LONGITUDE = "company_longitude";
     private static final String TAG_DISTANCE = "company_distance";
     private static final String TAG_MENU = "menu_id";
+    private static final String TAG_ID = "company_id";
     private static final String[] subsubclass = new String[]{"전체", "치킨", "피자","족발","일식","중식","한식","버거","분식","기타"};
     private static String cur_subsubclass = "전체";
     private ArrayList<HashMap<String, String>> mArrayList;
     private String mJsonString;
     public static List<Company> companyList = new ArrayList<>();
-
     private RecyclerViewAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab_fragment_food, container, false);
+
         ButterKnife.bind(getActivity());
 
         Spinner spinner = (Spinner) view.findViewById(R.id.food_spinner_id);
@@ -218,7 +219,7 @@ public class FoodTabFragment extends Fragment {
                     number="";
                 if(menu=="null")
                     menu="";
-                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_SUBCLASS), item.getString(TAG_DISTANCE));
+                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_SUBCLASS), item.getString(TAG_DISTANCE),item.getString(TAG_ID));
                 companyList.add(company);
             }
             adapter.setCompanyList(companyList);

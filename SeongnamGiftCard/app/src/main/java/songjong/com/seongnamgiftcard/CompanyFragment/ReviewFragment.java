@@ -29,14 +29,18 @@ import java.util.UUID;
 
 import songjong.com.seongnamgiftcard.Activity.MainActivity;
 import songjong.com.seongnamgiftcard.Adapter.CompanyReviewAdapter;
+import songjong.com.seongnamgiftcard.Adapter.RecyclerViewAdapter;
 import songjong.com.seongnamgiftcard.FieldClass.Review;
 import songjong.com.seongnamgiftcard.R;
+import songjong.com.seongnamgiftcard.TabFragment.FoodTabFragment;
 
 public class ReviewFragment extends Fragment {
     private static final String TAG = "ReviewFragment";
-    private static final String TAG_JSON="reviewResult";
-    private static final String TAG_SUCCESS ="isSuccess";
-    private static boolean success = false;
+    private static final String TAG_JSON = "reviewResult";
+    private static final String TAG_SUCCESS = "isSuccess";
+    private static final String TAG_CONTENTS = "review_contents";
+    private static final String TAG_DATE = "review_date";
+    private static int reviewLoadOrInsert = 1;
     private Button btnAddReview;
     private ListView lvReview;
     private ArrayList<Review> dataReviewList = new ArrayList<Review>();
@@ -53,66 +57,74 @@ public class ReviewFragment extends Fragment {
 
         lvReview = (ListView) v.findViewById(R.id.lvList);
         companyReviewAdapter = new CompanyReviewAdapter(getActivity(), dataReviewList);
-
         lvReview.setAdapter(companyReviewAdapter);
         etContents = (EditText) v.findViewById(R.id.etContents);
         btnAddReview = (Button) v.findViewById(R.id.btnAddItem);
+        loadReview();
 
         btnAddReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 contents = etContents.getText().toString();
-                if(contents.length() < 10)
-                    Toast.makeText(getActivity(),  "내용은 최소 10글자 이상 입력하셔야 합니다.", Toast.LENGTH_SHORT).show();
+                if (contents.length() < 10)
+                    Toast.makeText(getActivity(), "내용은 최소 10글자 이상 입력하셔야 합니다.", Toast.LENGTH_SHORT).show();
                 else {
-                    //reveiw 추가 부분
                     Review review = new Review();
                     review.setContents(contents);
                     insertReview(review.getContents(), MainActivity.uuid);
-                    if(success){
-                        Toast.makeText(getActivity(),  "댓글 추가 성공", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getActivity(),  "댓글은 1시간 간격으로 작성할 수 있습니다.", Toast.LENGTH_SHORT).show();
-                    }
                     etContents.setText(null);
-                    companyReviewAdapter.notifyDataSetChanged();
                 }
             }
         });
         return v;
     }
-    public void insertReview(String contents, String deviceUUID) {
-            GetData task = new GetData();
-            task.execute("http://13.124.195.13/insertReview.php",contents, deviceUUID);
+    public void loadReview() {
+        GetData task = new GetData();
+        task.execute("http://13.124.195.13/loadReview.php", "1");
     }
+    public void insertReview(String contents, String deviceUUID) {
+        GetData task = new GetData();
+        task.execute("http://13.124.195.13/insertReview.php","2", contents, deviceUUID);
+    }
+
     private class GetData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = ProgressDialog.show(getActivity(), "리뷰 삽입 중입니다. 잠시만 기다려주세요", null, true, true);
 
         }
+
         @Override
         protected void onPostExecute(String result) {
-            Log.d(TAG,"onPostExecute - " + result);
+            Log.d(TAG, "onPostExecute - " + result);
             super.onPostExecute(result);
             progressDialog.dismiss();
-            if (result == null){
-                Toast.makeText(getActivity(),"Error onPostExecute() ", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            if (result == null) {
+                Toast.makeText(getActivity(), "Error onPostExecute() ", Toast.LENGTH_SHORT).show();
+            } else {
                 mJsonString = result;
-                success = isSuccess();
+                isSuccess();
             }
         }
 
         @Override
         protected String doInBackground(String... params) {
             String serverURL = params[0];
-            String contents = params[1];
-            String uuid = params[2];
-            String postParameters = "contents="+contents + "&uuid="+uuid ;
+            String postParameters = null;
+            String company_id = String.valueOf(FoodTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition).getCompanyId());
+            if(params[1] =="1") {
+                reviewLoadOrInsert = 1;
+                postParameters = "company_id="+company_id;
+            }
+            else if(params[1] =="2") {
+                reviewLoadOrInsert = 2;
+                String contents = params[2];
+                String uuid = params[3];
+                postParameters = "contents=" + contents + "&uuid=" + uuid + "&company_id=" + company_id;
+            }
             try {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -130,10 +142,9 @@ public class ReviewFragment extends Fragment {
                 int responseStatusCode = httpURLConnection.getResponseCode();
                 Log.d(TAG, "POST response code - " + responseStatusCode);
                 InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
                     inputStream = httpURLConnection.getInputStream();
-                }
-                else{
+                } else {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
@@ -143,33 +154,49 @@ public class ReviewFragment extends Fragment {
 
                 StringBuilder sb = new StringBuilder();
                 String line;
-                while((line = bufferedReader.readLine()) != null){
+                while ((line = bufferedReader.readLine()) != null) {
                     sb.append(line);
                 }
                 bufferedReader.close();
                 return sb.toString().trim();
             } catch (Exception e) {
-                Toast.makeText(getActivity(),"Error doInBackground", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Error doInBackground", Toast.LENGTH_SHORT).show();
                 return null;
             }
 
         }
     }
-    private boolean isSuccess(){
+
+    private void isSuccess() {
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
-            for(int i=0;i<jsonArray.length();i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject item = jsonArray.getJSONObject(i);
-                String success = item.getString(TAG_SUCCESS);
-                if(success =="fail")
-                    return false;
-                else
-                    return true;
+                if(reviewLoadOrInsert ==2) {
+                    String success = item.getString(TAG_SUCCESS);
+                    if (success.equals("fail"))
+                        Toast.makeText(getActivity(), "댓글은 12시간 간격으로 작성할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                    else {
+                        Review temp = new Review();
+                        temp.setContents(contents);
+                        dataReviewList.add(temp);
+                        Toast.makeText(getActivity(), "댓글 추가 성공", Toast.LENGTH_SHORT).show();
+                    }
+                }else if(reviewLoadOrInsert ==1){
+                    //데이터 삽입
+                    String contents = item.getString(TAG_CONTENTS);
+                    String date = item.getString(TAG_DATE);
+                    Review temp = new Review();
+                    temp.setContents(contents);
+                    dataReviewList.add(temp);
+                }
             }
+            companyReviewAdapter.notifyDataSetChanged();  //데이터 갱신
         } catch (JSONException e) {
-            Toast.makeText(getActivity(),"Error showResult", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Error showResult", Toast.LENGTH_SHORT).show();
         }
     }
 }
+
 
