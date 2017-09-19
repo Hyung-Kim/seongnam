@@ -63,8 +63,10 @@ public class CompanyReviewAdapter extends BaseAdapter {
 
         public void setReview(Review review) {
             mReview = review;
-            TextView tvDescription = (TextView) findViewById(R.id.txtContents);
-            tvDescription.setText(mReview.getContents() + "");
+            TextView tvContents = (TextView) findViewById(R.id.txtContents);
+            TextView tvDate = (TextView)findViewById(R.id.txtDate);
+            tvContents.setText(mReview.getContents() + "");
+            tvDate.setText(mReview.getDate()+"");
         }
     }
     @Override

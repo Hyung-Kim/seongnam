@@ -69,8 +69,7 @@ public class ReviewFragment extends Fragment {
                 if (contents.length() < 10)
                     Toast.makeText(getActivity(), "내용은 최소 10글자 이상 입력하셔야 합니다.", Toast.LENGTH_SHORT).show();
                 else {
-                    Review review = new Review();
-                    review.setContents(contents);
+                    Review review = new Review(contents);
                     insertReview(review.getContents(), MainActivity.uuid);
                     etContents.setText(null);
                 }
@@ -116,6 +115,7 @@ public class ReviewFragment extends Fragment {
             String postParameters = null;
             String company_id = String.valueOf(FoodTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition).getCompanyId());
             if(params[1] =="1") {
+                Log.d(TAG,"taehyung"+"loadData");
                 reviewLoadOrInsert = 1;
                 postParameters = "company_id="+company_id;
             }
@@ -173,22 +173,21 @@ public class ReviewFragment extends Fragment {
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject item = jsonArray.getJSONObject(i);
-                if(reviewLoadOrInsert ==2) {
+                if(reviewLoadOrInsert ==2) { //insertReview
                     String success = item.getString(TAG_SUCCESS);
+
                     if (success.equals("fail"))
                         Toast.makeText(getActivity(), "댓글은 12시간 간격으로 작성할 수 있습니다.", Toast.LENGTH_SHORT).show();
                     else {
-                        Review temp = new Review();
-                        temp.setContents(contents);
+                        String date = item.getString(TAG_DATE);
+                        Review temp = new Review(contents, date);
                         dataReviewList.add(temp);
                         Toast.makeText(getActivity(), "댓글 추가 성공", Toast.LENGTH_SHORT).show();
                     }
-                }else if(reviewLoadOrInsert ==1){
-                    //데이터 삽입
+                }else if(reviewLoadOrInsert ==1){ //loadReview
                     String contents = item.getString(TAG_CONTENTS);
                     String date = item.getString(TAG_DATE);
-                    Review temp = new Review();
-                    temp.setContents(contents);
+                    Review temp = new Review(contents, date);
                     dataReviewList.add(temp);
                 }
             }
