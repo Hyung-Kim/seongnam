@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,11 +90,13 @@ public class NoticeFragment extends Fragment {
                 if (holder != null) {
                     holder.expandButton.setSelected(false);
                     holder.expandableLayout.collapse();
+                    Log.d("Notice", "holder != null");
                 }
-
                 if (position == selectedItem) {
                     selectedItem = UNSELECTED;
+                    Log.d("Notice", "position == selecteed");
                 } else {
+                    Log.d("Notice", "position != selecteed");
                     expandButton.setSelected(true);
                     expandableLayout.expand();
                     selectedItem = position;
