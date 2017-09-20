@@ -1,46 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_notice_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="songjong.com.seongnamgiftcard.Activity.DeveloperActivity">
-
-    <RelativeLayout
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_notice"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/noticeAppBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_notice"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/color_seongnam"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
-
-                <TextView
-                    android:id="@+id/actionbar_title_notice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="#fff"
-                    android:textSize="15sp" />
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/noticeFragmentId"
-            android:name="songjong.com.seongnamgiftcard.NoticeFragment.NoticeFragment"
-            android:layout_below="@+id/noticeAppBarLayout"/>
-
-
-    </RelativeLayout>
-</android.support.design.widget.CoordinatorLayout>
+        android:layout_height="60dp"
+        android:textSize="25dip"
+        android:textColor="@color/color_white"
+        android:background="@color/color_seongnam"
+        android:textAlignment="center"
+        android:gravity="center_vertical"
+        android:text="공지사항"
+        android:layout_marginBottom="40dip"
+        />
+    <ExpandableListView
+        android:id="@+id/elv_list"
+        android:layout_below="@+id/tv_notice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>
