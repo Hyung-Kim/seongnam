@@ -3,14 +3,14 @@ package songjong.com.seongnamgiftcard.Adapter;
 /**
  * Created by taehyung on 2017-09-20.
  */
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import songjong.com.seongnamgiftcard.FieldClass.Notice;
 import songjong.com.seongnamgiftcard.R;
@@ -55,6 +55,7 @@ public class NoticeExpandableAdapter extends BaseExpandableListAdapter{
             viewHolder = new ViewHolder();
             v = inflater.inflate(R.layout.notice_recycler_item, parent, false);
             viewHolder.tv_title = (TextView) v.findViewById(R.id.tv_group);
+            viewHolder.tv_date=(TextView)v.findViewById(R.id.tv_group_date);
             v.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder)v.getTag();
@@ -62,14 +63,17 @@ public class NoticeExpandableAdapter extends BaseExpandableListAdapter{
 
         // 그룹을 펼칠때와 닫을때 아이콘을 변경해 준다.
         if(isExpanded){
-            viewHolder.tv_title.setBackgroundColor(v.getResources().getColor(R.color.color_seongnam));
-            viewHolder.tv_title.setTextColor(v.getResources().getColor(R.color.color_white));
+            viewHolder.tv_title.setTextColor(v.getResources().getColor(R.color.color_black));
+            viewHolder.tv_date.setTextColor(v.getResources().getColor(R.color.color_gray_trans));
         }else{
             viewHolder.tv_title.setBackgroundColor(v.getResources().getColor(R.color.color_white));
             viewHolder.tv_title.setTextColor(v.getResources().getColor(R.color.color_black));
+            viewHolder.tv_date.setBackgroundColor(v.getResources().getColor(R.color.color_white));
+            viewHolder.tv_date.setTextColor(v.getResources().getColor(R.color.color_gray_trans));
         }
 
-        viewHolder.tv_title.setText(getGroup(groupPosition));
+        viewHolder.tv_title.setText("[공지]"+" "+getGroup(groupPosition));
+        viewHolder.tv_date.setText(noticeList.get(groupPosition).getDate());
         return v;
     }
 
@@ -104,14 +108,12 @@ public class NoticeExpandableAdapter extends BaseExpandableListAdapter{
             viewHolder = new ViewHolder();
             v = inflater.inflate(R.layout.notice_recycler_item, null);
             viewHolder.tv_contents = (TextView) v.findViewById(R.id.tv_child);
-            viewHolder.tv_date=(TextView)v.findViewById(R.id.tv_childDate);
             v.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder)v.getTag();
         }
 
         viewHolder.tv_contents.setText(getChild(groupPosition, childPosition));
-        viewHolder.tv_date.setText(getChildDate(groupPosition, childPosition));
         return v;
     }
 
