@@ -100,7 +100,7 @@ public class ServiceTabFragment extends Fragment {
             String m_class = params[1];
             String latitude = String.valueOf(MainActivity.latitude);
             String longitude = String.valueOf(MainActivity.longitude);
-            String postParameters = "class="+m_class + "&latitude="+latitude+"+&longitude="+longitude;
+            String postParameters = "class="+m_class + "&latitude="+latitude+"&longitude="+longitude;
             try {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();

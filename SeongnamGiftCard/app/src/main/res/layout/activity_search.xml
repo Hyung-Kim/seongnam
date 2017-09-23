@@ -32,8 +32,16 @@
                     android:layout_gravity="center"
                     android:textColor="#fff"
                     android:textSize="15sp" />
+
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/searchRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/searchAppBarLayout"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
