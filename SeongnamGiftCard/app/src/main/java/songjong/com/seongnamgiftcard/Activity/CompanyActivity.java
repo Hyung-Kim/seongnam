@@ -16,9 +16,14 @@ import android.widget.TextView;
 
 import songjong.com.seongnamgiftcard.Adapter.CompanyPagerAdapter;
 import songjong.com.seongnamgiftcard.Adapter.RecyclerViewAdapter;
+import songjong.com.seongnamgiftcard.Adapter.TabPagerAdapter;
 import songjong.com.seongnamgiftcard.FieldClass.Company;
 import songjong.com.seongnamgiftcard.R;
 import songjong.com.seongnamgiftcard.TabFragment.FoodTabFragment;
+import songjong.com.seongnamgiftcard.TabFragment.SaleTabFragment;
+import songjong.com.seongnamgiftcard.TabFragment.ServiceTabFragment;
+
+import static songjong.com.seongnamgiftcard.Adapter.TabPagerAdapter.etcTabFragment;
 
 
 public class CompanyActivity extends AppCompatActivity{
@@ -57,8 +62,21 @@ public class CompanyActivity extends AppCompatActivity{
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //업체정보 설정
-
-        Company company= FoodTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
+        Company company = null;
+        switch(TabPagerAdapter.cur_position){
+            case 0:
+                company= FoodTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
+                break;
+            case 1:
+                //company= ServiceTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
+                break;
+            case 2:
+                company= SaleTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
+                break;
+            case 3:
+                //company= etcTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
+                break;
+        }
         companyNameTextView.setText(company.getCompanyName());
 
         //viewPager 초기화

@@ -25,6 +25,16 @@ public class Company {
         this.companyDistance = Double.parseDouble(companyDistance);
         this.companyId = Integer.parseInt(companyId);
     }
+    public Company(String companyName, String companyNumber, String companyAddress,String companyLatitude,
+                   String companyLongitude, String companyDistance, String companyId) {
+        this.companyName = companyName;
+        this.companyNumber = companyNumber;
+        this.companyAddress = companyAddress;
+        this.companyLatitude = Double.parseDouble(companyLatitude);
+        this.companyLongitude = Double.parseDouble(companyLongitude);
+        this.companyDistance = Double.parseDouble(companyDistance);
+        this.companyId = Integer.parseInt(companyId);
+    }
     public int getCompanyId(){return companyId;}
     public void setCompanyId(String companyId){this.companyId = Integer.parseInt(companyId); }
 

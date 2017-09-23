@@ -57,7 +57,6 @@ public class FoodTabFragment extends Fragment {
     private static final String TAG_ID = "company_id";
     private static final String[] subsubclass = new String[]{"전체", "치킨", "피자","족발","일식","중식","한식","버거","분식","기타"};
     private static String cur_subsubclass = "전체";
-    private ArrayList<HashMap<String, String>> mArrayList;
     private String mJsonString;
     public static List<Company> companyList = new ArrayList<>();
     private RecyclerViewAdapter adapter;
@@ -127,7 +126,6 @@ public class FoodTabFragment extends Fragment {
     }
     public void loadData(){
         if(companyList.isEmpty() && MainActivity.latitude != 0) {
-            mArrayList = new ArrayList<>();
             GetData task = new GetData();
             task.execute("http://13.124.195.13/loadAllData3.php", "음식", cur_subsubclass);
         }else
@@ -227,5 +225,4 @@ public class FoodTabFragment extends Fragment {
             Toast.makeText(getActivity(),"Error showResult", Toast.LENGTH_SHORT).show();
         }
     }
-
 }
