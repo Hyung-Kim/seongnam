@@ -162,7 +162,7 @@ public class FoodTabFragment extends Fragment {
             String m_subClass = params[2];
             String latitude = String.valueOf(MainActivity.latitude);
             String longitude = String.valueOf(MainActivity.longitude);
-            String postParameters = "class="+m_class + "&subClass="+m_subClass + "&latitude="+latitude+"+&longitude="+longitude;
+            String postParameters = "class="+m_class + "&subClass="+m_subClass + "&latitude="+latitude+"&longitude="+longitude;
             try {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
