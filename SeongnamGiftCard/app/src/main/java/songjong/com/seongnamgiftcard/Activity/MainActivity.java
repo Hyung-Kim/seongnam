@@ -29,9 +29,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private FloatingActionMenu fam;
-    private FloatingActionButton fabMap, fabCurrentPosition;
+    private FloatingActionButton fabMap, fabCurrentPosition, fabSearch;
     private TabPagerAdapter pagerAdapter;
     private String TAG = "MainActivity";
     private LocationManager locationManager;
@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         fabMap = (FloatingActionButton) findViewById(R.id.fabMapId);
         fabCurrentPosition = (FloatingActionButton) findViewById(R.id.fabCurrentPositionId);
+        fabSearch = (FloatingActionButton)findViewById(R.id.fabSearchId);
         fam = (FloatingActionMenu) findViewById(R.id.fab_menu);
 
         fam.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
@@ -152,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         fabMap.setOnClickListener(onButtonClick());
         fabCurrentPosition.setOnClickListener(onButtonClick());
-
+        fabSearch.setOnClickListener(onButtonClick());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -211,9 +212,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 } else if (view == fabCurrentPosition) {
                     fragmentFlagArr[currentTab] = 0;
-                    addressFlag =0;
+                    addressFlag = 0;
                     startLocationService();
                     pagerAdapter.notifyDataSetChanged();
+                } else if(view == fabSearch){
+                    showSearchDialog();
                 }
                 fam.close(true);
             }
@@ -323,6 +326,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return uuid.toString();
     }
 
+    public void  showSearchDialog(){
+        final EditText edittext = new EditText(this);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("업체명 검색");
+        builder.setMessage("검색할 업체명을 입력해주세요");
+        builder.setView(edittext);
+        builder.setPositiveButton("입력",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent=new Intent(MainActivity.this,SearchActivity.class);
+                        intent.putExtra("company",edittext.getText().toString());
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(),edittext.getText().toString() ,Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.setNegativeButton("취소",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.show();
+    }
     private class GPSListener implements LocationListener
     {
         public void onLocationChanged(Location location) {
