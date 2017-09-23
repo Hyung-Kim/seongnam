@@ -2,44 +2,27 @@ package songjong.com.seongnamgiftcard.Activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import songjong.com.seongnamgiftcard.Adapter.CompanyPagerAdapter;
 import songjong.com.seongnamgiftcard.Adapter.RecyclerViewAdapter;
-import songjong.com.seongnamgiftcard.Adapter.TabPagerAdapter;
 import songjong.com.seongnamgiftcard.FieldClass.Company;
 import songjong.com.seongnamgiftcard.R;
+import songjong.com.seongnamgiftcard.TabFragment.EtcTabFragment;
 import songjong.com.seongnamgiftcard.TabFragment.FoodTabFragment;
 import songjong.com.seongnamgiftcard.TabFragment.SaleTabFragment;
 import songjong.com.seongnamgiftcard.TabFragment.ServiceTabFragment;
 
-import static songjong.com.seongnamgiftcard.Adapter.TabPagerAdapter.etcTabFragment;
-
 
 public class CompanyActivity extends AppCompatActivity{
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private CompanyPagerAdapter pagerAdapter;
     private ViewPager mViewPager;
     private TabLayout tabLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,18 +46,18 @@ public class CompanyActivity extends AppCompatActivity{
 
         //업체정보 설정
         Company company = null;
-        switch(TabPagerAdapter.cur_position){
+        switch(MainActivity.currentTab){
             case 0:
                 company= FoodTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
                 break;
             case 1:
-                //company= ServiceTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
+                company= ServiceTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
                 break;
             case 2:
                 company= SaleTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
                 break;
             case 3:
-                //company= etcTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
+                company= EtcTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
                 break;
         }
         companyNameTextView.setText(company.getCompanyName());
@@ -99,8 +82,6 @@ public class CompanyActivity extends AppCompatActivity{
             }
         });
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

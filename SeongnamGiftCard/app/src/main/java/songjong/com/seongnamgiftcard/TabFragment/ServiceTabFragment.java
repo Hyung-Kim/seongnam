@@ -37,7 +37,7 @@ import songjong.com.seongnamgiftcard.R;
  */
 
 public class ServiceTabFragment extends Fragment {
-    @Bind(R.id.recyclerView)
+    @Bind(R.id.service_recyclerView)
     RecyclerView recyclerView;
     private static final String TAG = "sale_company";
     private static final String TAG_JSON="company_data";
@@ -57,19 +57,18 @@ public class ServiceTabFragment extends Fragment {
 
         ButterKnife.bind(getActivity());
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.service_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new RecyclerViewAdapter(getActivity().getApplicationContext());
         recyclerView.setAdapter(adapter);
         loadData();
         return view;
     }
-    private void loadData(){
+    public void loadData(){
         if(companyList.isEmpty() && MainActivity.latitude != 0) {
             GetData task = new GetData();
             task.execute("http://13.124.195.13/loadAllData3.php", "서비스");
-        }else
-        {
+        }else {
             adapter.setCompanyList(companyList);
         }
     }
@@ -125,7 +124,6 @@ public class ServiceTabFragment extends Fragment {
                 else{
                     inputStream = httpURLConnection.getErrorStream();
                 }
-
 
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);

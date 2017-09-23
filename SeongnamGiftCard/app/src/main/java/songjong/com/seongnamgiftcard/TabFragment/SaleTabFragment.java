@@ -23,7 +23,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -38,7 +37,7 @@ import songjong.com.seongnamgiftcard.R;
  */
 
 public class SaleTabFragment extends Fragment {
-    @Bind(R.id.recyclerView)
+    @Bind(R.id.sale_recyclerView)
     RecyclerView recyclerView;
     private static final String TAG = "sale_company";
     private static final String TAG_JSON="company_data";
@@ -58,7 +57,7 @@ public class SaleTabFragment extends Fragment {
 
         ButterKnife.bind(getActivity());
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.sale_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new RecyclerViewAdapter(getActivity().getApplicationContext());
         recyclerView.setAdapter(adapter);
@@ -66,7 +65,7 @@ public class SaleTabFragment extends Fragment {
 
         return view;
     }
-    private void loadData(){
+    public void loadData(){
         if(companyList.isEmpty() && MainActivity.latitude != 0) {
             GetData task = new GetData();
             task.execute("http://13.124.195.13/loadAllData3.php", "도/소매");

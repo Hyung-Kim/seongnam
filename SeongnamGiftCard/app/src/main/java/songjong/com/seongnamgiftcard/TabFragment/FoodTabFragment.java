@@ -15,8 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.GoogleMap;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +26,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -42,7 +39,7 @@ import songjong.com.seongnamgiftcard.R;
  */
 
 public class FoodTabFragment extends Fragment {
-    @Bind(R.id.recyclerView)
+    @Bind(R.id.food_recyclerView)
     RecyclerView recyclerView;
     private static final String TAG = "food_company";
     private static final String TAG_JSON="company_data";
@@ -116,7 +113,7 @@ public class FoodTabFragment extends Fragment {
 
             }
         });
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.food_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new RecyclerViewAdapter(getActivity().getApplicationContext());
         recyclerView.setAdapter(adapter);
@@ -128,8 +125,7 @@ public class FoodTabFragment extends Fragment {
         if(companyList.isEmpty() && MainActivity.latitude != 0) {
             GetData task = new GetData();
             task.execute("http://13.124.195.13/loadAllData3.php", "음식", cur_subsubclass);
-        }else
-        {
+        }else {
             adapter.setCompanyList(companyList);
         }
     }
@@ -151,6 +147,7 @@ public class FoodTabFragment extends Fragment {
             }
             else {
                 mJsonString = result;
+                Log.d("TAB","왜안떠2222");
                 showResult();
             }
         }
