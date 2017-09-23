@@ -38,12 +38,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         notifyDataSetChanged();
     }
     public class CompanyViewHolder extends RecyclerView.ViewHolder{
-        public CardView cvItem; //for touch listener
+        public CardView cvItem;
+
         @Bind(R.id.company_name)
         TextView textViewCompanyName;
-
-        @Bind(R.id.company_number)
-        TextView textViewCompanyNumber;
 
         @Bind(R.id.company_address)
         TextView textViewCompanyAddress;
@@ -75,18 +73,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.textViewCompanyName.setText(company.getCompanyName());
         }
 
-        //if(company.getCompanyNumber()!=""){
-            holder.textViewCompanyNumber.setText(company.getCompanyNumber());
-        //}
-        //else{
-            //holder.textViewCompanyNumber.setText("");
-        //}
 
         holder.textViewCompanyAddress.setText(company.getCompanyAddress());
         Double prevCompanyDistance = company.getCompanyDistance();
         prevCompanyDistance*=1000;
         int curCompanyDistance = prevCompanyDistance.intValue();
-        holder.textViewCompanyDistance.setText("("+curCompanyDistance+"m)");
+        Double curCompanyDistanceDouble=0.0;
+       ;
+        if(curCompanyDistance>1000){
+            curCompanyDistanceDouble = (double)curCompanyDistance/1000;
+            String num = String.format("%.1f ", curCompanyDistanceDouble);
+            holder.textViewCompanyDistance.setText("("+num+"km)");
+        }
+        else{
+            holder.textViewCompanyDistance.setText("("+curCompanyDistance+"m)");
+        }
         holder.cvItem.setOnClickListener(new View.OnClickListener()
         {
             Intent intent;
