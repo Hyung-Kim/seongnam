@@ -42,23 +42,15 @@ public class NoticeActivity extends AppCompatActivity {
     private static final String TAG_DATE = "notice_date";
     private String mJsonString;
     static private ArrayList<Notice> mGroupList = new ArrayList<>();
-    private NoticeExpandableAdapter mBaseExpandableAdapter = null;
+    private static NoticeExpandableAdapter mBaseExpandableAdapter = null;
     private ExpandableListView mListView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(mGroupList.isEmpty())
-            loadData();
+        loadData();
         setContentView(R.layout.activity_notice);
         setLayout();
-        mBaseExpandableAdapter = new NoticeExpandableAdapter(this, mGroupList);
-        mListView.setAdapter(mBaseExpandableAdapter);
-
-        // 그룹 Indiacator 삭제 (그룹 왼쪽에 기본제공되는 화살표 아이콘 삭제)
         mListView.setGroupIndicator(null);
-
-        // 처음 시작시 그룹 모두 열기 (expandGroup)
-        int groupCount = (int) mBaseExpandableAdapter.getGroupCount();
 
         // 그룹 클릭 했을 경우 이벤트
         mListView.setOnGroupClickListener(new OnGroupClickListener() {
@@ -113,12 +105,37 @@ public class NoticeActivity extends AppCompatActivity {
     }
     //loadNotice
     public void loadData(){
-        GetData task = new GetData();
-        mJsonString = task.doInBackground("http://13.124.195.13/loadNotice.php");
-        Log.d(TAG,"taehuyng  " + mJsonString);
-        showResult();
+        if(mGroupList.isEmpty()){
+            GetData task = new GetData();
+            task.execute("http://13.124.195.13/loadNotice.php");
+        }
+        else {
+            mBaseExpandableAdapter = new NoticeExpandableAdapter(this, mGroupList);
+            mListView.setAdapter(mBaseExpandableAdapter);
+            mBaseExpandableAdapter.getGroupCount();
+        }
     }
-    private class GetData {
+    private class GetData extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(NoticeActivity.this, "불러오는 중입니다. 잠시만 기다려주세요", null, true, true);
+
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            Log.d(TAG,"onPostExecute - " + result);
+            super.onPostExecute(result);
+            progressDialog.dismiss();
+            if (result == null){
+                Toast.makeText(NoticeActivity.this,"Error onPostExecute() ", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                mJsonString = result;
+                showResult();
+            }
+        }
         public String doInBackground(String... params) {
             String serverURL = params[0];
             try {
@@ -137,7 +154,6 @@ public class NoticeActivity extends AppCompatActivity {
                 else{
                     inputStream = httpURLConnection.getErrorStream();
                 }
-
 
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -169,6 +185,9 @@ public class NoticeActivity extends AppCompatActivity {
                 Log.d(TAG,"" + contents);
                 mGroupList.add(notice);
             }
+            mBaseExpandableAdapter = new NoticeExpandableAdapter(this, mGroupList);
+            mListView.setAdapter(mBaseExpandableAdapter);
+            mBaseExpandableAdapter.getGroupCount();
         } catch (JSONException e) {
             Toast.makeText(NoticeActivity.this, "Error showResult", Toast.LENGTH_SHORT).show();
         }
