@@ -47,6 +47,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import songjong.com.seongnamgiftcard.Activity.MainActivity;
+import songjong.com.seongnamgiftcard.Activity.SearchActivity;
+import songjong.com.seongnamgiftcard.Adapter.RecyclerViewAdapter;
+import songjong.com.seongnamgiftcard.Adapter.TabPagerAdapter;
 import songjong.com.seongnamgiftcard.FieldClass.Company;
 import songjong.com.seongnamgiftcard.FieldClass.CustomClusterRenderer;
 import songjong.com.seongnamgiftcard.FieldClass.House;
@@ -83,6 +86,7 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
     private ClusterManager<House> mClusterManager;
     private String phoneNumber=null;
     private String group = null;
+    public List<Company> companyList = new ArrayList<>();
     public static List<Company> nowCompanyList = new ArrayList<>();
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
         Log.i(TAG, "CurrentLocation");
@@ -119,10 +123,22 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
             mClusterManager = new ClusterManager<House>(getActivity(), googleMap);
             googleMap.setOnCameraIdleListener(mClusterManager);
             googleMap.setOnMarkerClickListener(mClusterManager);
-
+            switch(MainActivity.currentTab){
+                case 0:
+                    companyList = FoodTabFragment.companyList;
+                    break;
+                case 1:
+                    companyList = ServiceTabFragment.companyList;
+                    break;
+                case 2:
+                    companyList = SaleTabFragment.companyList;
+                    break;
+                case 3:
+                    companyList = EtcTabFragment.companyList;
+                    break;
+            }
             Company temp;
-
-            for(int i=0; i<FoodTabFragment.companyList.size();i++)
+            for(int i=0; i < companyList.size();i++)
             {
                 temp = FoodTabFragment.companyList.get(i);
                 House offsetItem = new House(temp.getCompanyLatitude(), temp.getCompanyLongitude(), temp.getCompanyName(), temp.getCompanyAddress(), temp.getCompanyNumber());
