@@ -51,7 +51,7 @@ public class SearchActivity extends AppCompatActivity {
     private static final String TAG_LONGITUDE = "company_longitude";
     private static final String TAG_DISTANCE = "company_distance";
     private static final String TAG_ID = "company_id";
-    private static final String TAG_MENU = "menu_id";
+
     public static List<Company> companyList = new ArrayList<>();
     private String mJsonString;
     private RecyclerViewAdapter adapter;
@@ -70,7 +70,6 @@ public class SearchActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String companyName = intent.getStringExtra("company"); // 입력 받은 업체명 String
-        Toast.makeText(getApplicationContext(),""+companyName,Toast.LENGTH_LONG).show();
 
         //수정부분
         recyclerView = (RecyclerView)findViewById(R.id.searchRecyclerView);
@@ -161,12 +160,10 @@ public class SearchActivity extends AppCompatActivity {
             for(int i=0;i<jsonArray.length();i++){
                 JSONObject item = jsonArray.getJSONObject(i);
                 String number = item.getString(TAG_NUMBER);
-                String menu = item.getString(TAG_MENU);
+                String menu = "-1";
                 if(number=="null")
                     number="";
-                if(menu=="null")
-                    menu="-1";
-                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_DISTANCE),item.getString(TAG_ID),menu);
+                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_DISTANCE),item.getString(TAG_ID), menu);
                 companyList.add(company);
             }
             adapter.setCompanyList(companyList);
