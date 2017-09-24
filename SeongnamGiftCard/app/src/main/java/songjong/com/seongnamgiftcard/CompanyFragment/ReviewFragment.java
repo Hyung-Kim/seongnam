@@ -32,7 +32,10 @@ import songjong.com.seongnamgiftcard.Adapter.CompanyReviewAdapter;
 import songjong.com.seongnamgiftcard.Adapter.RecyclerViewAdapter;
 import songjong.com.seongnamgiftcard.FieldClass.Review;
 import songjong.com.seongnamgiftcard.R;
+import songjong.com.seongnamgiftcard.TabFragment.EtcTabFragment;
 import songjong.com.seongnamgiftcard.TabFragment.FoodTabFragment;
+import songjong.com.seongnamgiftcard.TabFragment.SaleTabFragment;
+import songjong.com.seongnamgiftcard.TabFragment.ServiceTabFragment;
 
 public class ReviewFragment extends Fragment {
     private static final String TAG = "ReviewFragment";
@@ -113,9 +116,23 @@ public class ReviewFragment extends Fragment {
         protected String doInBackground(String... params) {
             String serverURL = params[0];
             String postParameters = null;
-            String company_id = String.valueOf(FoodTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition).getCompanyId());
+            String company_id = null;
+            //FoodTabFragment에 종속적
+            switch(MainActivity.currentTab){
+                case 0:
+                    company_id = String.valueOf(FoodTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition).getCompanyId());
+                    break;
+                case 1:
+                    company_id = String.valueOf(ServiceTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition).getCompanyId());
+                    break;
+                case 2:
+                    company_id = String.valueOf(SaleTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition).getCompanyId());
+                    break;
+                case 3:
+                    company_id = String.valueOf(EtcTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition).getCompanyId());
+                    break;
+            }
             if(params[1] =="1") {
-                Log.d(TAG,"taehyung"+"loadData");
                 reviewLoadOrInsert = 1;
                 postParameters = "company_id="+company_id;
             }
