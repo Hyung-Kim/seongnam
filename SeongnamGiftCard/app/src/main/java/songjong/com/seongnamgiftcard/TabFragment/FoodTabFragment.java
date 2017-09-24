@@ -51,6 +51,7 @@ public class FoodTabFragment extends Fragment {
     private static final String TAG_LONGITUDE = "company_longitude";
     private static final String TAG_DISTANCE = "company_distance";
     private static final String TAG_MENU = "menu_id";
+    private static final String TAG_REVIEW = "company_review";
     private static final String TAG_ID = "company_id";
     private static final String[] subsubclass = new String[]{"전체", "치킨", "피자","족발","일식","중식","한식","버거","분식","기타"};
     private static String cur_subsubclass = "전체";
@@ -124,7 +125,7 @@ public class FoodTabFragment extends Fragment {
     public void loadData(){
         if(companyList.isEmpty() && MainActivity.latitude != 0) {
             GetData task = new GetData();
-            task.execute("http://13.124.195.13/loadAllData3.php", "음식", cur_subsubclass);
+            task.execute("http://13.124.195.13/loadAllData4.php", "음식", cur_subsubclass);
         }else {
             adapter.setCompanyList(companyList);
         }
@@ -214,7 +215,7 @@ public class FoodTabFragment extends Fragment {
                     number="";
                 if(menu=="null")
                     menu="-1";
-                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_SUBCLASS), item.getString(TAG_DISTANCE),item.getString(TAG_ID), menu);
+                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_SUBCLASS), item.getString(TAG_DISTANCE),item.getString(TAG_ID), menu, item.getString(TAG_REVIEW));
                 companyList.add(company);
             }
             adapter.setCompanyList(companyList);
