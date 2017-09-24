@@ -37,7 +37,7 @@ import songjong.com.seongnamgiftcard.R;
  */
 
 public class EtcTabFragment extends Fragment {
-    @Bind(R.id.recyclerView)
+    @Bind(R.id.etc_recyclerView)
     RecyclerView recyclerView;
     private static final String TAG = "sale_company";
     private static final String TAG_JSON="company_data";
@@ -57,7 +57,7 @@ public class EtcTabFragment extends Fragment {
 
         ButterKnife.bind(getActivity());
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.etc_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new RecyclerViewAdapter(getActivity().getApplicationContext());
         recyclerView.setAdapter(adapter);
@@ -65,7 +65,7 @@ public class EtcTabFragment extends Fragment {
         return view;
     }
 
-    private void loadData(){
+    public void loadData(){
         if(companyList.isEmpty() && MainActivity.latitude != 0) {
             GetData task = new GetData();
             task.execute("http://13.124.195.13/loadAllData3.php", "기타");
@@ -102,7 +102,7 @@ public class EtcTabFragment extends Fragment {
             String m_class = params[1];
             String latitude = String.valueOf(MainActivity.latitude);
             String longitude = String.valueOf(MainActivity.longitude);
-            String postParameters = "class="+m_class + "&latitude="+latitude+"+&longitude="+longitude;
+            String postParameters = "class="+m_class + "&latitude="+latitude+"&longitude="+longitude;
             try {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();

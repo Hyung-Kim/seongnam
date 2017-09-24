@@ -23,6 +23,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/color_seongnam"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
+
                 <TextView
                     android:id="@+id/actionbar_title_company"
                     android:layout_width="wrap_content"

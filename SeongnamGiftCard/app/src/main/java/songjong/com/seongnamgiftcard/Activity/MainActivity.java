@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int fragmentFlagArr[]={0,0,0,0};
     public static int addressFlag=0;
     public static String uuid=null;
-    private static int currentTab;
+    public static int currentTab;
     public static String appAddress="현재 위치 확인 중";
     private LocationManager manager;
     private GPSListener gpsListener;
@@ -360,8 +360,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getAddress(latitude, longitude);
                 updateCurrentPlaceText(appAddress);
                 manager.removeUpdates(gpsListener);
-                if(TabPagerAdapter.foodTabFragment.companyList.isEmpty() && TabPagerAdapter.foodTabFragment != null)
+
+                if(TabPagerAdapter.foodTabFragment.companyList.isEmpty() && TabPagerAdapter.foodTabFragment != null){
                     TabPagerAdapter.foodTabFragment.loadData();
+                }
+                if(TabPagerAdapter.serviceTabFragment.companyList.isEmpty() && TabPagerAdapter.serviceTabFragment != null){
+                    TabPagerAdapter.serviceTabFragment.loadData();
+                }
+                if(TabPagerAdapter.etcTabFragment.companyList.isEmpty() && TabPagerAdapter.etcTabFragment!= null){
+                    TabPagerAdapter.etcTabFragment.loadData();
+                }
+                if(TabPagerAdapter.saleTabFragment.companyList.isEmpty() && TabPagerAdapter.saleTabFragment!= null){
+                    TabPagerAdapter.saleTabFragment.loadData();
+                }
+
             }
         }
         public void onProviderDisabled(String provider) {}
