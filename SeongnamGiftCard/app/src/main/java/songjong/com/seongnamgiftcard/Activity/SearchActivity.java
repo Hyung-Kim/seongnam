@@ -82,7 +82,7 @@ public class SearchActivity extends AppCompatActivity {
     private void loadData(String companyName){
         GetData task = new GetData();
         task.execute("http://13.124.195.13/loadSearchData.php", companyName);
-        }
+    }
     private class GetData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
         @Override
