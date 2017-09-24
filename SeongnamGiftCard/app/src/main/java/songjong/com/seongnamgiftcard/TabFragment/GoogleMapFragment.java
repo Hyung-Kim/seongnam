@@ -84,7 +84,6 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
     private static int searchCnt=0;
     private static View layout;
     public static Location curLocation;
-    private static Company company=null;
     private ClusterManager<House> mClusterManager;
     private String phoneNumber=null;
     private String group = null;
