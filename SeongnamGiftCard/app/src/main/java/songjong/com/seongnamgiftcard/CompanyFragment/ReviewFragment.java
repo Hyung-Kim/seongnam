@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import songjong.com.seongnamgiftcard.Activity.MainActivity;
+import songjong.com.seongnamgiftcard.Activity.SearchActivity;
 import songjong.com.seongnamgiftcard.Adapter.CompanyReviewAdapter;
 import songjong.com.seongnamgiftcard.Adapter.RecyclerViewAdapter;
 import songjong.com.seongnamgiftcard.FieldClass.Review;
@@ -111,7 +112,6 @@ public class ReviewFragment extends Fragment {
                 isSuccess();
             }
         }
-
         @Override
         protected String doInBackground(String... params) {
             String serverURL = params[0];
@@ -131,6 +131,10 @@ public class ReviewFragment extends Fragment {
                 case 3:
                     company_id = String.valueOf(EtcTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition).getCompanyId());
                     break;
+                case 4:
+                    company_id = String.valueOf(SearchActivity.companyList.get(RecyclerViewAdapter.curCompanyyPosition).getCompanyId());
+                    break;
+
             }
             if(params[1] =="1") {
                 reviewLoadOrInsert = 1;

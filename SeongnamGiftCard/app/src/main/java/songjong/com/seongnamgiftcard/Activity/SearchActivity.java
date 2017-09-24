@@ -37,6 +37,7 @@ import songjong.com.seongnamgiftcard.R;
 public class SearchActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     private static final String TAG = "searchActivity";
+    private static final String TAG_MENU = "menu_id";
     private static final String TAG_JSON="company_data";
     private static final String TAG_NUMBER = "company_number";
     private static final String TAG_ADDRESS = "company_address";
@@ -74,6 +75,12 @@ public class SearchActivity extends AppCompatActivity {
         loadData(companyName);
         Log.d("ASDFADSFA",""+companyList);
     }
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        MainActivity.currentTab= MainActivity.backup_currenTab;
+    }
+
     private void loadData(String companyName){
         GetData task = new GetData();
         task.execute("http://13.124.195.13/loadSearchData.php", companyName);
@@ -155,9 +162,11 @@ public class SearchActivity extends AppCompatActivity {
             for(int i=0;i<jsonArray.length();i++){
                 JSONObject item = jsonArray.getJSONObject(i);
                 String number = item.getString(TAG_NUMBER);
-                String menu = "-1";
+                String menu = item.getString(TAG_MENU);
                 if(number=="null")
                     number="";
+                if(menu=="null")
+                    menu="-1";
                 Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_DISTANCE),item.getString(TAG_ID), menu);
                 companyList.add(company);
             }

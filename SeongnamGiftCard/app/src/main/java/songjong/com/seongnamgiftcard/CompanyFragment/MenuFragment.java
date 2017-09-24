@@ -28,6 +28,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import songjong.com.seongnamgiftcard.Activity.MainActivity;
+import songjong.com.seongnamgiftcard.Activity.SearchActivity;
 import songjong.com.seongnamgiftcard.Adapter.CompanyRecyclerViewAdapter;
 import songjong.com.seongnamgiftcard.Adapter.RecyclerViewAdapter;
 import songjong.com.seongnamgiftcard.FieldClass.Company;
@@ -66,6 +67,9 @@ public class MenuFragment extends Fragment {
                 break;
             case 3:
                 menu_id = EtcTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition).getCompanyMenu();
+                break;
+            case 4:
+                menu_id = SearchActivity.companyList.get(RecyclerViewAdapter.curCompanyyPosition).getCompanyMenu();
                 break;
         }
         if(menu_id == -1)
@@ -129,6 +133,9 @@ public class MenuFragment extends Fragment {
                     break;
                 case 3:
                     menu_id = String.valueOf(EtcTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition).getCompanyMenu());
+                    break;
+                case 4:
+                    menu_id = String.valueOf(SearchActivity.companyList.get(RecyclerViewAdapter.curCompanyyPosition).getCompanyMenu());
                     break;
             }
             Log.d(TAG,"" +menu_id);

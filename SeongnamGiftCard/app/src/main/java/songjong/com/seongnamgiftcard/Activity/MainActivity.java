@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int addressFlag=0;
     public static String uuid=null;
     public static int currentTab;
+    public static int backup_currenTab = 1;
     public static String appAddress="현재 위치 확인 중";
     private LocationManager manager;
     private GPSListener gpsListener;
@@ -338,6 +339,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent=new Intent(MainActivity.this,SearchActivity.class);
                         intent.putExtra("company",edittext.getText().toString());
+                        backup_currenTab = currentTab;
                         currentTab=4;
                         startActivity(intent);
                     }
