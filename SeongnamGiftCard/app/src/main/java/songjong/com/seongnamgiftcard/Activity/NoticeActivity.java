@@ -1,38 +1,35 @@
 package songjong.com.seongnamgiftcard.Activity;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+
 import songjong.com.seongnamgiftcard.Adapter.NoticeExpandableAdapter;
-import songjong.com.seongnamgiftcard.FieldClass.Company;
 import songjong.com.seongnamgiftcard.FieldClass.Notice;
 import songjong.com.seongnamgiftcard.R;
-import songjong.com.seongnamgiftcard.TabFragment.FoodTabFragment;
 
 public class NoticeActivity extends AppCompatActivity {
     private static final String TAG = "NoticeActivity";
@@ -46,9 +43,18 @@ public class NoticeActivity extends AppCompatActivity {
     private ExpandableListView mListView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        loadData();
+        super.onCreate(savedInstanceState);  //툴바 초기화
         setContentView(R.layout.activity_notice);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_notice);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView tv = (TextView)findViewById(R.id.tv_notice);
+        tv.setText("공지사항");
+        loadData();
+
         setLayout();
         mListView.setGroupIndicator(null);
 
@@ -182,5 +188,14 @@ public class NoticeActivity extends AppCompatActivity {
         } catch (JSONException e) {
             Toast.makeText(NoticeActivity.this, "Error showResult", Toast.LENGTH_SHORT).show();
         }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

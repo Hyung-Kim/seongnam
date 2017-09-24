@@ -339,7 +339,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Intent intent=new Intent(MainActivity.this,SearchActivity.class);
                         intent.putExtra("company",edittext.getText().toString());
                         startActivity(intent);
-                        Toast.makeText(getApplicationContext(),edittext.getText().toString() ,Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(),edittext.getText().toString() ,Toast.LENGTH_LONG).show();
                     }
                 });
         builder.setNegativeButton("취소",
