@@ -15,8 +15,9 @@ public class Company {
     private double companyLongitude;
     private double companyDistance;
     private String companySubGroup;
+    private int companyReview;
     public Company(String companyName, String companyNumber, String companyAddress,String companyLatitude,
-                   String companyLongitude, String companySubGroup, String companyDistance, String companyId, String companyMenu) {
+                   String companyLongitude, String companySubGroup, String companyDistance, String companyId, String companyMenu, String companyReview) {
         this.companyName = companyName;
         this.companyNumber = companyNumber;
         this.companyAddress = companyAddress;
@@ -26,9 +27,10 @@ public class Company {
         this.companyDistance = Double.parseDouble(companyDistance);
         this.companyId = Integer.parseInt(companyId);
         this.companyMenu = Integer.parseInt(companyMenu);
+        this.companyReview = Integer.parseInt(companyReview);
     }
     public Company(String companyName, String companyNumber, String companyAddress,String companyLatitude,
-                   String companyLongitude, String companyDistance, String companyId, String companyMenu) {
+                   String companyLongitude, String companyDistance, String companyId, String companyMenu, String companyReview) {
         this.companyName = companyName;
         this.companyNumber = companyNumber;
         this.companyAddress = companyAddress;
@@ -37,7 +39,13 @@ public class Company {
         this.companyDistance = Double.parseDouble(companyDistance);
         this.companyId = Integer.parseInt(companyId);
         this.companyMenu = Integer.parseInt(companyMenu);
+        this.companyReview = Integer.parseInt(companyReview);
     }
+
+    public void setCompanyReview(int companyReview) {this.companyReview = companyReview;}
+
+    public int getCompanyReview() {return companyReview;}
+
     public int getCompanyId(){return companyId;}
     public void setCompanyId(String companyId){this.companyId = Integer.parseInt(companyId); }
 

@@ -45,6 +45,7 @@ public class SearchActivity extends AppCompatActivity {
     private static final String TAG_LATITUDE = "company_latitude";
     private static final String TAG_LONGITUDE = "company_longitude";
     private static final String TAG_DISTANCE = "company_distance";
+    private static final String TAG_REVIEW = "company_review";
     private static final String TAG_ID = "company_id";
 
     public static List<Company> companyList = new ArrayList<>();
@@ -167,7 +168,7 @@ public class SearchActivity extends AppCompatActivity {
                     number="";
                 if(menu=="null")
                     menu="-1";
-                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_DISTANCE),item.getString(TAG_ID), menu);
+                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_DISTANCE),item.getString(TAG_ID), menu, item.getString(TAG_REVIEW));
                 companyList.add(company);
             }
             adapter.setCompanyList(companyList);

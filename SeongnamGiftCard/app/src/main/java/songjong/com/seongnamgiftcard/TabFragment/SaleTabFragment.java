@@ -47,6 +47,7 @@ public class SaleTabFragment extends Fragment {
     private static final String TAG_LATITUDE = "company_latitude";
     private static final String TAG_LONGITUDE = "company_longitude";
     private static final String TAG_DISTANCE = "company_distance";
+    private static final String TAG_REVIEW = "company_review";
     private static final String TAG_ID = "company_id";
 
     private String mJsonString;
@@ -69,7 +70,7 @@ public class SaleTabFragment extends Fragment {
     public void loadData(){
         if(companyList.isEmpty() && MainActivity.latitude != 0) {
             GetData task = new GetData();
-            task.execute("http://13.124.195.13/loadAllData3.php", "도/소매");
+            task.execute("http://13.124.195.13/loadAllData4.php", "도/소매");
         }else
         {
             adapter.setCompanyList(companyList);
@@ -155,7 +156,7 @@ public class SaleTabFragment extends Fragment {
                 String menu = "-1";
                 if(number=="null")
                     number="";
-                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_DISTANCE),item.getString(TAG_ID),menu);
+                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_DISTANCE),item.getString(TAG_ID),menu, item.getString(TAG_REVIEW));
                 companyList.add(company);
             }
             adapter.setCompanyList(companyList);
