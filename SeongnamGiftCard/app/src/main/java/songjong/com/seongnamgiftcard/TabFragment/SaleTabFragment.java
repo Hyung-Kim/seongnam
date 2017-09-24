@@ -48,6 +48,7 @@ public class SaleTabFragment extends Fragment {
     private static final String TAG_LONGITUDE = "company_longitude";
     private static final String TAG_DISTANCE = "company_distance";
     private static final String TAG_ID = "company_id";
+
     private String mJsonString;
     public static List<Company> companyList = new ArrayList<>();
     private RecyclerViewAdapter adapter;
@@ -151,9 +152,10 @@ public class SaleTabFragment extends Fragment {
             for(int i=0;i<jsonArray.length();i++){
                 JSONObject item = jsonArray.getJSONObject(i);
                 String number = item.getString(TAG_NUMBER);
+                String menu = "-1";
                 if(number=="null")
                     number="";
-                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_DISTANCE),item.getString(TAG_ID));
+                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_DISTANCE),item.getString(TAG_ID),menu);
                 companyList.add(company);
             }
             adapter.setCompanyList(companyList);

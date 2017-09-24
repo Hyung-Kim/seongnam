@@ -213,8 +213,8 @@ public class FoodTabFragment extends Fragment {
                 if(number=="null")
                     number="";
                 if(menu=="null")
-                    menu="";
-                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_SUBCLASS), item.getString(TAG_DISTANCE),item.getString(TAG_ID));
+                    menu="-1";
+                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_SUBCLASS), item.getString(TAG_DISTANCE),item.getString(TAG_ID), menu);
                 companyList.add(company);
             }
             adapter.setCompanyList(companyList);

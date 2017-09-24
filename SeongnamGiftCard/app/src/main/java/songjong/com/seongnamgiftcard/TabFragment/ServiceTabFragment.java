@@ -148,9 +148,10 @@ public class ServiceTabFragment extends Fragment {
             for(int i=0;i<jsonArray.length();i++){
                 JSONObject item = jsonArray.getJSONObject(i);
                 String number = item.getString(TAG_NUMBER);
+                String menu = "-1";
                 if(number=="null")
                     number="";
-                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_DISTANCE),item.getString(TAG_ID));
+                Company company = new Company(item.getString(TAG_NAME), number, item.getString(TAG_ADDRESS), item.getString(TAG_LATITUDE), item.getString(TAG_LONGITUDE), item.getString(TAG_DISTANCE),item.getString(TAG_ID),menu);
                 companyList.add(company);
             }
             adapter.setCompanyList(companyList);
