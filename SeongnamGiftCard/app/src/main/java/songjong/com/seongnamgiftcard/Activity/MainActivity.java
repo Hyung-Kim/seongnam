@@ -338,8 +338,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent=new Intent(MainActivity.this,SearchActivity.class);
                         intent.putExtra("company",edittext.getText().toString());
+                        currentTab=4;
                         startActivity(intent);
-                        //Toast.makeText(getApplicationContext(),edittext.getText().toString() ,Toast.LENGTH_LONG).show();
                     }
                 });
         builder.setNegativeButton("취소",

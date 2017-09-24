@@ -29,6 +29,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<Company> companyList;
     private String TAG ="recycler";
     public static int curCompanyyPosition=0;
+    public static int reviewCnt=0;
     public RecyclerViewAdapter(Context context) {
         this.context = context;
         companyList = new ArrayList<>();
@@ -48,6 +49,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         @Bind(R.id.company_distance)
         TextView textViewCompanyDistance;
+
+        @Bind(R.id.company_review)
+        TextView textViewCompanyReview;
 
         public CompanyViewHolder(View itemView) {
             super(itemView);
@@ -88,6 +92,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         else{
             holder.textViewCompanyDistance.setText("("+curCompanyDistance+"m)");
         }
+            holder.textViewCompanyReview.setText("최근 리뷰 : "+reviewCnt);
         holder.cvItem.setOnClickListener(new View.OnClickListener()
         {
             Intent intent;

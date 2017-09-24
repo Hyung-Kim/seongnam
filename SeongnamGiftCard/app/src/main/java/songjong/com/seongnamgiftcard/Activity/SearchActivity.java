@@ -1,7 +1,6 @@
 package songjong.com.seongnamgiftcard.Activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,14 +26,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import songjong.com.seongnamgiftcard.Adapter.RecyclerViewAdapter;
 import songjong.com.seongnamgiftcard.FieldClass.Company;
 import songjong.com.seongnamgiftcard.R;
-import songjong.com.seongnamgiftcard.TabFragment.ServiceTabFragment;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by dongwook on 2017. 9. 20..
@@ -78,6 +72,7 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         companyList.clear();
         loadData(companyName);
+        Log.d("ASDFADSFA",""+companyList);
     }
     private void loadData(String companyName){
         GetData task = new GetData();

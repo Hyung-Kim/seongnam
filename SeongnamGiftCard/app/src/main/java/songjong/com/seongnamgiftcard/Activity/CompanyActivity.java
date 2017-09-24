@@ -59,6 +59,9 @@ public class CompanyActivity extends AppCompatActivity{
             case 3:
                 company= EtcTabFragment.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
                 break;
+            case 4:
+                company= SearchActivity.companyList.get(RecyclerViewAdapter.curCompanyyPosition);
+                break;
         }
         companyNameTextView.setText(company.getCompanyName());
 

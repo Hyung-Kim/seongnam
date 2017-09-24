@@ -31,17 +31,6 @@
             android:textColor="@color/color_gray"
             android:textSize="18dp" />
 
-        <!--<TextView-->
-            <!--android:id="@+id/company_number"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="4dp"-->
-            <!--android:layout_marginRight="4dp"-->
-            <!--android:layout_toRightOf="@+id/company_name"-->
-            <!--android:text="company_number"-->
-            <!--android:textColor="@color/color_gray_trans"-->
-            <!--android:textSize="18dp" />-->
-
         <TextView
             android:id="@+id/company_address"
             android:layout_width="wrap_content"
@@ -51,6 +40,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="8dp"
             android:text="company_address"
+            android:layout_marginRight="4dp"
             android:textColor="@color/color_dark_seongnam"
             android:textSize="15dp" />
 
@@ -64,6 +54,17 @@
             android:layout_alignBottom="@+id/company_name"
             android:layout_toRightOf="@+id/company_name"
             android:layout_toEndOf="@+id/company_name" />
+
+        <TextView
+            android:id="@+id/company_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="최근 리뷰 :"
+            android:textColor="@color/color_gray_trans"
+            android:textSize="13dp"
+            android:layout_alignBottom="@+id/company_address"
+            android:layout_toRightOf="@+id/company_address"
+            android:layout_toEndOf="@+id/company_address" />
 
     </RelativeLayout>
 
