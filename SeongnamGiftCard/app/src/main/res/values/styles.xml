@@ -35,4 +35,10 @@
         <item name="menu_colorPressed">@color/color_dark_seongnam</item>
         <item name="fab_colorNormal">@color/color_seongnam</item>
         <item name="fab_colorPressed">@color/color_dark_seongnam</item> </style>
+
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:background">@drawable/splash_image</item>
+    </style>
+
 </resources>
