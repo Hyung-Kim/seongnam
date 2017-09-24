@@ -29,6 +29,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDP-KLDyZNOlHQgruOKXD9HBL2mJdUaRBI" />
+        
         <activity android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
