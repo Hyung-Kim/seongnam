@@ -1,15 +1,12 @@
 package songjong.com.seongnamgiftcard.TabFragment;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -60,7 +57,6 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
 /**
  * Created by dongwook on 2017. 8. 9..
  */
-
     public class GoogleMapFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,LocationListener{
 
@@ -91,23 +87,21 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
         Log.i(TAG, "CurrentLocation");
 
-        //업체정보 설정
-
-        switch(MainActivity.currentTab){
-            case 0:
-                nowCompanyList= FoodTabFragment.companyList;
-                break;
-            case 1:
-                nowCompanyList= ServiceTabFragment.companyList;
-                break;
-            case 2:
-                nowCompanyList= SaleTabFragment.companyList;
-                break;
-            case 3:
-                nowCompanyList= EtcTabFragment.companyList;
-                break;
-        }
-
+//        //업체정보 설정
+//        switch(MainActivity.currentTab){
+//            case 0:
+//                nowCompanyList= FoodTabFragment.companyList;
+//                break;
+//            case 1:
+//                nowCompanyList= ServiceTabFragment.companyList;
+//                break;
+//            case 2:
+//                nowCompanyList= SaleTabFragment.companyList;
+//                break;
+//            case 3:
+//                nowCompanyList= EtcTabFragment.companyList;
+//                break;
+//        }
         if ( currentMarker != null ) currentMarker.remove();
 
         if (location != null) {
@@ -123,8 +117,8 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
             currentMarker = this.googleMap.addMarker(markerOptions);
             this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
             mClusterManager = new ClusterManager<House>(getActivity(), googleMap);
-       //     googleMap.setOnCameraIdleListener(mClusterManager);
-       //     googleMap.setOnMarkerClickListener(mClusterManager);
+            googleMap.setOnCameraIdleListener(mClusterManager);
+            googleMap.setOnMarkerClickListener(mClusterManager);
 
             Company temp;
 
@@ -137,38 +131,38 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
             final CustomClusterRenderer renderer = new CustomClusterRenderer(getActivity(), googleMap, mClusterManager);
             mClusterManager.setRenderer(renderer);
 
-            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                public boolean onMarkerClick(Marker marker) {
-
-                    if(marker.getTitle()!=null){
-                        for(int i=0;i<nowCompanyList.size();i++){
-                            if (marker.getTitle().equals(nowCompanyList.get(i).getCompanyName())) {
-                                phoneNumber=nowCompanyList.get(i).getCompanyNumber();
-                                group= nowCompanyList.get(i).getCompanySubGroup();
-                            }
-                        }
-                        if(phoneNumber!=null){
-                            Snackbar snack = Snackbar.make(getActivity().findViewById(android.R.id.content),"번호 : "+phoneNumber +"\n분류 : "+group,Snackbar.LENGTH_LONG);
-                            snack.setActionTextColor(getResources().getColor(R.color.color_white));
-                            snack.setAction("전화", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    String tel = "tel:"+phoneNumber;
-                                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                                    callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    callIntent.setData(Uri.parse(tel));
-                                    getActivity().startActivity(callIntent);
-                                }
-                            });
-                            View view = snack.getView();
-                            view.setBackgroundColor(getResources().getColor(R.color.color_seongnam));
-
-                            snack.show();
-                        }
-                    }
-                    return false;
-                }
-            });
+//            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//                public boolean onMarkerClick(Marker marker) {
+//
+//                    if(marker.getTitle()!=null){
+//                        for(int i=0;i<nowCompanyList.size();i++){
+//                            if (marker.getTitle().equals(nowCompanyList.get(i).getCompanyName())) {
+//                                phoneNumber=nowCompanyList.get(i).getCompanyNumber();
+//                                group= nowCompanyList.get(i).getCompanySubGroup();
+//                            }
+//                        }
+//                        if(phoneNumber!=null){
+//                            Snackbar snack = Snackbar.make(getActivity().findViewById(android.R.id.content),"번호 : "+phoneNumber +"\n분류 : "+group,Snackbar.LENGTH_LONG);
+//                            snack.setActionTextColor(getResources().getColor(R.color.color_white));
+//                            snack.setAction("전화", new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View view) {
+//                                    String tel = "tel:"+phoneNumber;
+//                                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
+//                                    callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                    callIntent.setData(Uri.parse(tel));
+//                                    getActivity().startActivity(callIntent);
+//                                }
+//                            });
+//                            View view = snack.getView();
+//                            view.setBackgroundColor(getResources().getColor(R.color.color_seongnam));
+//
+//                            snack.show();
+//                        }
+//                    }
+//                    return false;
+//                }
+//            });
             return;
         }
         Log.d(TAG,"location ==null");
