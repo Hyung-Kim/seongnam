@@ -38,8 +38,8 @@ public class NoticeActivity extends AppCompatActivity {
     private static final String TAG_CONTENTS = "notice_contents";
     private static final String TAG_DATE = "notice_date";
     private String mJsonString;
-    static private ArrayList<Notice> mGroupList = new ArrayList<>();
-    private static NoticeExpandableAdapter mBaseExpandableAdapter = null;
+    private ArrayList<Notice> mGroupList = new ArrayList<>();
+    private NoticeExpandableAdapter mBaseExpandableAdapter = null;
     private ExpandableListView mListView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -102,15 +102,8 @@ public class NoticeActivity extends AppCompatActivity {
     }
     //loadNotice
     public void loadData(){
-        if(mGroupList.isEmpty()){
             GetData task = new GetData();
             task.execute("http://13.124.195.13/loadNotice.php");
-        }
-        else {
-            mBaseExpandableAdapter = new NoticeExpandableAdapter(this, mGroupList);
-            mListView.setAdapter(mBaseExpandableAdapter);
-            mBaseExpandableAdapter.getGroupCount();
-        }
     }
     private class GetData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
