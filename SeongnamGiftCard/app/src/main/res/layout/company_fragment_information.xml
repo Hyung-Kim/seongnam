@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="#FFFFFF"
     android:id="@+id/mapFragmentContainerInformation">
 
     <android.support.v7.widget.CardView
@@ -18,66 +17,75 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/information_cardview">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textview_address"
-                    android:gravity="left"
-                    android:text="주소"
-                    android:textSize="15dp"
-                    android:layout_width="83dp"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"/>
-                <TextView
-                    android:id="@+id/textview_address_value"
-                    android:gravity="left"
-                    android:text="경기도 성남"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:padding="10dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textview_tel"
+                    android:id="@+id/textview_address"
+                    android:gravity="center"
+                    android:text="주소"
+                    android:textSize="13dp"
                     android:layout_width="88dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/textview_address_value"
+                    android:layout_toStartOf="@+id/textview_address_value" />
+                <TextView
+                    android:id="@+id/textview_address_value"
+                    android:layout_width="370dp"
+                    android:layout_height="50dp"
                     android:gravity="left"
                     android:padding="10dp"
-                    android:text="전화번호"
-                    android:textSize="15dp" />
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                <TextView
+                    android:text="경기도 성남시 수정구 태평동"
+                    android:textSize="15dp"
+                    android:layout_toRightOf="@+id/textview_tel"
+                    android:layout_toEndOf="@+id/textview_tel" />
+
+            <TextView
+                android:id="@+id/textview_tel"
+                android:layout_width="88dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="전화번호"
+                android:textSize="13dp"
+                android:layout_below="@+id/textview_address"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
                     android:id="@+id/textview_tel_value"
                     android:gravity="left"
                     android:textSize="15dp"
-                    android:layout_width="wrap_content"
+                android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"/>
+                    android:padding="10dp"
+                android:layout_below="@+id/textview_address_value"
+                android:layout_toRightOf="@+id/textview_tel"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true" />
 
-                <ImageView
-                    android:id="@+id/phone_call_image_id"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_toRightOf="@+id/textview_tel_value"
-                    android:src="@drawable/phone_call_image"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true" />
-                </RelativeLayout>
-            </LinearLayout>
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/phone_call_image_id"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/phone_call_image"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="18dp"
+                android:layout_marginEnd="18dp"
+                android:layout_below="@+id/textview_address_value" />
+
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
     <com.google.android.gms.maps.MapView

@@ -112,13 +112,6 @@ import static songjong.com.seongnamgiftcard.Activity.MainActivity.appAddress;
             //현재 위치
             curLocation = location;
             LatLng currentLocation = new LatLng( location.getLatitude(), location.getLongitude());
-            final MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(currentLocation);
-            markerOptions.title(markerTitle);
-            markerOptions.snippet(markerSnippet);
-            markerOptions.draggable(true);
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-            currentMarker = this.googleMap.addMarker(markerOptions);
             this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
             mClusterManager = new ClusterManager<House>(getActivity(), googleMap);
             googleMap.setOnCameraIdleListener(mClusterManager);

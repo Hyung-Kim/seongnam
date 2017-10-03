@@ -103,7 +103,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Log.d(TAG,""+position);
                 curCompanyyPosition = position;
                 intent = new Intent(context,CompanyActivity.class);
-                context.startActivity(intent);
+                context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
     }
