@@ -33,7 +33,7 @@ public class DeveloperActivity extends AppCompatActivity {
         card_tv1.setText("문의 사항/문제사항은 아래 메일로 문의 바랍니다.\n\n부족한 점이 많더라도 보내주시는 피드백들을 통하여 더 좋은 어플을 만들기 위해 노력하겠습니다. ^^");
         final TextView card_tv2 = (TextView) findViewById(R.id.dv_card_view_text2_mail);
 
-        card_tv2.setText("xodaktmdng@naver.com");
+        card_tv2.setText("xodaktmdnj@naver.com");
         CardView cardView2 = (CardView)findViewById(R.id.developer_card_view_hyung);
         CardView cardView3 = (CardView)findViewById(R.id.developer_card_view_wook);
         cardView2.setOnClickListener(new View.OnClickListener() {
